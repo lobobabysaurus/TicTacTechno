@@ -1,17 +1,9 @@
 import datetime
 
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Boolean, ForeignKey, Integer, DateTime
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
 
-Base = declarative_base()
-
-
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    user_name = Column(String(50), nullable=False, unique=True)
+from models import Base
 
 
 class Game(Base):
@@ -23,8 +15,4 @@ class Game(Base):
     o_user = relationship("User", foreign_keys=[o_user_id], backref='o_games')
     start = Column(DateTime, nullable=False, default=datetime.datetime.utcnow)
     end = Column(DateTime)
-
-
-engine = create_engine("mysql://root:NewAppearances@localhost/TicTacToe")
-
-Base.metadata.create_all(engine)
+    finished = Column(Boolean, default=False)
