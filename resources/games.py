@@ -10,24 +10,18 @@ games_api = Blueprint('games_api', __name__)
 
 @games_api.route('/', methods=['GET'])
 def get_all_games():
-    print('test')
     games = session.query(Game).all()
-    print('test3')
-    return json.dumps(len(games))
+    game_array = [game.serialize() for game in games]
+    return json.dumps(game_array)
 
 
 @games_api.route('/', methods=['POST'])
 def create_game():
-    data = json.loads(
-                    request.data.decode('utf-8').
-                    replace("'", '"'))
+    data = json.loads(request.data.decode('utf-8'))
     game = Game(x_user_id=data['x_player_id'],
                 o_user_id=data['o_player_id'])
     session.add(game)
-    print(data['x_player_id'])
-    print(game)
     session.commit()
-    print(game.id)
     return json.dumps(game.id)
 
 

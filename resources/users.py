@@ -11,14 +11,13 @@ users_api = Blueprint('users_api', __name__)
 @users_api.route('/', methods=['GET'])
 def get_all_users():
     users = session.query(User).all()
-    return json.dumps(len(users))
+    user_array = [user.serialize() for user in users]
+    return json.dumps(user_array)
 
 
 @users_api.route('/', methods=['POST'])
 def create_game():
-    data = json.loads(
-                    request.data.decode('utf-8').
-                    replace("'", '"'))
+    data = json.loads(request.data.decode('utf-8'))
     user = User(user_name=data['user_name'])
     session.add(user)
     session.commit()
