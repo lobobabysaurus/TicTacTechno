@@ -1,7 +1,7 @@
 from flask import Flask
 
-from resources.games import games_api
-from resources.users import users_api
+from resources.game_resource import games_api
+from resources.user_resource import users_api
 
 app = Flask(__name__)
 

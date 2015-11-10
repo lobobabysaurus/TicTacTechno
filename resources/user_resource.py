@@ -16,7 +16,7 @@ def get_all_users():
 
 
 @users_api.route('/', methods=['POST'])
-def create_game():
+def create_user():
     data = json.loads(request.data.decode('utf-8'))
     user = User(user_name=data['user_name'])
     session.add(user)
@@ -24,6 +24,7 @@ def create_game():
     return json.dumps(user.id)
 
 
-@users_api.route('/<user_id>')
+@users_api.route('/<user_id>', methods=['GET'])
 def get_user_data(user_id):
-    return user_id
+    user = session.query(User).get(user_id)
+    return json.dumps(user.serialize())

@@ -25,6 +25,7 @@ def create_game():
     return json.dumps(game.id)
 
 
-@games_api.route('/<game_id>')
+@games_api.route('/<game_id>', methods=['GET'])
 def get_game_data(game_id):
-    return game_id
+    game = session.query(Game).get(game_id)
+    return json.dumps(game.serialize())
