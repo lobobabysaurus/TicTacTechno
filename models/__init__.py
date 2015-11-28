@@ -6,6 +6,11 @@ Base = declarative_base()
 
 
 def serialize(self):
+    ###
+    # Put all data about a model into a dictionary
+    #
+    # :return Dictionary with all model fields
+    ###
     return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 Base.serialize = serialize

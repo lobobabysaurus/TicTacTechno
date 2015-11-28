@@ -5,6 +5,9 @@ from models import Base
 
 
 class User(Base):
+    ###
+    # A user of the system
+    ###
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
 

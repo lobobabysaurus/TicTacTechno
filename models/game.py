@@ -7,9 +7,12 @@ from models import Base
 
 
 class Game(Base):
+    ###
+    # A game of Tic Tac Toe
+    ###
     __tablename__ = 'games'
     id = Column(Integer, primary_key=True)
-    
+
     x_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     x_user = relationship("User", foreign_keys=[x_user_id], backref='x_games')
     o_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
