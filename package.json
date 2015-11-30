@@ -1,0 +1,43 @@
+{
+  "name": "TicTacToeOnlineUI",
+  "version": "0.0.0",
+  "description": "A Tic Tac Toe client in ES6",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "ls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://lobobabysaurus@github.com/lobobabysaurus/TicTacToeOnlineUI.git"
+  },
+  "keywords": [
+    "ES6",
+    "TicTacToe",
+    "Online",
+    "Socket",
+    "Techno"
+  ],
+  "author": "Phil Simmons",
+  "license": "GPL-V2",
+  "bugs": {
+    "url": "https://github.com/lobobabysaurus/TicTacToeOnlineUI/issues"
+  },
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babelify": "^7.2.0",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-eslint": "^1.1.1",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-serve": "^1.2.0",
+    "reactify": "^1.1.1",
+    "run-sequence": "^1.1.5"
+  },
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
+  }
+}
