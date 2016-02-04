@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy import Column, Boolean, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from models import Base
+from api.models import Base
 
 
 class Game(Base):
@@ -13,10 +13,10 @@ class Game(Base):
     __tablename__ = 'games'
     id = Column(Integer, primary_key=True)
 
-    x_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    x_user = relationship("User", foreign_keys=[x_user_id], backref='x_games')
-    o_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    o_user = relationship("User", foreign_keys=[o_user_id], backref='o_games')
+    x_player_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    x_player = relationship("User", foreign_keys=[x_player_id], backref='x_games')
+    o_player_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    o_player = relationship("User", foreign_keys=[o_player_id], backref='o_games')
 
     start = Column(DateTime, nullable=False, default=datetime.datetime.utcnow)
     end = Column(DateTime)

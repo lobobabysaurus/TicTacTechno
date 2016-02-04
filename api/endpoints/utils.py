@@ -1,7 +1,7 @@
 from flask import json
 
 
-def process_post_data(raw_data):
+def process_raw_data(raw_data):
     ###
     # Converts raw post data to a dictionary
     #

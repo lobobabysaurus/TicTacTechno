@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from models import Base
+from api.models import Base
 
 
 class User(Base):
@@ -11,7 +11,7 @@ class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
 
-    user_name = Column(String(50), nullable=False, unique=True)
+    name = Column(String(50), nullable=False, unique=True)
     email = Column(String(255))
 
     wins = Column(Integer, default=0)

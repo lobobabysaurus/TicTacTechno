@@ -1,6 +1,7 @@
-from models import Base
-from models import engine
-from resources import app
+from api.endpoints import app
+from api.models import Base
+from api.models import engine
+
 
 Base.metadata.create_all(engine)
 

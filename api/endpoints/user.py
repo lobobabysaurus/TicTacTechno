@@ -2,9 +2,10 @@ from flask import Blueprint
 from flask import json
 from flask import request
 
-from models import session
-from models.user import User
-from resources.utils import process_post_data
+from api.endpoints.utils import process_raw_data
+from api.models import session
+from api.models.user import User
+
 
 users_api = Blueprint('users_api', __name__)
 
@@ -24,7 +25,7 @@ def create_user():
     ###
     # Create a new game user
     ###
-    data = process_post_data(request.data.decode('utf-8'))
+    data = process_raw_data(request.data.decode('utf-8'))
     user = User(user_name=data['user_name'])
     session.add(user)
     session.commit()

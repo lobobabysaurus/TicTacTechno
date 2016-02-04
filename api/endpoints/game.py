@@ -2,9 +2,10 @@ from flask import Blueprint
 from flask import json
 from flask import request
 
-from models import session
-from models.game import Game
-from resources.utils import process_post_data
+from api.endpoints.utils import process_raw_data
+from api.models import session
+from api.models.game import Game
+
 
 games_api = Blueprint('games_api', __name__)
 
@@ -24,9 +25,9 @@ def create_game():
     ###
     # Create a new game between supplied users
     ###
-    data = process_post_data(request.data)
-    game = Game(x_user_id=data['x_player_id'],
-                o_user_id=data['o_player_id'])
+    data = process_raw_data(request.data)
+    game = Game(x_player_id=data['x_player_id'],
+                o_player_id=data['o_player_id'])
     session.add(game)
     session.commit()
     return json.dumps(game.id)
@@ -48,5 +49,5 @@ def claim_space():
     ###
     # Claims a space on the tic tac toe grid
     ###
-    data = process_post_data(request.data)
+    data = process_raw_data(request.data)
     return data
