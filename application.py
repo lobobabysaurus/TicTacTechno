@@ -1,9 +1,4 @@
-from api.endpoints import app
-from api.models import Base
-from api.models import engine
+from api.endpoints import create_app
 
-
-Base.metadata.create_all(engine)
-
-app.Debug = True
+app = create_app('api.config.DevConfig')
 app.run()

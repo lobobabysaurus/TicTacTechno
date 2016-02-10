@@ -3,7 +3,7 @@ from flask import json
 from flask import request
 
 from api.endpoints.utils import process_raw_data
-from api.models import session
+from api.models import db
 from api.models.user import User
 
 
@@ -15,7 +15,7 @@ def get_all_users():
     ###
     # Get data about all users of the application
     ###
-    users = session.query(User).all()
+    users = User.query.all()
     user_array = [user.serialize() for user in users]
     return json.dumps(user_array)
 
@@ -27,8 +27,8 @@ def create_user():
     ###
     data = process_raw_data(request.data.decode('utf-8'))
     user = User(user_name=data['user_name'])
-    session.add(user)
-    session.commit()
+    db.session.add(user)
+    db.session.commit()
     return json.dumps(user.id)
 
 
@@ -39,5 +39,5 @@ def get_user_data(user_id):
     #
     # :param user_id primary key of the user to grab
     ###
-    user = session.query(User).get(user_id)
+    user = User.query.get(user_id)
     return json.dumps(user.serialize())

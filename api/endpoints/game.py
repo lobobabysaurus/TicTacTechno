@@ -3,7 +3,7 @@ from flask import json
 from flask import request
 
 from api.endpoints.utils import process_raw_data
-from api.models import session
+from api.models import db
 from api.models.game import Game
 
 
@@ -15,8 +15,8 @@ def get_all_games():
     ###
     # Get serialized data about all games
     ###
-    games = session.query(Game).all()
-    game_array = [game.serialize() for game in games]
+    games = Game.query.all()
+    game_array = [game.id for game in games]
     return json.dumps(game_array)
 
 
@@ -28,8 +28,8 @@ def create_game():
     data = process_raw_data(request.data)
     game = Game(x_player_id=data['x_player_id'],
                 o_player_id=data['o_player_id'])
-    session.add(game)
-    session.commit()
+    db.session.add(game)
+    db.session.commit()
     return json.dumps(game.id)
 
 
@@ -40,8 +40,8 @@ def get_game_data(game_id):
     #
     # @param game_id primary key for the game
     ###
-    game = session.query(Game).get(game_id)
-    return json.dumps(game.serialize())
+    game = Game.query.get(game_id)
+    return json.dumps(game.id)
 
 
 @games_api.route('/claim_space/', methods=['POST'])
