@@ -1,4 +1,4 @@
-from flask import json
+from json import loads
 
 
 def process_raw_data(raw_data):
@@ -8,4 +8,4 @@ def process_raw_data(raw_data):
     # :param raw_data Raw body from a HTTP post request
     # :return dictionary with all post parameters
     ###
-    return json.loads(raw_data.decode('utf-8'))
+    return loads(raw_data.decode('utf-8'))

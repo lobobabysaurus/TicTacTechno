@@ -17,8 +17,7 @@ class TestUserEndpoints(TestBase):
         db.session.add_all([o_player, x_player])
         db.session.commit()
 
-        payload = process_raw_data(self.client.get('/user/').data)
-        self.assertEquals(2, len(payload))
+        self.assertEquals(2, len(self.client.get('/user/').json))
 
     def test_create_user(self):
         self.assertEquals(0, User.query.count())
@@ -35,6 +34,5 @@ class TestUserEndpoints(TestBase):
         db.session.add(user)
         db.session.commit()
 
-        payload = process_raw_data(
-            self.client.get('/user/' + str(user.id)).data)
+        payload = self.client.get('/user/' + str(user.id)).json
         self.assertEquals('X player', payload['name'])

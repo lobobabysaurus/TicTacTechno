@@ -1,7 +1,7 @@
 from urllib.parse import unquote
 
 from flask import url_for
-from flask.ext.script import Manager
+from flask.ext.script import Manager, prompt_bool
 
 from api.endpoints import create_app
 from api.models import db
@@ -29,11 +29,12 @@ def list_routes():
 
 @manager.command
 def refresh_db():
-    with app.app_context():
-        print("Dropping Tables")
-        db.drop_all()
-        print("Creating Tables")
-        db.create_all()
-        print("Refresh Complete")
+    if prompt_bool("Are you sure you want to lose all current data"):
+        with app.app_context():
+            print("Dropping Tables")
+            db.drop_all()
+            print("Creating Tables")
+            db.create_all()
+            print("Refresh Complete")
 
 manager.run()
