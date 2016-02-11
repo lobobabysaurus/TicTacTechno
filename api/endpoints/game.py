@@ -3,7 +3,6 @@ from json import dumps
 from flask import request
 from flask.ext.classy import FlaskView
 
-from api.endpoints.utils import process_raw_data
 from api.models import db
 from api.models.game import Game
 
@@ -18,7 +17,7 @@ class GameView(FlaskView):
         return dumps(game.serialized)
 
     def post(self):
-        data = process_raw_data(request.data)
+        data = request.get_json()
         game = Game(x_player_id=data['x_player_id'],
                     o_player_id=data['o_player_id'])
         db.session.add(game)
@@ -26,5 +25,5 @@ class GameView(FlaskView):
         return dumps(game.serialized)
 
     def put(self):
-        data = process_raw_data(request.data)
+        data = request.get_json()
         return data

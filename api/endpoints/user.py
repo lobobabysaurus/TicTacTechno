@@ -3,7 +3,6 @@ from json import dumps
 from flask import request
 from flask.ext.classy import FlaskView
 
-from api.endpoints.utils import process_raw_data
 from api.models import db
 from api.models.user import User
 
@@ -18,7 +17,7 @@ class UserView(FlaskView):
         return dumps(user.serialized)
 
     def post(self):
-        data = process_raw_data(request.data)
+        data = request.get_json()
         user = User(name=data['name'])
         db.session.add(user)
         db.session.commit()
