@@ -14,11 +14,8 @@ class GameView(FlaskView):
         return dumps([game.serialized for game in Game.query.all()])
 
     def get(self, game_id):
-        game = Game.query.get(game_id)
-        if game:
-            return dumps(game.serialized)
-        else:
-            return "Not Found", 404
+        game = Game.query.get_or_404(game_id)
+        return dumps(game.serialized)
 
     def post(self):
         data = process_raw_data(request.data)

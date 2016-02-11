@@ -14,11 +14,8 @@ class UserView(FlaskView):
         return dumps([user.serialized for user in User.query.all()])
 
     def get(self, user_id):
-        user = User.query.get(user_id)
-        if user:
-            return dumps(user.serialized)
-        else:
-            return "Not Found", 404
+        user = User.query.get_or_404(user_id)
+        return dumps(user.serialized)
 
     def post(self):
         data = process_raw_data(request.data)
