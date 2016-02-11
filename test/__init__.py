@@ -1,5 +1,3 @@
-import os
-
 from flask.ext.testing import TestCase
 
 from api.endpoints import create_app

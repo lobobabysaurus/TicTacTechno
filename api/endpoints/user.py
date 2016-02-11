@@ -1,43 +1,28 @@
-from flask import Blueprint
-from flask import json
+from json import dumps
+
 from flask import request
+from flask.ext.classy import FlaskView
 
 from api.endpoints.utils import process_raw_data
 from api.models import db
 from api.models.user import User
 
 
-users_api = Blueprint('users_api', __name__)
+class UserView(FlaskView):
 
+    def index(self):
+        return dumps([user.serialized for user in User.query.all()])
 
-@users_api.route('/', methods=['GET'])
-def get_all_users():
-    ###
-    # Get data about all users of the application
-    ###
-    users = User.query.all()
-    user_array = [user.serialize() for user in users]
-    return json.dumps(user_array)
+    def get(self, user_id):
+        user = User.query.get(user_id)
+        if user:
+            return dumps(user.serialized)
+        else:
+            return "Not Found", 404
 
-
-@users_api.route('/', methods=['POST'])
-def create_user():
-    ###
-    # Create a new game user
-    ###
-    data = process_raw_data(request.data.decode('utf-8'))
-    user = User(user_name=data['user_name'])
-    db.session.add(user)
-    db.session.commit()
-    return json.dumps(user.id)
-
-
-@users_api.route('/<user_id>', methods=['GET'])
-def get_user_data(user_id):
-    ###
-    # Get serialized data about a specific user
-    #
-    # :param user_id primary key of the user to grab
-    ###
-    user = User.query.get(user_id)
-    return json.dumps(user.serialize())
+    def post(self):
+        data = process_raw_data(request.data)
+        user = User(name=data['name'])
+        db.session.add(user)
+        db.session.commit()
+        return dumps(user.serialized)

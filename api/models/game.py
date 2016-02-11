@@ -1,12 +1,11 @@
 from datetime import datetime
 
+from sqlalchemy.ext.hybrid import hybrid_property
+
 from api.models import db
 
 
 class Game(db.Model):
-    ###
-    # A game of Tic Tac Toe
-    ###
     __tablename__ = 'games'
     id = db.Column(db.Integer, primary_key=True)
 
@@ -18,18 +17,19 @@ class Game(db.Model):
                         db.Integer, db.ForeignKey('users.id'), nullable=False)
     o_player = db.relationship(
                         "User", foreign_keys=[o_player_id], backref='o_games')
+    winner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    winner = db.relationship(
+                        "User", foreign_keys=[winner_id], backref='won_games')
 
     start = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     end = db.Column(db.DateTime)
     finished = db.Column(db.Boolean, default=False)
 
-    turn = db.Column(db.Integer, default=1)
-    north_west = db.Column(db.String(1), default='')
-    north = db.Column(db.String(1), default='')
-    north_east = db.Column(db.String(1), default='')
-    west = db.Column(db.String(1), default='')
-    center = db.Column(db.String(1), default='')
-    east = db.Column(db.String(1), default='')
-    south_west = db.Column(db.String(1), default='')
-    south = db.Column(db.String(1), default='')
-    south_east = db.Column(db.String(1), default='')
+    @hybrid_property
+    def serialized(self):
+        return {'id': self.id,
+                'x_player_id': self.x_player_id,
+                'o_player_id': self.o_player_id,
+                'start': str(self.start),
+                'end': str(self.end),
+                'finished': self.finished}

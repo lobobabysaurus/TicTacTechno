@@ -12,3 +12,7 @@ class Turn(db.Model):
     turn_number = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, ForeignKey('games.id'), primary_key=True,)
     game = relationship("Game", foreign_keys=[game_id], backref='game_turns')
+    position = db.Column(db.String(25), nullable=False)
+    player_id = db.Column(db.Integer, ForeignKey('users.id'))
+    player = relationship("User", foreign_keys=[player_id],
+                          backref='user_turns')

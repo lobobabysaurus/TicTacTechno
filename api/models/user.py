@@ -21,3 +21,14 @@ class User(db.Model):
     @hybrid_property
     def games(self):
         return self.wins + self.losses + self.ties + self.unfinished
+
+    @hybrid_property
+    def serialized(self):
+        return {'id': self.id,
+                'name': self.name,
+                'email': self.email,
+                'wins': self.wins,
+                'losses': self.losses,
+                'ties': self.ties,
+                'unfinished': self.unfinished,
+                'games': self.games}

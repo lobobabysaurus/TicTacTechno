@@ -24,7 +24,7 @@ class TestGameEndpoints(TestBase):
         db.session.add_all([first_game, second_game, third_game])
         db.session.commit()
 
-        payload = process_raw_data(self.client.get('/games/').data)
+        payload = process_raw_data(self.client.get('/game/').data)
         self.assertEquals(3, len(payload))
 
     def test_create_game(self):
@@ -33,14 +33,28 @@ class TestGameEndpoints(TestBase):
         db.session.add_all([o_player, x_player])
         db.session.commit()
 
-        payload = json.dumps({
+        self.assertEquals(0, Game.query.count())
+        self.client.post('/game/', data=json.dumps({
             'x_player_id': x_player.id,
             'o_player_id': o_player.id
-        })
-        self.client.post('/games/', data=payload)
-
+        }))
         self.assertEquals(1, Game.query.count())
 
         game = Game.query.first()
         self.assertEquals(x_player, game.x_player)
         self.assertEquals(o_player, game.o_player)
+
+    def test_get_game(self):
+        o_player = User(name='O player')
+        x_player = User(name='X player')
+        db.session.add_all([o_player, x_player])
+        db.session.commit()
+
+        new_game = Game(x_player_id=x_player.id, o_player_id=o_player.id)
+        db.session.add(new_game)
+        db.session.commit()
+
+        payload = process_raw_data(
+            self.client.get('/game/' + str(new_game.id)).data)
+        self.assertEquals(o_player.id, payload['o_player_id'])
+        self.assertEquals(x_player.id, payload['x_player_id'])
