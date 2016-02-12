@@ -12,8 +12,8 @@ class TestGameEndpoints(TestBase):
         super().setUp()
 
     def test_list_games(self):
-        o_player = User(name='O player')
-        x_player = User(name='X player')
+        o_player = User(user_name='O player', email='o@email.com')
+        x_player = User(user_name='X player', email='x@email.com')
         db.session.add_all([o_player, x_player])
         db.session.commit()
 
@@ -27,8 +27,8 @@ class TestGameEndpoints(TestBase):
         self.assertEquals(3, len(games))
 
     def test_create_game(self):
-        o_player = User(name='O player')
-        x_player = User(name='X player')
+        o_player = User(user_name='O player', email='o@email.com')
+        x_player = User(user_name='X player', email='x@email.com')
         db.session.add_all([o_player, x_player])
         db.session.commit()
 
@@ -44,8 +44,8 @@ class TestGameEndpoints(TestBase):
         self.assertEquals(o_player, game.o_player)
 
     def test_get_game(self):
-        o_player = User(name='O player')
-        x_player = User(name='X player')
+        o_player = User(user_name='O player', email='o@email.com')
+        x_player = User(user_name='X player', email='x@email.com')
         db.session.add_all([o_player, x_player])
         db.session.commit()
 

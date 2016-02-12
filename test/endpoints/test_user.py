@@ -11,8 +11,8 @@ class TestUserEndpoints(TestBase):
         super().setUp()
 
     def test_list_users(self):
-        o_player = User(name='O player')
-        x_player = User(name='X player')
+        o_player = User(user_name='O player', email='o@email.com')
+        x_player = User(user_name='X player', email='x@email.com')
         db.session.add_all([o_player, x_player])
         db.session.commit()
 
@@ -22,14 +22,15 @@ class TestUserEndpoints(TestBase):
     def test_create_user(self):
         self.assertEquals(0, User.query.count())
         self.client.post('/user/', content_type='application/json',
-                         data=json.dumps({'name': 'create user'}))
+                         data=json.dumps({'user_name': 'create user',
+                                          'email': 'create@email.com'}))
         self.assertEquals(1, User.query.count())
 
         user = User.query.first()
-        self.assertEquals('create user', user.name)
+        self.assertEquals('create user', user.user_name)
 
     def test_get_user(self):
-        user = User(name='X player')
+        user = User(user_name='X player', email='x@email.com')
         db.session.add(user)
         db.session.commit()
 
