@@ -31,8 +31,8 @@
     "gulp-browserify": "^0.5.1",
     "gulp-eslint": "^1.1.1",
     "gulp-rimraf": "^0.2.0",
-    "gulp-sass": "^2.2.0",
     "gulp-serve": "^1.2.0",
+    "gulp-stylus": "^2.3.0",
     "reactify": "^1.1.1",
     "run-sequence": "^1.1.5"
   },

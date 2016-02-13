@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Content from 'views/content';
-import Header from 'views/header';
-import Footer from 'views/footer';
+import HeaderBar from 'views/header_bar';
+import FooterBar from 'views/footer_bar';
 
 
 class Home extends React.Component {
@@ -10,9 +10,9 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Header/>
-        <Content/>
-        <Footer/>
+        <HeaderBar />
+        <Content />
+        <FooterBar />
       </div>
     );
   }

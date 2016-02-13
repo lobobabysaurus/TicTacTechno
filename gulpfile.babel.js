@@ -7,21 +7,21 @@ import eslint from 'gulp-eslint';
 import gulp from 'gulp';
 import reactify from 'reactify';
 import runSequence from 'run-sequence';
-import sass from 'gulp-sass';
+import stylus from 'gulp-stylus';
 import serve from 'gulp-serve';
 
 const paths = {
   build: 'build/',
   index: 'index.html',
   root: './',
-  src: 'src/**/*.js'
+  src: 'src/**/*.js',
   src_root: 'src/index.js',
-  style: 'style/style.scss'
+  style: 'style/style.styl'
 };
 
 gulp.task('default', ['serve']);
 
-gulp.task('build', () => runSequence('eslint', 'clean', ['index', 'src', 'sass']));
+gulp.task('build', () => runSequence('eslint', 'clean', ['index', 'src', 'stylus']));
 
 gulp.task('clean', () => {
   return gulp.src(paths.build, {read: false})
@@ -44,16 +44,16 @@ gulp.task('eslint', () => {
 
 gulp.task('index', () => copyToBuild(paths.index, paths.build, paths.root));
 
-gulp.task('sass', () => {
+gulp.task('stylus', () => {
   return gulp.src(paths.style, {base: paths.root})
-    .pipe(sass().on('error', sass.logError))
+    .pipe(stylus())
     .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('serve', ['build', 'watch'], serve({root: [paths.build], port: 8080}));
 
 gulp.task('src', () => {
-  return gulp.src(paths.src, {base: paths.root})
+  return gulp.src(paths.src_root, {base: paths.root})
     .pipe(browserify({
       paths: ['./src', 'node_modules'],
       transform: [babelify, reactify],
@@ -64,8 +64,8 @@ gulp.task('src', () => {
 
 gulp.task('watch', () => {
   gulp.watch(paths.index, ['index']);
-  gulp.watch(paths.src_root, ['eslint', 'src']);
-  gulp.watch(paths.style, ['sass']);
+  gulp.watch(paths.src, ['eslint', 'src']);
+  gulp.watch(paths.style, ['stylus']);
 });
 
 /**
