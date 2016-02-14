@@ -16,6 +16,11 @@ export default class RegistrationModal extends React.Component {
     };
   }
 
+  close = () => {
+    this.setState({errors: {}});
+    this.state.closer();
+  }
+
   componentWillReceiveProps = (props) => {
     this.setState({show: props.show});
   }
@@ -32,11 +37,11 @@ export default class RegistrationModal extends React.Component {
   }
 
   validateInput = (data) => {
-    let errors = {};
+    const errors = {};
 
-    errors = _.extend(errors, this.validateUsername(data));
-    errors = _.extend(errors, this.validatePassword(data));
-    errors = _.extend(errors, this.validateEmail(data));
+    _.extend(errors, this.validateUsername(data));
+    _.extend(errors, this.validatePassword(data));
+    _.extend(errors, this.validateEmail(data));
 
     this.setState({errors: errors});
 
@@ -95,7 +100,7 @@ export default class RegistrationModal extends React.Component {
   render() {
     return (
       <Modal show={this.state.show}
-             onHide={this.state.closer}>
+             onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title>Register with TicTacTechno</Modal.Title>
         </Modal.Header>
@@ -128,7 +133,7 @@ export default class RegistrationModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.registerUser}>Register</Button>
-          <Button onClick={this.state.closer}>Close</Button>
+          <Button onClick={this.close}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
