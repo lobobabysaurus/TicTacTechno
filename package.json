@@ -2,10 +2,6 @@
   "name": "TicTacToeOnlineUI",
   "version": "0.0.0",
   "description": "A Tic Tac Toe client in ES6",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "ls"
-  },
   "repository": {
     "type": "git",
     "url": "https://lobobabysaurus@github.com/lobobabysaurus/TicTacToeOnlineUI.git"
@@ -21,6 +17,9 @@
   "license": "GPL-V2",
   "bugs": {
     "url": "https://github.com/lobobabysaurus/TicTacToeOnlineUI/issues"
+  },
+  "babel": {
+    "presets": ["es2015", "react", "stage-0"]
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
