@@ -12,10 +12,9 @@ export default class RegistrationModal extends React.Component {
       show: this.props.show,
       closer: this.props.closer
     }
-    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps = (props) => {
     this.setState({show: props.show})
   }
 

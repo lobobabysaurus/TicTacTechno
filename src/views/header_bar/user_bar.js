@@ -14,25 +14,21 @@ export default class UserBar extends React.Component {
       showLoginModal: false,
       showRegistrationModal: false
     };
-    this.launchLoginModal = this.launchLoginModal.bind(this);
-    this.launchRegistrationModal = this.launchRegistrationModal.bind(this);
-    this.closeLoginModal = this.closeLoginModal.bind(this);
-    this.closeRegistrationModal = this.closeRegistrationModal.bind(this);
   }
 
-  launchLoginModal() {
+  launchLoginModal = () => {
     this.setState({showLoginModal: true});
   }
 
-  launchRegistrationModal() {
+  launchRegistrationModal = () => {
     this.setState({showRegistrationModal: true});
   }
 
-  closeLoginModal() {
+  closeLoginModal = () => {
     this.setState({showLoginModal: false});
   }
 
-  closeRegistrationModal() {
+  closeRegistrationModal = () => {
     this.setState({showRegistrationModal: false});
   }
 
