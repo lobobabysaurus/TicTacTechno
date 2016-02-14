@@ -4,7 +4,7 @@ import { PageHeader } from 'react-bootstrap';
 import UserBar from 'views/header_bar/user_bar';
 
 
-class HeaderBar extends React.Component {
+export default class HeaderBar extends React.Component {
 
   render() {
     return (
@@ -15,5 +15,3 @@ class HeaderBar extends React.Component {
     );
   }
 }
-
-export default HeaderBar;

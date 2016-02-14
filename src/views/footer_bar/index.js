@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-class FooterBar extends React.Component {
+export default class FooterBar extends React.Component {
 
   render() {
     return (
@@ -11,5 +11,3 @@ class FooterBar extends React.Component {
     );
   }
 }
-
-export default FooterBar;

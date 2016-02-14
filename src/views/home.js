@@ -5,7 +5,7 @@ import HeaderBar from 'views/header_bar';
 import FooterBar from 'views/footer_bar';
 
 
-class Home extends React.Component {
+export default class Home extends React.Component {
 
   render() {
     return (
@@ -17,5 +17,3 @@ class Home extends React.Component {
     );
   }
 }
-
-export default Home;
