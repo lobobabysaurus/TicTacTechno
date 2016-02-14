@@ -19,7 +19,11 @@
     "url": "https://github.com/lobobabysaurus/TicTacToeOnlineUI/issues"
   },
   "babel": {
-    "presets": ["es2015", "react", "stage-0"]
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
@@ -40,6 +44,7 @@
   },
   "dependencies": {
     "jquery": "^2.1.4",
+    "lodash": "^4.3.0",
     "react": "^0.14.3",
     "react-bootstrap": "^0.28.3",
     "react-dom": "^0.14.3"
