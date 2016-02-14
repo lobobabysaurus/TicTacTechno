@@ -1,14 +1,15 @@
 'use strict';
 
 import babelify from 'babelify';
-import browserify from 'gulp-browserify'
+import bootstrap from 'bootstrap-styl';
+import browserify from 'gulp-browserify';
 import rimraf from 'gulp-rimraf';
 import eslint from 'gulp-eslint';
 import gulp from 'gulp';
 import reactify from 'reactify';
 import runSequence from 'run-sequence';
-import stylus from 'gulp-stylus';
 import serve from 'gulp-serve';
+import stylus from 'gulp-stylus';
 
 const paths = {
   build: 'build/',
@@ -46,7 +47,9 @@ gulp.task('index', () => copyToBuild(paths.index, paths.build, paths.root));
 
 gulp.task('stylus', () => {
   return gulp.src(paths.style, {base: paths.root})
-    .pipe(stylus())
+    .pipe(stylus({
+        use: bootstrap()
+    }))
     .pipe(gulp.dest(paths.build));
 });
 
