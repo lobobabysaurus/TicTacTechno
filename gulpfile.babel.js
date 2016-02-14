@@ -3,9 +3,10 @@
 import babelify from 'babelify';
 import bootstrap from 'bootstrap-styl';
 import browserify from 'gulp-browserify';
-import rimraf from 'gulp-rimraf';
+import eslint from 'gulp-eslint';
 import gulp from 'gulp';
 import reactify from 'reactify';
+import rimraf from 'gulp-rimraf';
 import runSequence from 'run-sequence';
 import serve from 'gulp-serve';
 import stylus from 'gulp-stylus';
@@ -21,11 +22,18 @@ const paths = {
 
 gulp.task('default', ['serve']);
 
-gulp.task('build', () => runSequence('clean', ['index', 'src', 'stylus']));
+gulp.task('build', () => runSequence('clean', 'eslint', ['index', 'src', 'stylus']));
 
 gulp.task('clean', () => {
   return gulp.src(paths.build, {read: false})
     .pipe(rimraf());
+});
+
+gulp.task('eslint', () => {
+  return gulp.src(paths.src)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 gulp.task('index', () => copyToBuild(paths.index, paths.build, paths.root));
@@ -52,7 +60,7 @@ gulp.task('src', () => {
 
 gulp.task('watch', () => {
   gulp.watch(paths.index, ['index']);
-  gulp.watch(paths.src, ['src']);
+  gulp.watch(paths.src, ['eslint', 'src']);
   gulp.watch(paths.style, ['stylus']);
 });
 

@@ -7,15 +7,15 @@ import { Modal } from 'react-bootstrap';
 export default class LoginModal extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       show: this.props.show,
       closer: this.props.closer
-    }
+    };
   }
 
   componentWillReceiveProps = (props) => {
-    this.setState({show: props.show})
+    this.setState({show: props.show});
   }
 
   render() {

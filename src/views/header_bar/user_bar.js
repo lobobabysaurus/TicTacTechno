@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { ButtonGroup } from 'react-bootstrap';
 
-import LoginModal from 'views/header_bar/modals/login'
-import RegistrationModal from 'views/header_bar/modals/registration'
+import LoginModal from 'views/header_bar/modals/login';
+import RegistrationModal from 'views/header_bar/modals/registration';
 
 
 export default class UserBar extends React.Component {

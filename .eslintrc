@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "eqeqeq": 2,
+    "no-magic-numbers": 2,
+    "no-var": 2,
+    "radix": 2,
+    "semi": [2, "always"],
+    "strict": 0
+  }
+}
