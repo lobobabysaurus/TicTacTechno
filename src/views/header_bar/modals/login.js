@@ -5,6 +5,10 @@ import { Modal } from 'react-bootstrap';
 
 
 export default class LoginModal extends React.Component {
+  static propTypes = {
+    show: React.PropTypes.bool.isRequired,
+    closer: React.PropTypes.func.isRequired
+  };
 
   constructor(props) {
     super(props);

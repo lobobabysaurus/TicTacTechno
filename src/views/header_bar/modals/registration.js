@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Input } from 'react-bootstrap';
@@ -6,7 +5,11 @@ import { Modal } from 'react-bootstrap';
 
 
 export default class RegistrationModal extends React.Component {
-
+  static propTypes = {
+    show: React.PropTypes.bool.isRequired,
+    closer: React.PropTypes.func.isRequired
+  };
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -37,14 +40,10 @@ export default class RegistrationModal extends React.Component {
   }
 
   validateInput = (data) => {
-    const errors = {};
-
-    _.extend(errors, this.validateUsername(data));
-    _.extend(errors, this.validatePassword(data));
-    _.extend(errors, this.validateEmail(data));
-
+    const errors = Object.assign({}, this.validateUsername(data),
+                                     this.validatePassword(data),
+                                     this.validateEmail(data));
     this.setState({errors: errors});
-
     return errors === {};
   }
 
