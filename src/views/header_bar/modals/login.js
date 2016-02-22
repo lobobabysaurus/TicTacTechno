@@ -6,15 +6,15 @@ import { Modal } from 'react-bootstrap';
 
 export default class LoginModal extends React.Component {
   static propTypes = {
+    close: React.PropTypes.func.isRequired,
     show: React.PropTypes.bool.isRequired,
-    closer: React.PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
       show: this.props.show,
-      closer: this.props.closer
+      close: this.props.close
     };
   }
 
@@ -25,7 +25,7 @@ export default class LoginModal extends React.Component {
   render() {
     return (
       <Modal show={this.state.show}
-             onHide={this.state.closer}>
+             onHide={this.state.close}>
         <Modal.Header closeButton>
           <Modal.Title>Login to TicTacTechno</Modal.Title>
         </Modal.Header>
@@ -41,8 +41,8 @@ export default class LoginModal extends React.Component {
           <p>placeholder</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.state.closer}>Login</Button>
-          <Button onClick={this.state.closer}>Close</Button>
+          <Button onClick={this.state.close}>Login</Button>
+          <Button onClick={this.state.close}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

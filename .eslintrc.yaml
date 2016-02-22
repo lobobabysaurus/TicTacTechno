@@ -35,6 +35,6 @@
   "prefer-template": 2
   "radix": 2
   "semi":
-    - 2
+    - 1
     - "always"
   "yoda": 2

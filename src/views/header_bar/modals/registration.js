@@ -1,27 +1,32 @@
+import _ from 'lodash';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Input } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
+import { createUser } from 'actions/user';
 
-export default class RegistrationModal extends React.Component {
+class RegistrationModal extends React.Component {
   static propTypes = {
-    show: React.PropTypes.bool.isRequired,
-    closer: React.PropTypes.func.isRequired
+    close: React.PropTypes.func.isRequired,
+    create: React.PropTypes.func.isRequired,
+    show: React.PropTypes.bool.isRequired
   };
-  
+
   constructor(props) {
     super(props);
     this.state = {
+      create: this.props.create,
       show: this.props.show,
-      closer: this.props.closer,
+      close: this.props.close,
       errors: {}
     };
   }
 
   close = () => {
     this.setState({errors: {}});
-    this.state.closer();
+    this.state.close();
   }
 
   componentWillReceiveProps = (props) => {
@@ -36,7 +41,10 @@ export default class RegistrationModal extends React.Component {
       email: this.refs.email.getValue(),
       confirmEmail: this.refs.confirm_email.getValue()
     };
-    this.validateInput(registrationData);
+    if (this.validateInput(registrationData)) {
+      this.state.create(registrationData);
+      this.state.close();
+    }
   }
 
   validateInput = (data) => {
@@ -44,7 +52,7 @@ export default class RegistrationModal extends React.Component {
                                      this.validatePassword(data),
                                      this.validateEmail(data));
     this.setState({errors: errors});
-    return errors === {};
+    return _.isEmpty(errors);
   }
 
   validateUsername = (data) => {
@@ -138,3 +146,16 @@ export default class RegistrationModal extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    create: (userData) => {
+      dispatch(createUser(userData));
+    }
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(RegistrationModal);

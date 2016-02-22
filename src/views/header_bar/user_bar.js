@@ -45,10 +45,10 @@ export default class UserBar extends React.Component {
         </ButtonGroup>
 
         <LoginModal show={this.state.showLoginModal}
-                    closer={this.closeLoginModal} />
+                    close={this.closeLoginModal} />
 
         <RegistrationModal show={this.state.showRegistrationModal}
-                           closer={this.closeRegistrationModal} />
+                           close={this.closeRegistrationModal} />
       </div>
     );
   }
