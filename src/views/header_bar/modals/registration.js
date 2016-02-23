@@ -6,6 +6,7 @@ import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { createUser } from 'actions/user';
+import { toggleRegistration } from 'actions/ui';
 
 class RegistrationModal extends React.Component {
   static propTypes = {
@@ -17,10 +18,10 @@ class RegistrationModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      create: this.props.create,
-      show: this.props.show,
-      close: this.props.close,
-      errors: {}
+      create: props.create,
+      show: props.show,
+      close: props.close,
+      errors: {},
     };
   }
 
@@ -59,7 +60,7 @@ class RegistrationModal extends React.Component {
     const errors = {};
 
     if (!data.username){
-      errors.usernameError = this.error("Must provide a username");
+      errors.usernameError = this.error('Must provide a username');
     }
 
     return errors;
@@ -69,13 +70,13 @@ class RegistrationModal extends React.Component {
     const errors = {};
 
     if (!data.password){
-      errors.passwordError = this.error("Must provide a password");
+      errors.passwordError = this.error('Must provide a password');
     }
     else if (!data.confirmPassword) {
-      errors.confirmPasswordError = this.error("Must confirm password");
+      errors.confirmPasswordError = this.error('Must confirm password');
     }
     else if (data.password !== data.confirmPassword) {
-      errors.confirmPasswordError = this.error("Passwords do not match");
+      errors.confirmPasswordError = this.error('Passwords do not match');
     }
 
     return errors;
@@ -85,16 +86,16 @@ class RegistrationModal extends React.Component {
     const errors = {};
 
     if (!data.email) {
-      errors.emailError = this.error("Must provide an email");
+      errors.emailError = this.error('Must provide an email');
     }
     else if (!data.email.match(/[^@]+@[^@]+\.[^@]+/)) {
-      errors.emailError = this.error("Email is invalid");
+      errors.emailError = this.error('Email is invalid');
     }
     else if (!data.confirmEmail) {
-      errors.confirmEmailError = this.error("Must confirm email");
+      errors.confirmEmailError = this.error('Must confirm email');
     }
     else if (data.email !== data.confirmEmail) {
-      errors.confirmEmailError = this.error("Emails do not match");
+      errors.confirmEmailError = this.error('Emails do not match');
     }
 
     return errors;
@@ -147,15 +148,24 @@ class RegistrationModal extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    show: state.ui.showRegistration
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     create: (userData) => {
       dispatch(createUser(userData));
+    },
+    close: () => {
+      dispatch(toggleRegistration());
     }
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(RegistrationModal);

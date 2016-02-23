@@ -30,47 +30,54 @@ gulp.task('build', () => {
 
 gulp.task('clean', () => {
   return gulp.src(paths.build, {read: false})
-    .pipe(rimraf());
+          .pipe(rimraf());
 });
 
 gulp.task('eslint', () => {
   return gulp.src(paths.src)
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+          .pipe(eslint())
+          .pipe(eslint.format())
+          .pipe(eslint.failAfterError());
 });
 
 gulp.task('index', () => {
   return gulp.src(paths.index, {base: paths.root})
-    .pipe(gulp.dest(paths.build));
+          .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('serve', ['build', 'watch'],
-  return serve({root: [paths.build], port: 8080}));
+  serve({root: [paths.build], port: 8080}));
 
 gulp.task('src', () => {
   return gulp.src(paths.src_root, {base: paths.root})
-    .pipe(browserify({
-      paths: ['./src', 'node_modules'],
-      transform: [babelify, reactify],
-      debug: true
-    }))
-    .pipe(gulp.dest(paths.build));
+          .pipe(browserify({
+            paths: ['./src', 'node_modules'],
+            transform: [babelify, reactify],
+            debug: true
+          }))
+          .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('stylus', () => {
   return gulp.src(paths.style, {base: paths.root})
-    .pipe(stylus({
-        use: bootstrap()
-    }))
-    .pipe(gulp.dest(paths.build));
+          .pipe(stylus({
+              use: bootstrap()
+          }))
+          .pipe(gulp.dest(paths.build));
 });
 
-gulp.task('test', () => {
+gulp.task('test', ['testlint'], () => {
   return gulp.src(paths.test, {base: paths.root})
-    .pipe(mocha({
-      require: ['./test/_bootstrap.js'],
-      reporter: 'nyan'}));
+          .pipe(mocha({
+            require: ['./test/_bootstrap.js'],
+            reporter: 'nyan'}))
+});
+
+gulp.task('testlint', () => {
+  return gulp.src(paths.test)
+          .pipe(eslint())
+          .pipe(eslint.format())
+          .pipe(eslint.failAfterError());
 });
 
 gulp.task('watch', () => {

@@ -2,9 +2,11 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Input } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
+import { toggleLogin } from 'actions/ui';
 
-export default class LoginModal extends React.Component {
+class LoginModal extends React.Component {
   static propTypes = {
     close: React.PropTypes.func.isRequired,
     show: React.PropTypes.bool.isRequired,
@@ -13,8 +15,8 @@ export default class LoginModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: this.props.show,
-      close: this.props.close
+      show: props.show,
+      close: props.close
     };
   }
 
@@ -48,3 +50,22 @@ export default class LoginModal extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    show: state.ui.showLogin
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    close: () => {
+      dispatch(toggleLogin());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginModal);

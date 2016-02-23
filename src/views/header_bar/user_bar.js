@@ -1,55 +1,57 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { ButtonGroup } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
+import { toggleLogin, toggleRegistration } from 'actions/ui';
 import LoginModal from 'views/header_bar/modals/login';
 import RegistrationModal from 'views/header_bar/modals/registration';
 
-
-export default class UserBar extends React.Component {
+class UserBar extends React.Component {
+  static propTypes = {
+    showLogin: React.PropTypes.func.isRequired,
+    showRegistration: React.PropTypes.func.isRequired
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      showLoginModal: false,
-      showRegistrationModal: false
+      showLogin: props.showLogin,
+      showRegistration: props.showRegistration
     };
-  }
-
-  launchLoginModal = () => {
-    this.setState({showLoginModal: true});
-  }
-
-  launchRegistrationModal = () => {
-    this.setState({showRegistrationModal: true});
-  }
-
-  closeLoginModal = () => {
-    this.setState({showLoginModal: false});
-  }
-
-  closeRegistrationModal = () => {
-    this.setState({showRegistrationModal: false});
   }
 
   render() {
     return (
       <div className='accountButtons'>
         <ButtonGroup>
-          <Button bsStyle='primary' onClick={this.launchLoginModal}>
+          <Button bsStyle='primary' onClick={this.state.showLogin}>
             Login
           </Button>
-          <Button bsStyle='success' onClick={this.launchRegistrationModal}>
+          <Button bsStyle='success' onClick={this.state.showRegistration}>
             Register
           </Button>
         </ButtonGroup>
 
-        <LoginModal show={this.state.showLoginModal}
-                    close={this.closeLoginModal} />
-
-        <RegistrationModal show={this.state.showRegistrationModal}
-                           close={this.closeRegistrationModal} />
+        <LoginModal />
+        <RegistrationModal />
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showLogin: () => {
+      dispatch(toggleLogin());
+    },
+    showRegistration: () => {
+      dispatch(toggleRegistration());
+    }
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UserBar);

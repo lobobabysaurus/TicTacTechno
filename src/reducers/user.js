@@ -1,15 +1,9 @@
 import { CREATE_USER } from 'constants/user';
 
-export default function userReducer(state = {users: []}, action) {
+export default function userList(state = [], action) {
   switch (action.type) {
     case CREATE_USER:
-      return Object.assign({}, state, {
-        users: [
-          ...state.users, {
-            user: 5,
-            userData: action.userData
-          }
-        ]});
+      return state.concat(action.userData);
     default:
       return state;
   }
