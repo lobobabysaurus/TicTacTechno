@@ -3,7 +3,8 @@ import { Button } from 'react-bootstrap';
 import { ButtonGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { toggleLogin, toggleRegistration } from 'actions/ui';
+import { toggleLogin } from 'actions/ui/login';
+import { toggleRegistration } from 'actions/ui/registration';
 import LoginModal from 'views/header_bar/modals/login';
 import RegistrationModal from 'views/header_bar/modals/registration';
 

@@ -4,7 +4,7 @@ import { Input } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { toggleLogin } from 'actions/ui';
+import { toggleLogin } from'actions/ui/login';
 
 class LoginModal extends React.Component {
   static propTypes = {

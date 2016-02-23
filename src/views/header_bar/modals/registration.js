@@ -6,32 +6,41 @@ import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { createUser } from 'actions/user';
-import { toggleRegistration } from 'actions/ui';
+import { clearRegistrationErrors, toggleRegistration, validateRegistration }
+  from 'actions/ui/registration';
 
 class RegistrationModal extends React.Component {
   static propTypes = {
     close: React.PropTypes.func.isRequired,
+    clear: React.PropTypes.func.isRequired,
     create: React.PropTypes.func.isRequired,
-    show: React.PropTypes.bool.isRequired
+    errors: React.PropTypes.object.isRequired,
+    show: React.PropTypes.bool.isRequired,
+    validate: React.PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      create: props.create,
-      show: props.show,
+      clear: props.clear,
       close: props.close,
-      errors: {},
+      create: props.create,
+      errors: props.errors,
+      show: props.show,
+      validate: props.validate
     };
   }
 
   close = () => {
-    this.setState({errors: {}});
+    this.state.clear();
     this.state.close();
   }
 
   componentWillReceiveProps = (props) => {
-    this.setState({show: props.show});
+    this.setState({
+      errors: props.errors,
+      show: props.show
+    });
   }
 
   registerUser = () => {
@@ -42,67 +51,13 @@ class RegistrationModal extends React.Component {
       email: this.refs.email.getValue(),
       confirmEmail: this.refs.confirm_email.getValue()
     };
-    if (this.validateInput(registrationData)) {
-      this.state.create(registrationData);
-      this.state.close();
-    }
-  }
-
-  validateInput = (data) => {
-    const errors = Object.assign({}, this.validateUsername(data),
-                                     this.validatePassword(data),
-                                     this.validateEmail(data));
-    this.setState({errors: errors});
-    return _.isEmpty(errors);
-  }
-
-  validateUsername = (data) => {
-    const errors = {};
-
-    if (!data.username){
-      errors.usernameError = this.error('Must provide a username');
-    }
-
-    return errors;
-  }
-
-  validatePassword = (data) => {
-    const errors = {};
-
-    if (!data.password){
-      errors.passwordError = this.error('Must provide a password');
-    }
-    else if (!data.confirmPassword) {
-      errors.confirmPasswordError = this.error('Must confirm password');
-    }
-    else if (data.password !== data.confirmPassword) {
-      errors.confirmPasswordError = this.error('Passwords do not match');
-    }
-
-    return errors;
-  }
-
-  validateEmail = (data) => {
-    const errors = {};
-
-    if (!data.email) {
-      errors.emailError = this.error('Must provide an email');
-    }
-    else if (!data.email.match(/[^@]+@[^@]+\.[^@]+/)) {
-      errors.emailError = this.error('Email is invalid');
-    }
-    else if (!data.confirmEmail) {
-      errors.confirmEmailError = this.error('Must confirm email');
-    }
-    else if (data.email !== data.confirmEmail) {
-      errors.confirmEmailError = this.error('Emails do not match');
-    }
-
-    return errors;
-  }
-
-  error(msg) {
-    return <small className='errorMessage'>{msg}</small>;
+    this.state.validate(registrationData);
+    _.defer(() => {
+      if (_.isEmpty(this.state.errors)) {
+        this.state.create(registrationData);
+        this.state.close();
+      }
+    });
   }
 
   render() {
@@ -150,17 +105,24 @@ class RegistrationModal extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    show: state.ui.showRegistration
+    errors: state.ui.registration.registrationErrors,
+    show: state.ui.registration.showRegistration
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    clear: () => {
+      dispatch(clearRegistrationErrors());
+    },
     create: (userData) => {
       dispatch(createUser(userData));
     },
     close: () => {
       dispatch(toggleRegistration());
+    },
+    validate: (userData) => {
+      dispatch(validateRegistration(userData));
     }
   };
 };
