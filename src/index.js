@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import reducer from 'reducers';
-import Home from 'views/home';
+import Home from 'components/home';
 
 const store = createStore(reducer);
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Content from 'views/content';
-import HeaderBar from 'views/header_bar';
-import FooterBar from 'views/footer_bar';
+import Content from 'components/content';
+import HeaderBar from 'components/header_bar';
+import FooterBar from 'components/footer_bar';
 
 
 export default class Home extends React.Component {

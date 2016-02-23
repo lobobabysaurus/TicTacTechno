@@ -14,10 +14,10 @@ import stylus from 'gulp-stylus';
 
 const paths = {
   build: './build/',
-  index: './index.html',
   root: './',
   src: 'src/**/*.js',
   src_root: './src/index.js',
+  static: './static/',
   style: './style/style.styl',
   test: './test/**/*_spec.js'
 };
@@ -25,7 +25,7 @@ const paths = {
 gulp.task('default', ['serve']);
 
 gulp.task('build', () => {
-  return runSequence('clean', 'eslint', ['index', 'src', 'stylus']);
+  return runSequence('clean', 'eslint', ['static', 'src', 'stylus']);
 });
 
 gulp.task('clean', () => {
@@ -40,11 +40,6 @@ gulp.task('eslint', () => {
           .pipe(eslint.failAfterError());
 });
 
-gulp.task('index', () => {
-  return gulp.src(paths.index, {base: paths.root})
-          .pipe(gulp.dest(paths.build));
-});
-
 gulp.task('serve', ['build', 'watch'],
   serve({root: [paths.build], port: 8080}));
 
@@ -55,6 +50,11 @@ gulp.task('src', () => {
             transform: [babelify, reactify],
             debug: true
           }))
+          .pipe(gulp.dest(paths.build));
+});
+
+gulp.task('static', () => {
+  return gulp.src(`${paths.static}*`, {base: paths.static})
           .pipe(gulp.dest(paths.build));
 });
 
@@ -81,7 +81,7 @@ gulp.task('testlint', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(paths.index, ['index']);
+  gulp.watch(`${paths.static}*`, ['static']);
   gulp.watch(paths.src, ['eslint', 'src']);
   gulp.watch(paths.style, ['stylus']);
 });

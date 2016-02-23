@@ -42,6 +42,8 @@
     "gulp-rimraf": "^0.2.0",
     "gulp-serve": "^1.2.0",
     "gulp-stylus": "^2.3.0",
+    "jsdom": "^8.0.4",
+    "react-addons-test-utils": "^0.14.7",
     "reactify": "^1.1.1",
     "run-sequence": "^1.1.5"
   },

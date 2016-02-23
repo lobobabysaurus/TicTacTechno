@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 import { toggleLogin } from 'actions/ui/login';
 import { toggleRegistration } from 'actions/ui/registration';
-import LoginModal from 'views/header_bar/modals/login';
-import RegistrationModal from 'views/header_bar/modals/registration';
+import LoginModal from 'components/header_bar/modals/login';
+import RegistrationModal from 'components/header_bar/modals/registration';
 
 class UserBar extends React.Component {
   static propTypes = {
