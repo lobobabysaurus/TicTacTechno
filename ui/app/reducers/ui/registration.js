@@ -1,4 +1,3 @@
-import React from 'react';
 import { combineReducers } from 'redux';
 
 import { CLEAR_REGISTRATION_ERRORS, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }

@@ -3,7 +3,6 @@ import { PageHeader } from 'react-bootstrap';
 
 import UserBar from 'components/header/user_bar';
 
-
 export default class Header extends React.Component {
 
   render() {

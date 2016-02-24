@@ -5,6 +5,7 @@ import { createUser } from 'actions/user';
 import { CREATE_USER } from 'constants/user';
 
 describe('User actions', () => {
+
   describe('createUser', () => {
     it('should send user data through', () => {
       const userCreatePayload =

@@ -7,6 +7,7 @@ import { CLEAR_REGISTRATION_ERRORS, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
 import { registrationErrors, showRegistration } from 'reducers/ui/registration';
 
 describe('Registration Reducers', () => {
+
   describe('showRegistration', () => {
     let toggleAction;
     before(() => {
@@ -27,6 +28,7 @@ describe('Registration Reducers', () => {
   });
 
   describe('registrationErrors', () => {
+
     describe('clear errors', () => {
       let clearAction;
       before(() => {

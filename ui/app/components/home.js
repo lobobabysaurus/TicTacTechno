@@ -4,7 +4,6 @@ import Content from 'components/content';
 import Header from 'components/header';
 import Footer from 'components/footer';
 
-
 export default class Home extends React.Component {
 
   render() {

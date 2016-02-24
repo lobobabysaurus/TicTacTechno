@@ -5,13 +5,16 @@ import { createStore } from 'redux';
 import reducers from 'reducers';
 
 describe('reducers', () => {
-  it('have the correct default structure', () => {
+  it('should have the correct default structure', () => {
     createStore(reducers).getState().should.deep.equal({
       ui: {
+        login: {
+          loginErrors: {},
+          showLogin: false
+        },
         registration: {
           registrationErrors: {},
-          showRegistration: false},
-        showLogin: false
+          showRegistration: false },
       },
       users: []
     });

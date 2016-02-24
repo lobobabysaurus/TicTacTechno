@@ -5,12 +5,15 @@ import { createStore } from 'redux';
 import uiReducers from 'reducers/ui';
 
 describe('uiReducers', () => {
-  it('have the correct default structure', () => {
+  it('should have the correct default structure', () => {
     createStore(uiReducers).getState().should.deep.equal({
       registration: {
         registrationErrors: {},
         showRegistration: false},
-      showLogin: false
+      login: {
+        loginErrors: {},
+        showLogin: false
+      }
     });
   });
 });

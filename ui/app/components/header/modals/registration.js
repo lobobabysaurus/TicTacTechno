@@ -31,16 +31,16 @@ class RegistrationModal extends React.Component {
     };
   }
 
-  close = () => {
-    this.state.clear();
-    this.state.close();
-  }
-
   componentWillReceiveProps = (props) => {
     this.setState({
       errors: props.errors,
       show: props.show
     });
+  }
+
+  close = () => {
+    this.state.clear();
+    this.state.close();
   }
 
   registerUser = () => {

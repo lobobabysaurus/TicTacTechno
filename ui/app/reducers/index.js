@@ -5,5 +5,5 @@ import users from 'reducers/user';
 
 export default combineReducers({
   users,
-  ui: ui
+  ui
 });
