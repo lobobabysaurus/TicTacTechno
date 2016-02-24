@@ -1,5 +1,3 @@
-'use strict';
-
 import babelify from 'babelify';
 import bootstrap from 'bootstrap-styl';
 import browserify from 'gulp-browserify';
@@ -15,8 +13,8 @@ import stylus from 'gulp-stylus';
 const paths = {
   build: './build/',
   root: './',
-  src: 'src/**/*.js',
-  src_root: './src/index.js',
+  src: 'app/**/*.js',
+  src_root: './app/index.js',
   static: './static/',
   style: './style/style.styl',
   test: './test/**/*_spec.js'
@@ -46,7 +44,7 @@ gulp.task('serve', ['build', 'watch'],
 gulp.task('src', () => {
   return gulp.src(paths.src_root, {base: paths.root})
           .pipe(browserify({
-            paths: ['./src', 'node_modules'],
+            paths: ['./app', 'node_modules'],
             transform: [babelify, reactify],
             debug: true
           }))

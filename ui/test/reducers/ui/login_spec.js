@@ -5,7 +5,7 @@ import { TOGGLE_LOGIN } from 'constants/ui/login';
 import { showLogin } from'reducers/ui/login';
 
 describe('showLogin', () => {
-  it('should be false initially', () => {
+  it('should be the correct default', () => {
     showLogin(undefined, {}).should.be.false;
   });
 

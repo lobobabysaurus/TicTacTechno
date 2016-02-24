@@ -2,7 +2,7 @@ import { addPath } from 'app-module-path';
 import jsdom from 'jsdom';
 
 // Setup for absolute paths in testing
-addPath(__dirname + '/../src');
+addPath(__dirname + '/../app');
 addPath(__dirname);
 
 // Setup fake dom for react testing

@@ -39,7 +39,7 @@ function validateUsername(data) {
   const errors = {};
 
   if (!data.username){
-    errors.usernameError = error('Must provide a username');
+    errors.username = 'Must provide a username';
   }
 
   return errors;
@@ -49,13 +49,13 @@ function validatePassword(data) {
   const errors = {};
 
   if (!data.password){
-    errors.passwordError = error('Must provide a password');
+    errors.password = 'Must provide a password';
   }
   else if (!data.confirmPassword) {
-    errors.confirmPasswordError = error('Must confirm password');
+    errors.confirmPassword = 'Must confirm password';
   }
   else if (data.password !== data.confirmPassword) {
-    errors.confirmPasswordError = error('Passwords do not match');
+    errors.confirmPassword = 'Passwords do not match';
   }
 
   return errors;
@@ -65,21 +65,17 @@ function validateEmail(data) {
   const errors = {};
 
   if (!data.email) {
-    errors.emailError = error('Must provide an email');
+    errors.email = 'Must provide an email';
   }
   else if (!data.email.match(/[^@]+@[^@]+\.[^@]+/)) {
-    errors.emailError = error('Email is invalid');
+    errors.email = 'Email is invalid';
   }
   else if (!data.confirmEmail) {
-    errors.confirmEmailError = error('Must confirm email');
+    errors.confirmEmail = 'Must confirm email';
   }
   else if (data.email !== data.confirmEmail) {
-    errors.confirmEmailError = error('Emails do not match');
+    errors.confirmEmail = 'Emails do not match';
   }
 
   return errors;
-}
-
-function error(msg) {
-  return <small className='errorMessage'>{msg}</small>;
 }

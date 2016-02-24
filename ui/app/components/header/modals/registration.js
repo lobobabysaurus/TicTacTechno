@@ -60,6 +60,10 @@ class RegistrationModal extends React.Component {
     });
   }
 
+  error = (msg) => {
+    return <small className='errorMessage'>{msg}</small>;
+  }
+
   render() {
     return (
       <Modal show={this.state.show}
@@ -68,27 +72,27 @@ class RegistrationModal extends React.Component {
           <Modal.Title>Register with TicTacTechno</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {this.state.errors.usernameError}
+          {this.error(this.state.errors.username)}
           <Input type='text'
                  ref='username'
                  label='Username'
                  placeholder='Enter Username' />
-          {this.state.errors.passwordError}
+          {this.error(this.state.errors.password)}
           <Input type='password'
                  ref='password'
                  label='Password'
                  placeholder='Enter Password'/>
-          {this.state.errors.confirmPasswordError}
+          {this.error(this.state.errors.confirmPassword)}
           <Input type='password'
                  ref='confirm_password'
                  label='Confirm Password'
                  placeholder='Confirm Password'/>
-          {this.state.errors.emailError}
+          {this.error(this.state.errors.email)}
           <Input type='email'
                  ref='email'
                  label='Email Address'
                  placeholder='Enter Email Address' />
-          {this.state.errors.confirmEmailError}
+          {this.error(this.state.errors.confirmEmail)}
           <Input type='email'
                  ref='confirm_email'
                  label='Confirm Email'
