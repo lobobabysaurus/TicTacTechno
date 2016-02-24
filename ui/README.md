@@ -1,2 +1,2 @@
-# TicTacToeOnlineUI
-User Interface for the Tic Tac Toe Online game
+# TicTacTechnoUI
+User Interface for the Tic Tac Techno Game using React and Redux

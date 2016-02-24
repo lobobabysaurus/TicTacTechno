@@ -1,2 +1,2 @@
-# TicTacToeOnlineServer
-Server side for TicTacToe online server.  Exercise to learn SQLAlchemy and Flask
+# TicTacTechnoAPI
+API for the Tic Tac Techno Game using Flask and SQLAlchemy
