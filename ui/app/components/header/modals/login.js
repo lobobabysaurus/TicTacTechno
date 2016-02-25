@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { Input } from 'react-bootstrap';
-import { Modal } from 'react-bootstrap';
+import { Button, Input, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { toggleLogin, validateLogin } from 'actions/ui/login';
@@ -45,7 +43,7 @@ class LoginModal extends React.Component {
   }
 
   error = (msg) => {
-    return <small className='errorMessage'>{msg}</small>;
+    return <small className='error-message'>{msg}</small>;
   }
 
   render() {
@@ -67,7 +65,6 @@ class LoginModal extends React.Component {
                    label='Password'
                    placeholder='Enter Password'/>
           </form>
-          <p>placeholder</p>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.loginUser}>Login</Button>

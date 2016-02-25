@@ -5,7 +5,9 @@ export default class Footer extends React.Component {
   render() {
     return (
       <div>
-        <p>Copyleft 2016 Tubby Cat Games</p>
+        <p className='footer-text'>
+          <small>Copyleft 2016 Tubby Cat Games</small>
+        </p>
       </div>
     );
   }

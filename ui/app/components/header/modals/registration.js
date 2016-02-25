@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { Input } from 'react-bootstrap';
-import { Modal } from 'react-bootstrap';
+import { Button, Input, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { createUser } from 'actions/user';
@@ -61,7 +59,7 @@ class RegistrationModal extends React.Component {
   }
 
   error = (msg) => {
-    return <small className='errorMessage'>{msg}</small>;
+    return <small className='error-message'>{msg}</small>;
   }
 
   render() {

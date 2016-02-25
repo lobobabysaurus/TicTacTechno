@@ -7,11 +7,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
+
 import Header from 'components/header';
-import UserBar from 'components/header/user_bar';
+import LoginModal from 'components/header/modals/login';
+import RegistrationModal from 'components/header/modals/registration';
 import reducer from 'reducers';
 
-describe('App Home', () => {
+describe('Header section', () => {
   let header;
   before(() => {
     header = TestUtils.renderIntoDocument(
@@ -20,13 +22,18 @@ describe('App Home', () => {
       </ Provider>);
   });
 
-  it('should display the heading', () => {
-    const headerText = TestUtils.findRenderedComponentWithType(
-                                                            header, PageHeader);
-    ReactDOM.findDOMNode(headerText).textContent.should.equal('Tic Tac Techno');
+  it('should display the page title', () => {
+    const title = TestUtils.findRenderedDOMComponentWithClass(
+      header, 'navbar-brand');
+    title.textContent.should.equal("TicTacTechno");
   });
 
-  it('should display the UserBar', () => {
-    TestUtils.findRenderedComponentWithType(header, UserBar).should.exist;
+  it('should contain the modals', () => {
+    TestUtils.findRenderedComponentWithType(header, LoginModal)
+      .should.exist;
+
+    TestUtils.findRenderedComponentWithType(header, RegistrationModal)
+      .should.exist;
   });
+
 });

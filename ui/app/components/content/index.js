@@ -5,7 +5,7 @@ export default class Content extends React.Component {
   render() {
     return (
       <div>
-        <p>Content Section</p>
+        <p className='content-text'>Content Section</p>
       </div>
     );
   }
