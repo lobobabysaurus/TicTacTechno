@@ -6,6 +6,7 @@ from schema import And
 from schema import Schema
 
 from api.endpoints.validators import email
+from api.models import bcrypt
 from api.models import db
 from api.models.user import User
 
@@ -25,6 +26,8 @@ class UserView(FlaskView):
 
     def post(self):
         deserialized = user_schema.validate(request.get_json())
+        deserialized['password'] = bcrypt.generate_password_hash(
+            deserialized['password'])
 
         user = User(**deserialized)
         db.session.add(user)
