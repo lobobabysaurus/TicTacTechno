@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Content from 'components/content';
-import Footer from 'components/footer';
 import Header from 'components/header';
 import Home from 'components/home';
 import reducer from 'reducers';
@@ -26,9 +25,5 @@ describe('App Home', () => {
 
   it('should display page content', () => {
     TestUtils.findRenderedComponentWithType(home, Content).should.exist;
-  });
-
-  it('should display the footer', () => {
-    TestUtils.findRenderedComponentWithType(home, Footer).should.exist;
   });
 });
