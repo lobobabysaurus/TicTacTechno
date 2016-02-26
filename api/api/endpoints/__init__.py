@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.ext.cors import CORS
 
 from api.endpoints.game import GameView
 from api.endpoints.user import UserView
@@ -10,6 +11,8 @@ def create_app(config_class):
     app.config.from_object(config_class)
 
     db.init_app(app)
+    if app.debug:
+        CORS(app)
 
     GameView.register(app)
     UserView.register(app)

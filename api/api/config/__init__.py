@@ -8,4 +8,5 @@ class DevConfig(InternalConfig):
 
 class TestConfig(InternalConfig):
     SQLALCHEMY_DATABASE_URI = "sqlite://"
-    Testing = True
+    TESTING = True
+    PRESERVE_CONTEXT_ON_EXCEPTION = False

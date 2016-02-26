@@ -10,7 +10,8 @@ from api.models import db
 from api.models.user import User
 
 
-user_schema = Schema({"user_name": And(str, len),
+user_schema = Schema({"username": And(str, len),
+                      "password": And(str, len),
                       "email": And(str, len, email)})
 
 

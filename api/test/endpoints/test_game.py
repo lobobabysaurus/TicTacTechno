@@ -2,7 +2,6 @@ import json
 
 from api.models import db
 from api.models.game import Game
-from api.models.user import User
 from test import TestBase
 
 
@@ -12,10 +11,8 @@ class TestGameEndpoints(TestBase):
         super().setUp()
 
     def test_list_games(self):
-        o_player = User(user_name='O player', email='o@email.com')
-        x_player = User(user_name='X player', email='x@email.com')
-        db.session.add_all([o_player, x_player])
-        db.session.commit()
+        o_player = self.new_user(username='O player', email='o@email.com')
+        x_player = self.new_user(username='X player', email='x@email.com')
 
         first_game = Game(x_player_id=x_player.id, o_player_id=o_player.id)
         second_game = Game(x_player_id=x_player.id, o_player_id=o_player.id)
@@ -27,10 +24,8 @@ class TestGameEndpoints(TestBase):
         self.assertEquals(3, len(games))
 
     def test_create_game(self):
-        o_player = User(user_name='O player', email='o@email.com')
-        x_player = User(user_name='X player', email='x@email.com')
-        db.session.add_all([o_player, x_player])
-        db.session.commit()
+        o_player = self.new_user(username='O player', email='o@email.com')
+        x_player = self.new_user(username='X player', email='x@email.com')
 
         self.assertEquals(0, Game.query.count())
         self.client.post('/game/', content_type='application/json',
@@ -44,10 +39,8 @@ class TestGameEndpoints(TestBase):
         self.assertEquals(o_player, game.o_player)
 
     def test_get_game(self):
-        o_player = User(user_name='O player', email='o@email.com')
-        x_player = User(user_name='X player', email='x@email.com')
-        db.session.add_all([o_player, x_player])
-        db.session.commit()
+        o_player = self.new_user(username='O player', email='o@email.com')
+        x_player = self.new_user(username='X player', email='x@email.com')
 
         new_game = Game(x_player_id=x_player.id, o_player_id=o_player.id)
         db.session.add(new_game)

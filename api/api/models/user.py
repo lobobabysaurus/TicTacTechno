@@ -7,8 +7,9 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
 
-    user_name = db.Column(db.String(50), nullable=False, unique=True)
-    email = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    password = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(255), nullable=False, unique=True)
 
     wins = db.Column(db.Integer, default=0)
     losses = db.Column(db.Integer, default=0)
@@ -22,8 +23,9 @@ class User(db.Model):
     @hybrid_property
     def serialized(self):
         return {'id': self.id,
-                'name': self.user_name,
+                'name': self.username,
                 'email': self.email,
+                'password': self.password,
                 'wins': self.wins,
                 'losses': self.losses,
                 'ties': self.ties,
