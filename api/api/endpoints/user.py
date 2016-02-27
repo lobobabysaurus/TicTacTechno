@@ -16,7 +16,7 @@ user_schema = Schema({"username": And(str, len),
                       "email": And(str, len, email)})
 
 
-class UserView(FlaskView):
+class UsersView(FlaskView):
 
     def index(self):
         return dumps([user.serialized for user in User.query.all()])
@@ -26,6 +26,7 @@ class UserView(FlaskView):
 
     def post(self):
         deserialized = user_schema.validate(request.get_json())
+
         deserialized['password'] = bcrypt.generate_password_hash(
             deserialized['password'])
 

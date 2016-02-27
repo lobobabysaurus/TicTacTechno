@@ -34,4 +34,5 @@ class Game(db.Model):
                 'o_player_id': self.o_player_id,
                 'start': str(self.start),
                 'end': str(self.end),
-                'finished': self.finished}
+                'finished': self.finished,
+                'winner_id': self.winner_id}

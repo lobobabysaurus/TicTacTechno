@@ -17,16 +17,16 @@ class User(db.Model):
     unfinished = db.Column(db.Integer, default=0)
 
     @hybrid_property
-    def games(self):
+    def game_count(self):
         return self.wins + self.losses + self.ties + self.unfinished
 
     @hybrid_property
     def serialized(self):
         return {'id': self.id,
-                'name': self.username,
+                'username': self.username,
                 'email': self.email,
                 'wins': self.wins,
                 'losses': self.losses,
                 'ties': self.ties,
                 'unfinished': self.unfinished,
-                'games': self.games}
+                'games': self.game_count}
