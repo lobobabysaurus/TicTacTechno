@@ -9,6 +9,7 @@ describe('uiReducers', () => {
     createStore(uiReducers).getState().should.deep.equal({
       registration: {
         registrationErrors: {},
+        serverRegistration: false,
         showRegistration: false},
       login: {
         loginErrors: {},

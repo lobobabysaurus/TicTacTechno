@@ -14,6 +14,7 @@ describe('reducers', () => {
         },
         registration: {
           registrationErrors: {},
+          serverRegistration: false,
           showRegistration: false },
       },
       users: []

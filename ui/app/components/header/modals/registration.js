@@ -15,6 +15,7 @@ class RegistrationModal extends React.Component {
     create: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object.isRequired,
     show: React.PropTypes.bool.isRequired,
+    started: React.PropTypes.bool.isRequired,
     validate: React.PropTypes.func.isRequired
   };
 
@@ -26,6 +27,7 @@ class RegistrationModal extends React.Component {
       create: props.create,
       errors: props.errors,
       show: props.show,
+      started: props.started,
       validate: props.validate
     };
   }
@@ -33,7 +35,8 @@ class RegistrationModal extends React.Component {
   componentWillReceiveProps = (props) => {
     this.setState({
       errors: props.errors,
-      show: props.show
+      show: props.show,
+      started: props.started
     });
   }
 
@@ -98,7 +101,8 @@ class RegistrationModal extends React.Component {
                  placeholder = 'Confirm Email Address' />
         </Modal.Body>
         <Modal.Footer>
-          <Spinner config={{lines: 17, length: 0, speed: 2} />
+          <Spinner config={{lines: 17, length: 0, speed: 2}}
+            stopped={!this.state.started}/>
           <Button onClick={this.registerUser}>Register</Button>
           <Button onClick={this.close}>Close</Button>
         </Modal.Footer>
@@ -110,7 +114,8 @@ class RegistrationModal extends React.Component {
 const mapStateToProps = (state) => {
   return {
     errors: state.ui.registration.registrationErrors,
-    show: state.ui.registration.showRegistration
+    show: state.ui.registration.showRegistration,
+    started: state.ui.registration.serverRegistration
   };
 };
 

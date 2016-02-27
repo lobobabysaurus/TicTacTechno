@@ -45,7 +45,9 @@
     "jsdom": "^8.0.4",
     "react-addons-test-utils": "^0.14.7",
     "reactify": "^1.1.1",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "sinon": "^1.17.3",
+    "superagent-mocker": "^0.3.0"
   },
   "dependencies": {
     "jquery": "^2.1.4",

@@ -2,11 +2,50 @@ import chai from 'chai';
 const should = chai.should();
 import React from 'react';
 
-import { CLEAR_REGISTRATION_ERRORS, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
+import { CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
+         START_SERVER_REGISTRATION, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
   from 'constants/ui/registration';
-import { registrationErrors, showRegistration } from 'reducers/ui/registration';
+import { registrationErrors, serverRegistration, showRegistration }
+  from 'reducers/ui/registration';
 
 describe('Registration Reducers', () => {
+
+  describe('serverRegistration', () => {
+    let startAction;
+    let endAction;
+    before(() => {
+      startAction = {type: START_SERVER_REGISTRATION};
+      endAction = {type: END_SERVER_REGISTRATION};
+    });
+
+    it('should be false initially', () => {
+      serverRegistration(undefined, {}).should.be.false;
+    });
+
+    it('should become true when start action called on undefined', () => {
+      serverRegistration(undefined, startAction).should.be.true;
+    });
+
+    it('should become true when start action called on false', () => {
+      serverRegistration(false, startAction).should.be.true;
+    });
+
+    it('should stay true when start action called on true', () => {
+      serverRegistration(true, startAction).should.be.true;
+    });
+
+    it('should become false when end action called on undefined', () => {
+      serverRegistration(undefined, endAction).should.be.false;
+    });
+
+    it('should stay false when end action called on false', () => {
+      serverRegistration(false, endAction).should.be.false;
+    });
+
+    it('should become false when end action called on true', () => {
+      serverRegistration(true, endAction).should.be.false;
+    });
+  });
 
   describe('showRegistration', () => {
     let toggleAction;

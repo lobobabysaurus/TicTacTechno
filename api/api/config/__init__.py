@@ -1,6 +1,5 @@
 class InternalConfig(object):
     DEBUG = True
-    APPLICATION_ROOT = "/api/"
 
 
 class DevConfig(InternalConfig):

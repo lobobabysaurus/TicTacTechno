@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { CLEAR_REGISTRATION_ERRORS, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
+import { CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
+         START_SERVER_REGISTRATION, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
   from 'constants/ui/registration';
 
 export function registrationErrors(state = {}, action){
@@ -9,6 +10,17 @@ export function registrationErrors(state = {}, action){
       return validateInput(action.registrationData);
     case CLEAR_REGISTRATION_ERRORS:
       return {};
+    default:
+      return state;
+  }
+}
+
+export function serverRegistration(state = false, action) {
+  switch (action.type) {
+    case START_SERVER_REGISTRATION:
+      return true;
+    case END_SERVER_REGISTRATION:
+      return false;
     default:
       return state;
   }
@@ -25,7 +37,8 @@ export function showRegistration(state = false, action) {
 
 export default combineReducers({
   registrationErrors,
-  showRegistration,
+  serverRegistration,
+  showRegistration
 });
 
 function validateInput(data){
