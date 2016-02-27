@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Button, Input, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import Spinner from 'react-spin';
 
 import { createUser } from 'actions/user';
 import { clearRegistrationErrors, toggleRegistration, validateRegistration }
@@ -97,6 +98,7 @@ class RegistrationModal extends React.Component {
                  placeholder = 'Confirm Email Address' />
         </Modal.Body>
         <Modal.Footer>
+          <Spinner config={{lines: 17, length: 0, speed: 2} />
           <Button onClick={this.registerUser}>Register</Button>
           <Button onClick={this.close}>Close</Button>
         </Modal.Footer>
