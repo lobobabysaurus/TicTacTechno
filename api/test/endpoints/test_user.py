@@ -1,6 +1,5 @@
 from json import dumps
 
-from schema import SchemaError
 from api.models.user import User
 from test import TestBase
 
@@ -33,14 +32,28 @@ class TestUserEndpoints(TestBase):
     def test_create_user_fails_invalid_email(self):
         self.assertEquals(0, User.query.count())
 
-        with self.assertRaises(SchemaError):
-            payload = dumps({'username': 'create user',
-                             'email': 'create',
-                             'password': 'test'})
-            self.client.post('/api/users/', content_type='application/json',
-                             data=payload)
+        payload = dumps({'username': 'create user',
+                         'email': 'create',
+                         'password': 'test'})
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data=payload)
+        self.assertEquals(400, resp.status_code)
 
         self.assertEquals(0, User.query.count())
+        self.assertEquals({'email': 'create is not a valid email'}, resp.json)
+
+    def test_create_user_failsmissing_fields(self):
+        self.assertEquals(0, User.query.count())
+
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data='{}')
+        self.assertEquals(400, resp.status_code)
+
+        self.assertEquals(0, User.query.count())
+        self.assertEquals({'email': "'email' is a required property",
+                           'password': "'password' is a required property",
+                           'username': "'username' is a required property"},
+                          resp.json)
 
     def test_get_user(self):
         user = self.new_user(username='X player', email='x@email.com')
