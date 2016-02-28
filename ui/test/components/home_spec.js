@@ -1,5 +1,4 @@
 import chai from 'chai';
-const should = chai.should();
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
@@ -9,6 +8,8 @@ import Content from 'components/content';
 import Header from 'components/header';
 import Home from 'components/home';
 import reducer from 'reducers';
+
+chai.should();
 
 describe('App Home', () => {
   let home;

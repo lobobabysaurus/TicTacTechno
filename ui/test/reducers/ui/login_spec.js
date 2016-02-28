@@ -1,8 +1,9 @@
 import chai from 'chai';
-const should = chai.should();
 
 import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/ui/login';
 import { showLogin, loginErrors } from 'reducers/ui/login';
+
+chai.should();
 
 describe('Login Reducers', () => {
 

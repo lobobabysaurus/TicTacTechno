@@ -1,5 +1,4 @@
 import chai from 'chai';
-const should = chai.should();
 
 import { clearRegistrationErrors, endServerRegistration,
          startServerRegistration, toggleRegistration, validateRegistration }
@@ -7,6 +6,8 @@ import { clearRegistrationErrors, endServerRegistration,
 import { CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
          START_SERVER_REGISTRATION, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
   from 'constants/ui/registration';
+
+chai.should();
 
 describe('Registration Actions', () => {
 

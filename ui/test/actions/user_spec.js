@@ -1,6 +1,6 @@
 import chai from 'chai';
-const should = chai.should();
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import request from 'superagent';
 import mocker from 'superagent-mocker';
 
@@ -9,6 +9,9 @@ import { endServerRegistration, startServerRegistration }
 import { createUser } from 'actions/user';
 import { apiRoot } from 'config';
 import { CREATE_USER } from 'constants/user';
+
+chai.should();
+chai.use(sinonChai);
 
 describe('User actions', () => {
   let requestMock;
@@ -28,11 +31,12 @@ describe('User actions', () => {
       });
 
       const spy = sinon.spy();
+      const userAction = { type: CREATE_USER, userData: payload};
       userCreateDispatch(spy).then(() => {
-        spy.callCount.should.equal(3);
-        spy.calledWith(startServerRegistration()).should.be.true;
-        spy.calledWith(endServerRegistration()).should.be.true;
-        spy.calledWith({ type: CREATE_USER, userData: payload}).should.be.true;
+        spy.should.have.been.calledThrice;
+        spy.should.have.been.calledWith(startServerRegistration());
+        spy.should.have.been.calledWith(endServerRegistration());
+        spy.should.have.been.calledWith(userAction);
         done();
       });
     });

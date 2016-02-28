@@ -1,5 +1,4 @@
 import chai from 'chai';
-const should = chai.should();
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { PageHeader } from 'react-bootstrap';
@@ -7,11 +6,15 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import { RawHeader } from 'components/header';
 import LoginModal from 'components/header/modals/login';
 import RegistrationModal from 'components/header/modals/registration';
 import reducer from 'reducers';
+
+chai.should();
+chai.use(sinonChai);
 
 describe('Header section', () => {
   let rawHeader;
@@ -45,13 +48,13 @@ describe('Header section', () => {
                           rawHeader.refs.login, 'a');
 
     TestUtils.Simulate.click(loginButton);
-    login.callCount.should.equal(1);
+    login.should.have.been.calledOnce;
   });
 
   it('should have clickable registration button', () => {
     const registrationButton = TestUtils.findRenderedDOMComponentWithTag(
                                   rawHeader.refs.registration, 'a');
     TestUtils.Simulate.click(registrationButton);
-    registration.callCount.should.equal(1);
+    registration.should.have.been.calledOnce;
   });
 });

@@ -1,5 +1,4 @@
 import chai from 'chai';
-const should = chai.should();
 import React from 'react';
 
 import { CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
@@ -7,6 +6,8 @@ import { CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
   from 'constants/ui/registration';
 import { registrationErrors, serverRegistration, showRegistration }
   from 'reducers/ui/registration';
+
+chai.should();
 
 describe('Registration Reducers', () => {
 

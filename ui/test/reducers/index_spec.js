@@ -1,8 +1,9 @@
 import chai from 'chai';
-const should = chai.should();
 import { createStore } from 'redux';
 
 import reducers from 'reducers';
+
+chai.should();
 
 describe('reducers', () => {
   it('should have the correct default structure', () => {

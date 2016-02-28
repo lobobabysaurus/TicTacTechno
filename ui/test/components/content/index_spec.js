@@ -1,9 +1,10 @@
 import chai from 'chai';
-const should = chai.should();
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 
 import Content from 'components/content';
+
+chai.should();
 
 describe('Content section', () => {
   it('should display placeholder text', () => {

@@ -1,8 +1,9 @@
 import chai from 'chai';
-const should = chai.should();
 
 import { CREATE_USER } from 'constants/user';
 import userList from 'reducers/user';
+
+chai.should();
 
 describe('userList', () => {
   it('should create empty list initially', () => {
