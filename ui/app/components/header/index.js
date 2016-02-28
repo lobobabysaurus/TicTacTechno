@@ -7,7 +7,7 @@ import { toggleRegistration } from 'actions/ui/registration';
 import LoginModal from 'components/header/modals/login';
 import RegistrationModal from 'components/header/modals/registration';
 
-class RawHeader extends React.Component {
+export class RawHeader extends React.Component {
   static propTypes = {
     showLogin: React.PropTypes.func.isRequired,
     showRegistration: React.PropTypes.func.isRequired

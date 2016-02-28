@@ -7,6 +7,7 @@ import mocker from 'superagent-mocker';
 import { endServerRegistration, startServerRegistration }
   from 'actions/ui/registration';
 import { createUser } from 'actions/user';
+import { apiRoot } from 'config';
 import { CREATE_USER } from 'constants/user';
 
 describe('User actions', () => {
@@ -22,7 +23,7 @@ describe('User actions', () => {
                        'email': 'phil@test.email'};
       const userCreateDispatch = createUser(payload);
 
-      requestMock.post('http://127.0.0.1:5000/api/users/', (req) => {
+      requestMock.post(`${apiRoot}users/`, (req) => {
         return req.body;
       });
 

@@ -1,9 +1,11 @@
 import request from 'superagent';
 
+import { apiRoot } from 'config';
+
 export function post(resource, data) {
   return new Promise((accept, reject) => {
     request
-      .post(`http://127.0.0.1:5000/api/${resource}`)
+      .post(`${apiRoot}${resource}`)
       .set('Content-Type', 'application/json')
       .accept('application/json')
       .send(data)
