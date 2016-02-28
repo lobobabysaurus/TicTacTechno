@@ -1,6 +1,7 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import sinonChaiInOrder from 'sinon-chai-in-order';
 import request from 'superagent';
 import mocker from 'superagent-mocker';
 
@@ -12,6 +13,7 @@ import { CREATE_USER } from 'constants/user';
 
 chai.should();
 chai.use(sinonChai);
+chai.use(sinonChaiInOrder);
 
 describe('User actions', () => {
   let requestMock;
@@ -34,9 +36,9 @@ describe('User actions', () => {
       const userAction = { type: CREATE_USER, userData: payload};
       userCreateDispatch(spy).then(() => {
         spy.should.have.been.calledThrice;
-        spy.should.have.been.calledWith(startServerRegistration());
-        spy.should.have.been.calledWith(endServerRegistration());
-        spy.should.have.been.calledWith(userAction);
+        spy.should.have.been.calledWith(startServerRegistration())
+                       .then.calledWith(endServerRegistration())
+                       .then.calledWith(userAction);
         done();
       });
     });

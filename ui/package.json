@@ -48,6 +48,7 @@
     "run-sequence": "^1.1.5",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
+    "sinon-chai-in-order": "0.0.1",
     "superagent-mocker": "^0.3.0"
   },
   "dependencies": {
