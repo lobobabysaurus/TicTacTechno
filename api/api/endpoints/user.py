@@ -9,7 +9,6 @@ from api.endpoints.validators import handle_validation_errors
 from api.endpoints.validators import password
 from api.endpoints.validators import username
 from api.models import bcrypt
-from api.models import db
 from api.models.user import User
 
 
@@ -49,14 +48,9 @@ class UsersView(FlaskView):
            deserialized.get("confirmEmail", None):
             errors['confirmEmail'] = "Must match email"
 
-        username_exists = User.query.filter(
-                User.username == deserialized.get('username', '')).count() > 0
-        if username_exists:
+        if User.exists_by_username(deserialized.get('username', '')):
             errors['username'] = 'Username is already registered'
-
-        email_exists = User.query.filter(
-                User.email == deserialized.get('email', '')).count() > 0
-        if email_exists:
+        if User.exists_by_email(deserialized.get('email', '')):
             errors['email'] = 'Email is already registered'
 
         if errors != {}:
@@ -67,8 +61,6 @@ class UsersView(FlaskView):
 
         del deserialized['confirmPassword']
         del deserialized['confirmEmail']
-        user = User(**deserialized)
-        db.session.add(user)
-        db.session.commit()
+        user = User.create(deserialized)
 
         return dumps(user.serialized)

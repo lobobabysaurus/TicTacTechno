@@ -6,8 +6,8 @@ from jsonschema import Draft4Validator
 
 from api.endpoints.validators import handle_validation_errors
 from api.endpoints.validators import number
-from api.models import db
 from api.models.game import Game
+from api.models.user import User
 
 
 game_validator = Draft4Validator({
@@ -35,9 +35,14 @@ class GamesView(FlaskView):
             errors = handle_validation_errors(
                         game_validator.iter_errors(deserialized))
             return dumps(errors), 400
+        else:
+            errors = {}
+            for player in ['x_player_id', 'o_player_id']:
+                if not User.exists_by_id(deserialized[player]):
+                    errors[player] = 'Player does not exist'
+            if (errors != {}):
+                return dumps(errors), 400
 
-        game = Game(**deserialized)
-        db.session.add(game)
-        db.session.commit()
+        game = Game.create(deserialized)
 
         return dumps(game.serialized)

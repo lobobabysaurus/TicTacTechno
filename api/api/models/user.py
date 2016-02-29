@@ -1,9 +1,10 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from api.models import db
+from api.models import Model
 
 
-class User(db.Model):
+class User(db.Model, Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
 
@@ -30,3 +31,15 @@ class User(db.Model):
                 'ties': self.ties,
                 'unfinished': self.unfinished,
                 'games': self.game_count}
+
+    @classmethod
+    def exists_by_id(cls, id):
+        return cls.query.filter(cls.id == id).count() > 0
+
+    @classmethod
+    def exists_by_username(cls, username):
+        return cls.query.filter(cls.username == username).count() > 0
+
+    @classmethod
+    def exists_by_email(cls, email):
+        return cls.query.filter(cls.email == email).count() > 0
