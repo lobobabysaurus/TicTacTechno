@@ -27,8 +27,10 @@ class TestUserEndpoints(TestBase):
     def test_create_user(self):
         self.assertEquals(0, User.query.count())
         payload = dumps({'username': 'create user',
+                         'password': 'test',
+                         'confirmPassword': 'test',
                          'email': 'create@email.com',
-                         'password': 'test'})
+                         'confirmEmail': 'create@email.com'})
         self.client.post('/api/users/', content_type='application/json',
                          data=payload)
         self.assertEquals(1, User.query.count())
@@ -44,16 +46,18 @@ class TestUserEndpoints(TestBase):
         self.assertEquals(400, resp.status_code)
 
         self.assertEquals(0, User.query.count())
-        self.assertEquals({'username': "'username' is a required property",
-                           'password': "'password' is a required property",
-                           'email': "'email' is a required property"},
+        self.assertEquals({'username': "username cannot be empty",
+                           'password': "password cannot be empty",
+                           'email': "email cannot be empty"},
                           resp.json)
 
     def test_create_user_fails_empty_fields(self):
         self.assertEquals(0, User.query.count())
         payload = dumps({'username': '',
                          'email': '',
-                         'password': ''})
+                         'confirmEmail': '',
+                         'password': '',
+                         'confirmPassword': ''})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assertEquals(400, resp.status_code)
@@ -70,7 +74,9 @@ class TestUserEndpoints(TestBase):
 
         payload = dumps({'username': 'create user',
                          'email': 'create',
-                         'password': 'test'})
+                         'confirmEmail': 'create',
+                         'password': 'test',
+                         'confirmPassword': 'test'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assertEquals(400, resp.status_code)

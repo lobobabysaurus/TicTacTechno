@@ -17,7 +17,9 @@ user_validator = Draft4Validator({
     "properties": {
         "username": nonempty_string,
         "password": nonempty_string,
-        "email":    email
+        "confirmPassword": {"type": "string"},
+        "email":    email,
+        "confirmEmail": {"type": "string"}
     },
     "required": ["username", "password", "email"]
 })
@@ -34,16 +36,27 @@ class UsersView(FlaskView):
     def post(self):
         deserialized = request.get_json()
 
+        errors = {}
         if not user_validator.is_valid(deserialized):
-            errors = handle_validation_errors(
-                        user_validator.iter_errors(deserialized))
+            errors.update(handle_validation_errors(
+                        user_validator.iter_errors(deserialized)))
+        if deserialized.get('password', None) != \
+           deserialized.get("confirmPassword", None):
+            errors['confirmPassword'] = "Must match password"
+        if deserialized.get('email', None) != \
+           deserialized.get("confirmEmail", None):
+            errors['confirmEmail'] = "Must match email"
+
+        if errors != {}:
             return dumps(errors), 400
-        else:
-            deserialized['password'] = bcrypt.generate_password_hash(
-                deserialized['password'])
 
-            user = User(**deserialized)
-            db.session.add(user)
-            db.session.commit()
+        deserialized['password'] = bcrypt.generate_password_hash(
+            deserialized['password'])
 
-            return dumps(user.serialized)
+        del deserialized['confirmPassword']
+        del deserialized['confirmEmail']
+        user = User(**deserialized)
+        db.session.add(user)
+        db.session.commit()
+
+        return dumps(user.serialized)

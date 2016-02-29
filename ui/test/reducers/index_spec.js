@@ -14,11 +14,11 @@ describe('reducers', () => {
           showLogin: false
         },
         registration: {
+          createdUser: [],
           registrationErrors: {},
           serverRegistration: false,
-          showRegistration: false },
-      },
-      users: []
+          showRegistration: false }
+      }
     });
   });
 });

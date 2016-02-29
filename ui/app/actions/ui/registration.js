@@ -1,6 +1,9 @@
-import { CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
-         START_SERVER_REGISTRATION, TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
+import { CREATE_USER, CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
+         SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
+         TOGGLE_REGISTRATION}
   from 'constants/ui/registration';
+
+import { post } from 'http-helper';
 
 export function clearRegistrationErrors() {
   return {
@@ -11,6 +14,13 @@ export function clearRegistrationErrors() {
 export function endServerRegistration() {
   return {
     type: END_SERVER_REGISTRATION
+  };
+}
+
+export function setRegistrationErrors(errors) {
+  return {
+    type:  SET_REGISTRATION_ERRORS,
+    errors
   };
 }
 
@@ -26,9 +36,27 @@ export function toggleRegistration() {
   };
 }
 
-export function validateRegistration(registrationData) {
-  return {
-    type: VALIDATE_REGISTRATION,
-    registrationData
+export function createUser(userData) {
+  return (dispatch) => {
+    return new Promise((accept, reject) => {
+      const relevantData = {username: userData.username,
+                            password: userData.password,
+                            confirmPassword: userData.confirmPassword,
+                            email: userData.email,
+                            confirmEmail: userData.confirmEmail};
+      dispatch(startServerRegistration());
+      post('users/', relevantData)
+        .then((response) => {
+          dispatch(endServerRegistration());
+          dispatch({type: CREATE_USER, userData: response});
+          dispatch(toggleRegistration());
+          accept();
+        })
+        .catch((errors) => {
+          dispatch(endServerRegistration());
+          dispatch(setRegistrationErrors(JSON.parse(errors.response.text)));
+          accept(errors);
+        });
+    });
   };
 }

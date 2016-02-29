@@ -1,11 +1,10 @@
-import _ from 'lodash';
 import React from 'react';
 import { Button, Input, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Spinner from 'react-spin';
 
-import { createUser } from 'actions/user';
-import { clearRegistrationErrors, toggleRegistration, validateRegistration }
+import { clearRegistrationErrors, createUser,
+         toggleRegistration, validateRegistration }
   from 'actions/ui/registration';
 
 class RegistrationModal extends React.Component {
@@ -16,7 +15,6 @@ class RegistrationModal extends React.Component {
     errors: React.PropTypes.object.isRequired,
     show: React.PropTypes.bool.isRequired,
     started: React.PropTypes.bool.isRequired,
-    validate: React.PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -27,8 +25,7 @@ class RegistrationModal extends React.Component {
       create: props.create,
       errors: props.errors,
       show: props.show,
-      started: props.started,
-      validate: props.validate
+      started: props.started
     };
   }
 
@@ -53,13 +50,7 @@ class RegistrationModal extends React.Component {
       email: this.refs.email.getValue(),
       confirmEmail: this.refs.confirm_email.getValue()
     };
-    this.state.validate(registrationData);
-    _.defer(() => {
-      if (_.isEmpty(this.state.errors)) {
-        this.state.create(registrationData);
-        this.state.close();
-      }
-    });
+    this.state.create(registrationData);
   }
 
   error = (msg) => {
@@ -129,9 +120,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     close: () => {
       dispatch(toggleRegistration());
-    },
-    validate: (userData) => {
-      dispatch(validateRegistration(userData));
     }
   };
 };
