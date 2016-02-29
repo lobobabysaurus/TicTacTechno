@@ -48,9 +48,9 @@ class TestUserEndpoints(TestBase):
         self.assertEquals(400, resp.status_code)
 
         self.assertEquals(0, User.query.count())
-        self.assertEquals({'username': "username cannot be empty",
-                           'password': "password cannot be empty",
-                           'email': "email cannot be empty"},
+        self.assertEquals({'username': "Username cannot be empty",
+                           'password': "Password cannot be empty",
+                           'email': "Email cannot be empty"},
                           resp.json)
 
     def test_create_user_fails_empty_fields(self):
@@ -66,10 +66,63 @@ class TestUserEndpoints(TestBase):
 
         self.assertEquals(0, User.query.count())
         print(resp.json)
-        self.assertEquals({'username': "username cannot be empty",
-                           'password': "password cannot be empty",
-                           'email': "email cannot be empty"},
+        self.assertEquals({'username': "Username cannot be empty",
+                           'password': "Password cannot be empty",
+                           'email': "Email cannot be empty"},
                           resp.json)
+
+    def test_create_user_fails_too_short_username(self):
+        self.assertEquals(0, User.query.count())
+
+        payload = dumps({'username': 'short',
+                         'email': 'test@test.com',
+                         'confirmEmail': 'test@test.com',
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data=payload)
+        self.assertEquals(400, resp.status_code)
+
+        self.assertEquals(0, User.query.count())
+        self.assertEquals(
+            {'username': 'Username should have a length of at least 8'},
+            resp.json)
+
+    def test_create_user_fails_existing_username(self):
+        self.assertEquals(0, User.query.count())
+
+        self.new_user(username='create user')
+        self.assertEquals(1, User.query.count())
+
+        payload = dumps({'username': 'create user',
+                         'email': 'duplicate@test.com',
+                         'confirmEmail': 'duplicate@test.com',
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data=payload)
+        self.assertEquals(400, resp.status_code)
+
+        self.assertEquals(1, User.query.count())
+        self.assertEquals({'username': 'Username is already registered'},
+                          resp.json)
+
+    def test_create_user_fails_too_short_password(self):
+        self.assertEquals(0, User.query.count())
+
+        payload = dumps({'username': 'regularuser',
+                         'email': 'test@test.com',
+                         'confirmEmail': 'test@test.com',
+                         'password': 'testtest',
+                         'confirmPassword': 'testtest'})
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data=payload)
+        self.assertEquals(400, resp.status_code)
+
+        self.assertEquals(0, User.query.count())
+        self.assertEquals(
+            {'password': 'Password should have a length of at least 10'},
+            resp.json)
 
     def test_create_user_fails_invalid_email(self):
         self.assertEquals(0, User.query.count())
@@ -85,3 +138,21 @@ class TestUserEndpoints(TestBase):
 
         self.assertEquals(0, User.query.count())
         self.assertEquals({'email': 'create is not a valid email'}, resp.json)
+
+    def test_create_user_fails_existing_email(self):
+        self.assertEquals(0, User.query.count())
+
+        self.new_user(email='duplicate@test.com')
+        self.assertEquals(1, User.query.count())
+
+        payload = dumps({'username': 'create user2',
+                         'email': 'duplicate@test.com',
+                         'confirmEmail': 'duplicate@test.com',
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data=payload)
+        self.assertEquals(400, resp.status_code)
+
+        self.assertEquals(1, User.query.count())
+        self.assertEquals({'email': 'Email is already registered'}, resp.json)

@@ -54,6 +54,6 @@ class TestGameEndpoints(TestBase):
                                 data='{}')
         self.assertEquals(400, resp.status_code)
         self.assertEquals({
-            'o_player_id': "o_player_id cannot be empty",
-            'x_player_id': "x_player_id cannot be empty"},
+            'o_player_id': "O_player_id cannot be empty",
+            'x_player_id': "X_player_id cannot be empty"},
             resp.json)

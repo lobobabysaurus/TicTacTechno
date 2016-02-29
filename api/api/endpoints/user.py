@@ -35,18 +35,29 @@ class UsersView(FlaskView):
         return dumps(User.query.get_or_404(user_id).serialized)
 
     def post(self):
-        deserialized = request.get_json()
+        deserialized = request.get_json().copy()
 
         errors = {}
         if not user_validator.is_valid(deserialized):
             errors.update(handle_validation_errors(
                         user_validator.iter_errors(deserialized)))
+
         if deserialized.get('password', None) != \
            deserialized.get("confirmPassword", None):
             errors['confirmPassword'] = "Must match password"
         if deserialized.get('email', None) != \
            deserialized.get("confirmEmail", None):
             errors['confirmEmail'] = "Must match email"
+
+        username_exists = User.query.filter(
+                User.username == deserialized.get('username', '')).count() > 0
+        if username_exists:
+            errors['username'] = 'Username is already registered'
+
+        email_exists = User.query.filter(
+                User.email == deserialized.get('email', '')).count() > 0
+        if email_exists:
+            errors['email'] = 'Email is already registered'
 
         if errors != {}:
             return dumps(errors), 400

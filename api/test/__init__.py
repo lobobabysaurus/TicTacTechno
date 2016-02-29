@@ -29,9 +29,9 @@ class TestBase(TestCase):
 
     def new_user(self, **kwargs):
         default = {
-            'username': 'test',
-            'password': 'test',
-            'email': 'test'
+            'username': 'testinga',
+            'password': 'testtestte',
+            'email': 'test@test.com'
         }
         default.update(kwargs)
 
