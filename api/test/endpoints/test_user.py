@@ -8,6 +8,12 @@ class TestUserEndpoints(TestBase):
 
     def setUp(self):
         super().setUp()
+        self.base_payload = {
+            'username': 'create user',
+            'password': 'testtestte',
+            'confirmPassword': 'testtestte',
+            'email': 'create@email.com',
+            'confirmEmail': 'create@email.com'}
 
     def test_list_users(self):
         self.new_user(username='O player', email='o@email.com')
@@ -26,11 +32,7 @@ class TestUserEndpoints(TestBase):
 
     def test_create_user(self):
         self.assertEquals(0, User.query.count())
-        payload = dumps({'username': 'create user',
-                         'password': 'test',
-                         'confirmPassword': 'test',
-                         'email': 'create@email.com',
-                         'confirmEmail': 'create@email.com'})
+        payload = dumps(self.base_payload)
         self.client.post('/api/users/', content_type='application/json',
                          data=payload)
         self.assertEquals(1, User.query.count())
@@ -75,8 +77,8 @@ class TestUserEndpoints(TestBase):
         payload = dumps({'username': 'create user',
                          'email': 'create',
                          'confirmEmail': 'create',
-                         'password': 'test',
-                         'confirmPassword': 'test'})
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assertEquals(400, resp.status_code)
