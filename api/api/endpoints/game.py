@@ -30,6 +30,7 @@ class GamesView(FlaskView):
 
     def post(self):
         deserialized = request.get_json()
+
         if not game_validator.is_valid(deserialized):
             errors = handle_validation_errors(
                         game_validator.iter_errors(deserialized))

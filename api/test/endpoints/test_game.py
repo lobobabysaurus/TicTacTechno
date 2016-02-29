@@ -47,3 +47,13 @@ class TestGameEndpoints(TestBase):
         game = Game.query.first()
         self.assertEquals(x_player, game.x_player)
         self.assertEquals(o_player, game.o_player)
+
+    def test_create_game_fails_missing_fields(self):
+        self.assertEquals(0, Game.query.count())
+        resp = self.client.post('/api/games/', content_type='application/json',
+                                data='{}')
+        self.assertEquals(400, resp.status_code)
+        self.assertEquals({
+            'o_player_id': "'o_player_id' is a required property",
+            'x_player_id': "'x_player_id' is a required property"},
+            resp.json)

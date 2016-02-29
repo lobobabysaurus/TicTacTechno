@@ -4,7 +4,7 @@ nonempty_string = {"type": "string", "minLength": 1}
 number = {"type": "number"}
 
 email = nonempty_string.copy()
-email.update({'pattern': "[^@]+@[^@]+\.[^@]+"})
+email['pattern'] = "[^@]+@[^@]+\.[^@]+"
 
 
 def handle_validation_errors(error_iter):
@@ -12,13 +12,14 @@ def handle_validation_errors(error_iter):
     for error in error_iter:
         if error.validator == 'required':
             field_name = findall(r"'(\w+)'", error.message)[0]
-            errors.update({field_name: error.message})
+            errors[field_name] = error.message
         else:
             field = error.path.pop()
-            if field == 'email' and error.validator == 'pattern':
-                errors.update({field: '{} is not a valid email'.format(
-                    error.instance)})
+            if field == 'email'\
+               and error.validator == 'pattern'\
+               and error.instance != '':
+                errors[field] = '{} is not a valid email'.format(
+                                                                error.instance)
             elif error.validator == 'minLength':
-                errors.update(
-                    {field: 'must have a value for {}'.format(field)})
+                errors[field] = '{} cannot be empty'.format(field)
     return errors

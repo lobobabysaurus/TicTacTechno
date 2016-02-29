@@ -2,15 +2,16 @@ from enum import Enum
 
 
 class BoardPositions(Enum):
-    TOP_LEFT = 'top_left'
-    TOP = 'TOP'
-    TOP_RIGHT = 'top_right'
-    MIDDLE_LEFT = 'middle_left'
-    MIDDLE = 'middle'
-    MIDDLE_RIGHT = 'middle_right'
-    BOTTOM_LEFT = 'bottom_left'
-    BOTTOM = 'bottom'
-    BOTTOM_RIGHT = 'bottom_right'
+    TOP_LEFT = 'Top left'
+    TOP = 'Top'
+    TOP_RIGHT = 'Top right'
+    MIDDLE_LEFT = 'Middle left'
+    MIDDLE = 'Middle'
+    MIDDLE_RIGHT = 'Middle right'
+    BOTTOM_LEFT = 'Bottom left'
+    BOTTOM = 'Bottom'
+    BOTTOM_RIGHT = 'Bottom right'
+
 
 class BoardRows(Enum):
     _bp = BoardPositions

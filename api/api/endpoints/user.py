@@ -33,6 +33,7 @@ class UsersView(FlaskView):
 
     def post(self):
         deserialized = request.get_json()
+
         if not user_validator.is_valid(deserialized):
             errors = handle_validation_errors(
                         user_validator.iter_errors(deserialized))
