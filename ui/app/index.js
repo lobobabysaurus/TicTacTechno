@@ -8,8 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import Home from 'components/home';
 import reducer from 'reducers';
 
-const store = createStore(reducer,
-                          applyMiddleware(thunkMiddleware));
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
 $(() => {
   ReactDOM.render(

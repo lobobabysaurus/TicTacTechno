@@ -69,7 +69,7 @@ describe('Registration Actions', () => {
   });
 
   describe('createUser', () => {
-    it('should call all relevant methods and send data throug', (done) => {
+    it('should call all relevant methods and send data through', (done) => {
       const payload = {'username': 'Phil',
                        'password': 'test',
                        'confirmPassword': 'test',

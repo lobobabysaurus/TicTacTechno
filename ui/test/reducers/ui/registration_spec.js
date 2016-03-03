@@ -11,6 +11,64 @@ import { createdUser, registrationErrors, serverRegistration, showRegistration }
 chai.should();
 
 describe('Registration Reducers', () => {
+  describe('createdUser', () => {
+    it('should create empty list initially', () => {
+      createdUser(undefined, {}).should.deep.equal([]);
+    });
+
+    it('should create an array of one user on initial create', () => {
+      const userData = {name: 'Phil', email: 'test@email.com'};
+      const action = {type: CREATE_USER, userData: userData};
+      createdUser(undefined, action).should.deep.equal([userData]);
+    });
+
+    it('should append more users on create without mutating', () => {
+      const firstUserData = {name: 'Phil', email: 'test@email.com'};
+      const secondUserData = {name: 'Emily', email: 'emily@email.com'};
+      const action = {type: CREATE_USER, userData: secondUserData};
+
+      createdUser([firstUserData], action).should.deep.equal(
+        [firstUserData, secondUserData]);
+
+      firstUserData.should.deep.equal({name: 'Phil', email: 'test@email.com'});
+    });
+  });
+
+  describe('registrationErrors', () => {
+
+    describe('clear errors', () => {
+      let clearAction;
+      before(() => {
+        clearAction = {type: CLEAR_REGISTRATION_ERRORS};
+      });
+
+      it('should be an empty object initially', () => {
+        registrationErrors(undefined, clearAction).should.be.empty;
+      });
+
+      it('should clear out existing errors', () => {
+        const errors = {
+          name: 'too short',
+          password: 'too long',
+          email: 'too lame'
+        };
+        registrationErrors(errors, clearAction).should.be.empty;
+      });
+
+      it('should set registration errors', () => {
+        const errors = {
+          name: 'too short',
+          password: 'too long',
+          email: 'too lame'
+        };
+        const setErrorAction = {
+          type: SET_REGISTRATION_ERRORS,
+          errors: errors
+        };
+        registrationErrors({}, setErrorAction).should.deep.equal(errors);
+      });
+    });
+  });
 
   describe('serverRegistration', () => {
     let startAction;
@@ -65,65 +123,6 @@ describe('Registration Reducers', () => {
 
     it('should toggle false when shown', () => {
       showRegistration(true, toggleAction).should.be.false;
-    });
-  });
-
-  describe('registrationErrors', () => {
-
-    describe('clear errors', () => {
-      let clearAction;
-      before(() => {
-        clearAction = {type: CLEAR_REGISTRATION_ERRORS};
-      });
-
-      it('should be an empty object initially', () => {
-        registrationErrors(undefined, clearAction).should.be.empty;
-      });
-
-      it('should clear out existing errors', () => {
-        const errors = {
-          name: 'too short',
-          password: 'too long',
-          email: 'too lame'
-        };
-        registrationErrors(errors, clearAction).should.be.empty;
-      });
-
-      it('should set registration errors', () => {
-        const errors = {
-          name: 'too short',
-          password: 'too long',
-          email: 'too lame'
-        };
-        const setErrorAction = {
-          type: SET_REGISTRATION_ERRORS,
-          errors: errors
-        };
-        registrationErrors({}, setErrorAction).should.deep.equal(errors);
-      });
-    });
-  });
-
-  describe('createdUser', () => {
-    it('should create empty list initially', () => {
-      createdUser(undefined, {}).should.deep.equal([]);
-    });
-
-    it('should create an array of one user on initial create', () => {
-      const userData = {name: 'Phil', email: 'test@email.com'};
-      const action = {type: CREATE_USER, userData: userData};
-      createdUser(undefined, action).should.deep.equal([userData]);
-    });
-
-    it('should append more users on create without mutating', () => {
-      const firstUserData = {name: 'Phil', email: 'test@email.com'};
-      const secondUserData = {name: 'Emily', email: 'emily@email.com'};
-      const action = {type: CREATE_USER, userData: secondUserData};
-
-      createdUser([firstUserData], action).should.deep.equal(
-        [firstUserData, secondUserData]);
-
-      firstUserData.should.deep.equal({name: 'Phil', email: 'test@email.com'});
     });
   });
 });
