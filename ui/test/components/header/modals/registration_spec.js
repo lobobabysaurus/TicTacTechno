@@ -15,14 +15,24 @@ describe('Registration Modal', () => {
     create = sinon.spy();
     modal = TestUtils.renderIntoDocument(
       <RawRegistrationModal clear={clear} close={close} create={create}
-                            errors={{}} show={true} started={false} />
+                            errors={{}} show={true} registering={false} />
     );
   });
 
-  it('placeholder to try something', () => {
-    clear  = '';
-    close  = '';
-    create = '';
-    modal  = '';
+  it('should attempt to create on register click', () => {
+    const registrationButton =  TestUtils.findRenderedDOMComponentWithTag(
+      modal.refs.register, 'button');
+
+    TestUtils.Simulate.click(registrationButton);
+    create.should.have.been.calledOnce;
+  });
+
+  it('should clear errors and close to create on close click', () => {
+    const closeButton =  TestUtils.findRenderedDOMComponentWithTag(
+      modal.refs.close, 'button');
+
+    TestUtils.Simulate.click(closeButton);
+    clear.should.have.been.calledOnce;
+    close.should.have.been.calledOnce;
   });
 });

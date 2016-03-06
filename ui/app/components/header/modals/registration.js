@@ -14,7 +14,7 @@ export class RawRegistrationModal extends React.Component {
     create: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object.isRequired,
     show: React.PropTypes.bool.isRequired,
-    started: React.PropTypes.bool.isRequired,
+    registering: React.PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -25,7 +25,7 @@ export class RawRegistrationModal extends React.Component {
       create: props.create,
       errors: props.errors,
       show: props.show,
-      started: props.started,
+      registering: props.registering,
     };
   }
 
@@ -33,7 +33,7 @@ export class RawRegistrationModal extends React.Component {
     this.setState({
       errors: props.errors,
       show: props.show,
-      started: props.started,
+      registering: props.registering,
     });
   }
 
@@ -93,9 +93,9 @@ export class RawRegistrationModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Spinner config={{lines: 17, length: 0, speed: 2}}
-            stopped={!this.state.started}/>
-          <Button onClick={this.registerUser}>Register</Button>
-          <Button onClick={this.close}>Close</Button>
+            stopped={!this.state.registering}/>
+          <Button ref='register' onClick={this.registerUser}>Register</Button>
+          <Button ref='close' onClick={this.close}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -106,7 +106,7 @@ const mapStateToProps = (state) => {
   return {
     errors: state.ui.registration.registrationErrors,
     show: state.ui.registration.showRegistration,
-    started: state.ui.registration.serverRegistration,
+    registering: state.ui.registration.serverRegistration,
   };
 };
 
