@@ -3,6 +3,7 @@ import { Button, Input, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { toggleLogin, validateLogin } from 'actions/ui/login';
+import Error from 'components/error';
 
 class LoginModal extends React.Component {
   static propTypes = {
@@ -42,10 +43,6 @@ class LoginModal extends React.Component {
     });
   }
 
-  error = (msg) => {
-    return <small className='error-message'>{msg}</small>;
-  }
-
   render() {
     return (
       <Modal show={this.state.show}
@@ -55,7 +52,7 @@ class LoginModal extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <form>
-            {this.error(this.state.errors.general)}
+            <Error>{this.state.errors.general}</Error>
             <Input type='text'
                    ref='username'
                    label='Username'

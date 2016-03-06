@@ -5,6 +5,7 @@ import Spinner from 'react-spin';
 
 import { clearRegistrationErrors, createUser, toggleRegistration }
   from 'actions/ui/registration';
+import Error from 'components/error';
 
 export class RawRegistrationModal extends React.Component {
   static propTypes = {
@@ -52,10 +53,6 @@ export class RawRegistrationModal extends React.Component {
     this.state.create(registrationData);
   }
 
-  error = (msg) => {
-    return <small className='error-message'>{msg}</small>;
-  }
-
   render() {
     return (
       <Modal show={this.state.show}
@@ -64,27 +61,27 @@ export class RawRegistrationModal extends React.Component {
           <Modal.Title>Register with TicTacTechno</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {this.error(this.state.errors.username)}
+          <Error>{this.state.errors.username}</Error>
           <Input type='text'
                  ref='username'
                  label='Username'
                  placeholder='Enter Username' />
-          {this.error(this.state.errors.password)}
+          <Error>{this.state.errors.password}</Error>
           <Input type='password'
                  ref='password'
                  label='Password'
                  placeholder='Enter Password'/>
-          {this.error(this.state.errors.confirmPassword)}
+          <Error>{this.state.errors.confirmPassword}</Error>
           <Input type='password'
                  ref='confirm_password'
                  label='Confirm Password'
                  placeholder='Confirm Password'/>
-          {this.error(this.state.errors.email)}
+          <Error>{this.state.errors.email}</Error>
           <Input type='email'
                  ref='email'
                  label='Email Address'
                  placeholder='Enter Email Address' />
-          {this.error(this.state.errors.confirmEmail)}
+          <Error>{this.state.errors.confirmEmail}</Error>
           <Input type='email'
                  ref='confirm_email'
                  label='Confirm Email'

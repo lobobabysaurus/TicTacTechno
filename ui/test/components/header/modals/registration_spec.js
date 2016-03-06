@@ -3,6 +3,7 @@ import TestUtils from 'react-addons-test-utils';
 import { Modal } from 'react-bootstrap';
 import sinon from 'sinon';
 
+import Error from 'components/error';
 import { RawRegistrationModal } from 'components/header/modals/registration';
 
 describe('Registration Modal', () => {
@@ -55,11 +56,10 @@ describe('Registration Modal', () => {
   it('should not display any errors initially', () => {
     const realModal = TestUtils.findRenderedComponentWithType(
       modal, Modal)._modal;
-    const errorText = TestUtils.scryRenderedDOMComponentsWithClass(
-      realModal, 'error-message');
+    const errors = TestUtils.scryRenderedComponentsWithType(realModal, Error);
 
-    errorText.forEach((errorText) => {
-      errorText.textContent.should.be.empty;
+    errors.forEach((error) => {
+      error.state.text.should.be.empty;
     });
   });
 
@@ -74,15 +74,14 @@ describe('Registration Modal', () => {
       },
     });
 
-    const realModal = TestUtils.findRenderedComponentWithType(
-      modal, Modal)._modal;
-    const errorText = TestUtils.scryRenderedDOMComponentsWithClass(
-      realModal, 'error-message');
+    const realModal = TestUtils.findRenderedComponentWithType(modal, Modal)
+      ._modal;
+    const errors = TestUtils.scryRenderedComponentsWithType(realModal, Error);
 
-    errorText[0].textContent.should.equal('username error');
-    errorText[1].textContent.should.equal('password error');
-    errorText[2].textContent.should.equal('password confirmation error');
-    errorText[3].textContent.should.equal('email error');
-    errorText[4].textContent.should.equal('email confirmation error');
+    errors[0].state.text.should.equal('username error');
+    errors[1].state.text.should.equal('password error');
+    errors[2].state.text.should.equal('password confirmation error');
+    errors[3].state.text.should.equal('email error');
+    errors[4].state.text.should.equal('email confirmation error');
   });
 });
