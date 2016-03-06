@@ -55,7 +55,7 @@ export function createUser(userData) {
         .catch((errors) => {
           dispatch(endServerRegistration());
           dispatch(setRegistrationErrors(JSON.parse(errors.response.text)));
-          accept(errors);
+          reject(errors);
         });
     });
   };

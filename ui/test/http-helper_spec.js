@@ -3,6 +3,7 @@ import mocker from 'superagent-mocker';
 
 import { apiRoot } from 'config';
 import { post } from 'http-helper';
+import { APIError } from 'test_utils';
 
 describe('HTTP Helper', () => {
   let requestMock;
@@ -21,6 +22,22 @@ describe('HTTP Helper', () => {
 
     post(resource, payload).then((response) => {
       response.should.deep.equal(payload);
+      done();
+    });
+  });
+
+  it('should pass error data through on failed call', (done) => {
+    const payload = {'some': 'test', 'payload': 'irrelevant'};
+
+    const resource = 'test/';
+
+    const postErrors = {some: "issue here", another: "issue here"};
+    requestMock.post(`${apiRoot}${resource}`, () => {
+      throw new APIError(postErrors);
+    });
+
+    post(resource, payload).catch((errors) => {
+      errors.should.deep.equal({response: { text: JSON.stringify(postErrors)}});
       done();
     });
   });

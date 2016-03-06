@@ -11,6 +11,7 @@ import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
          SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
          TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
   from 'constants/ui/registration';
+import { APIError } from 'test_utils';
 
 describe('Registration Actions', () => {
   let requestMock;
@@ -61,12 +62,12 @@ describe('Registration Actions', () => {
   });
 
   describe('createUser', () => {
-    it('should call all relevant methods and send data through', (done) => {
-      const payload = {'username': 'Phil',
-                       'password': 'test',
-                       'confirmPassword': 'test',
-                       'email': 'phil@test.email',
-                       'confirmEmail': 'phil@test.email'};
+    it('should call all relevant methods and send data through when valid', (done) => {
+      const payload = {username: 'Phil',
+                       password: 'test',
+                       confirmPassword: 'test',
+                       email: 'phil@test.email',
+                       confirmEmail: 'phil@test.email'};
       const userCreateDispatch = createUser(payload);
 
       requestMock.post(`${apiRoot}users/`, (req) => {
@@ -81,6 +82,30 @@ describe('Registration Actions', () => {
                        .then.calledWith(endServerRegistration())
                        .then.calledWith(userAction)
                        .then.calledWith(toggleRegistration());
+        done();
+      });
+    });
+
+    it('should call all relevant methods and send errors through when invalid', (done) => {
+      const payload = {username: 'Phil',
+                       password: 'test',
+                       confirmPassword: 'test',
+                       email: 'phil@test.email',
+                       confirmEmail: 'phil@test.email'};
+      const userCreateDispatch = createUser(payload);
+
+      const errors = {username: "issue here", password: "another issue"};
+      requestMock.post(`${apiRoot}users/`, (req) => {
+        throw new APIError(errors);
+      });
+
+      const spy = sinon.spy();
+      const userAction = { type: CREATE_USER, userData: payload};
+      userCreateDispatch(spy).catch(() => {
+        spy.should.have.callCount(3);
+        spy.should.have.been.calledWith(startServerRegistration())
+                       .then.calledWith(endServerRegistration())
+                       .then.calledWith(setRegistrationErrors(errors));
         done();
       });
     });
