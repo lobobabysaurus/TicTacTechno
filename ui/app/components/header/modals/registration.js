@@ -3,8 +3,7 @@ import { Button, Input, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Spinner from 'react-spin';
 
-import { clearRegistrationErrors, createUser,
-         toggleRegistration }
+import { clearRegistrationErrors, createUser, toggleRegistration }
   from 'actions/ui/registration';
 
 export class RawRegistrationModal extends React.Component {
@@ -105,8 +104,8 @@ export class RawRegistrationModal extends React.Component {
 const mapStateToProps = (state) => {
   return {
     errors: state.ui.registration.registrationErrors,
-    show: state.ui.registration.showRegistration,
     registering: state.ui.registration.serverRegistration,
+    show: state.ui.registration.showRegistration,
   };
 };
 
