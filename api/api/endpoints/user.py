@@ -7,6 +7,7 @@ from jsonschema import Draft4Validator
 from api.endpoints.validators import email
 from api.endpoints.validators import handle_validation_errors
 from api.endpoints.validators import password
+from api.endpoints.validators import string
 from api.endpoints.validators import username
 from api.models import bcrypt
 from api.models.user import User
@@ -17,9 +18,9 @@ user_validator = Draft4Validator({
     "properties": {
         "username": username,
         "password": password,
-        "confirmPassword": {"type": "string"},
+        "confirmPassword": string,
         "email":    email,
-        "confirmEmail": {"type": "string"}
+        "confirmEmail": string
     },
     "required": ["username", "password", "email"]
 })

@@ -2,8 +2,9 @@ from re import findall
 
 nonempty_string = {"type": "string", "minLength": 1}
 number = {"type": "number"}
-username = {"type": "string", "minLength": 8}
 password = {"type": "string", "minLength": 10}
+string = {"type": "string"}
+username = {"type": "string", "minLength": 8}
 
 email = nonempty_string.copy()
 email['pattern'] = "[^@]+@[^@]+\.[^@]+"

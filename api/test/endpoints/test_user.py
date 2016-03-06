@@ -33,8 +33,9 @@ class TestUserEndpoints(TestBase):
     def test_create_user(self):
         self.assertEquals(0, User.query.count())
         payload = dumps(self.base_payload)
-        self.client.post('/api/users/', content_type='application/json',
-                         data=payload)
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data=payload)
+        self.assert200(resp)
         self.assertEquals(1, User.query.count())
 
         user = User.query.first()
@@ -45,7 +46,7 @@ class TestUserEndpoints(TestBase):
 
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data='{}')
-        self.assertEquals(400, resp.status_code)
+        self.assert400(resp)
 
         self.assertEquals(0, User.query.count())
         self.assertEquals({'username': "Username cannot be empty",
@@ -62,7 +63,7 @@ class TestUserEndpoints(TestBase):
                          'confirmPassword': ''})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
-        self.assertEquals(400, resp.status_code)
+        self.assert400(resp)
 
         self.assertEquals(0, User.query.count())
         print(resp.json)
@@ -81,7 +82,7 @@ class TestUserEndpoints(TestBase):
                          'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
-        self.assertEquals(400, resp.status_code)
+        self.assert400(resp)
 
         self.assertEquals(0, User.query.count())
         self.assertEquals(
@@ -101,7 +102,7 @@ class TestUserEndpoints(TestBase):
                          'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
-        self.assertEquals(400, resp.status_code)
+        self.assert400(resp)
 
         self.assertEquals(1, User.query.count())
         self.assertEquals({'username': 'Username is already registered'},
@@ -117,7 +118,7 @@ class TestUserEndpoints(TestBase):
                          'confirmPassword': 'testtest'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
-        self.assertEquals(400, resp.status_code)
+        self.assert400(resp)
 
         self.assertEquals(0, User.query.count())
         self.assertEquals(
@@ -134,7 +135,7 @@ class TestUserEndpoints(TestBase):
                          'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
-        self.assertEquals(400, resp.status_code)
+        self.assert400(resp)
 
         self.assertEquals(0, User.query.count())
         self.assertEquals({'email': 'create is not a valid email'}, resp.json)
@@ -152,7 +153,7 @@ class TestUserEndpoints(TestBase):
                          'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
-        self.assertEquals(400, resp.status_code)
+        self.assert400(resp)
 
         self.assertEquals(1, User.query.count())
         self.assertEquals({'email': 'Email is already registered'}, resp.json)
