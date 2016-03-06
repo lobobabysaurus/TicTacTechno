@@ -7,7 +7,7 @@ import { clearRegistrationErrors, createUser,
          toggleRegistration, validateRegistration }
   from 'actions/ui/registration';
 
-class RegistrationModal extends React.Component {
+export class RawRegistrationModal extends React.Component {
   static propTypes = {
     close: React.PropTypes.func.isRequired,
     clear: React.PropTypes.func.isRequired,
@@ -127,4 +127,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RegistrationModal);
+)(RawRegistrationModal);

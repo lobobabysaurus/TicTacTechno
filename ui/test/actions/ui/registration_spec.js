@@ -1,10 +1,6 @@
-import chai from 'chai';
 import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import sinonChaiInOrder from 'sinon-chai-in-order';
 import request from 'superagent';
 import mocker from 'superagent-mocker';
-
 
 import { createUser, clearRegistrationErrors, endServerRegistration,
          setRegistrationErrors, startServerRegistration, toggleRegistration,
@@ -15,10 +11,6 @@ import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
          SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
          TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
   from 'constants/ui/registration';
-
-chai.should();
-chai.use(sinonChai);
-chai.use(sinonChaiInOrder);
 
 describe('Registration Actions', () => {
   let requestMock;

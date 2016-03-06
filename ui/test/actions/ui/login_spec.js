@@ -1,9 +1,5 @@
-import chai from 'chai';
-
 import { toggleLogin, validateLogin } from'actions/ui/login';
 import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/ui/login';
-
-chai.should();
 
 describe('Login actions', () => {
 

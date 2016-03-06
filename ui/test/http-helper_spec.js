@@ -1,4 +1,3 @@
-import chai from 'chai';
 import request from 'superagent';
 import mocker from 'superagent-mocker';
 

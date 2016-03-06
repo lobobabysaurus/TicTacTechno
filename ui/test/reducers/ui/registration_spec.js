@@ -1,4 +1,3 @@
-import chai from 'chai';
 import React from 'react';
 
 import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
@@ -7,8 +6,6 @@ import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
   from 'constants/ui/registration';
 import { createdUser, registrationErrors, serverRegistration, showRegistration }
   from 'reducers/ui/registration';
-
-chai.should();
 
 describe('Registration Reducers', () => {
   describe('createdUser', () => {

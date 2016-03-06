@@ -1,9 +1,5 @@
-import chai from 'chai';
-
 import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/ui/login';
 import { showLogin, loginErrors } from 'reducers/ui/login';
-
-chai.should();
 
 describe('Login Reducers', () => {
 
