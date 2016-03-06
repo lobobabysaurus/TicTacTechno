@@ -8,14 +8,15 @@ describe('reducers', () => {
       ui: {
         login: {
           loginErrors: {},
-          showLogin: false
+          showLogin: false,
         },
         registration: {
           createdUser: [],
           registrationErrors: {},
           serverRegistration: false,
-          showRegistration: false }
-      }
+          showRegistration: false,
+        },
+      },
     });
   });
 });

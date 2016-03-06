@@ -15,7 +15,7 @@ describe('Login Reducers', () => {
         it('should require a username and password', () => {
           validateAction.loginData = {
             username: null,
-            password: null
+            password: null,
           };
 
           let errors = loginErrors({}, validateAction);
@@ -24,7 +24,7 @@ describe('Login Reducers', () => {
 
           validateAction.loginData = {
             username: 'name',
-            password: null
+            password: null,
           };
 
           errors = loginErrors({}, validateAction);
@@ -33,7 +33,7 @@ describe('Login Reducers', () => {
 
           validateAction.loginData = {
             username: null,
-            password: 'pass'
+            password: 'pass',
           };
 
           errors = loginErrors({}, validateAction);
@@ -44,7 +44,7 @@ describe('Login Reducers', () => {
         it('should validate properly when both provided', () => {
           validateAction.loginData = {
             username: 'user',
-            password: 'pass'
+            password: 'pass',
           };
 
           const errors = loginErrors({}, validateAction);

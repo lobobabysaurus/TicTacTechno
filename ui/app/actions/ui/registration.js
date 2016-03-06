@@ -7,32 +7,32 @@ import { post } from 'http-helper';
 
 export function clearRegistrationErrors() {
   return {
-    type: CLEAR_REGISTRATION_ERRORS
+    type: CLEAR_REGISTRATION_ERRORS,
   };
 }
 
 export function endServerRegistration() {
   return {
-    type: END_SERVER_REGISTRATION
+    type: END_SERVER_REGISTRATION,
   };
 }
 
 export function setRegistrationErrors(errors) {
   return {
-    type:  SET_REGISTRATION_ERRORS,
-    errors
+    type: SET_REGISTRATION_ERRORS,
+    errors,
   };
 }
 
 export function startServerRegistration() {
   return {
-    type: START_SERVER_REGISTRATION
+    type: START_SERVER_REGISTRATION,
   };
 }
 
 export function toggleRegistration() {
   return {
-    type: TOGGLE_REGISTRATION
+    type: TOGGLE_REGISTRATION,
   };
 }
 

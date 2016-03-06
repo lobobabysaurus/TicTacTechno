@@ -10,14 +10,14 @@ import RegistrationModal from 'components/header/modals/registration';
 export class RawHeader extends React.Component {
   static propTypes = {
     showLogin: React.PropTypes.func.isRequired,
-    showRegistration: React.PropTypes.func.isRequired
+    showRegistration: React.PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       showLogin: props.showLogin,
-      showRegistration: props.showRegistration
+      showRegistration: props.showRegistration,
     };
   }
 
@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     showRegistration: () => {
       dispatch(toggleRegistration());
-    }
+    },
   };
 };
 

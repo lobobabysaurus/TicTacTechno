@@ -9,11 +9,12 @@ describe('uiReducers', () => {
         createdUser: [],
         registrationErrors: {},
         serverRegistration: false,
-        showRegistration: false},
+        showRegistration: false,
+      },
       login: {
         loginErrors: {},
-        showLogin: false
-      }
+        showLogin: false,
+      },
     });
   });
 });

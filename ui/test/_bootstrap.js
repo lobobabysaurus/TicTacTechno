@@ -8,9 +8,10 @@ chai.use(sinonChai);
 chai.use(sinonChaiInOrder);
 
 // Setup for absolute paths in testing
+import path from 'path';
 import { addPath } from 'app-module-path';
 
-addPath(__dirname + '/../app');
+addPath(path.join(__dirname, '..', 'app'));
 addPath(__dirname);
 
 // Setup fake dom and react testing

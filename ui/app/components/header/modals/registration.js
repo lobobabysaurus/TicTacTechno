@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from 'react-spin';
 
 import { clearRegistrationErrors, createUser,
-         toggleRegistration, validateRegistration }
+         toggleRegistration }
   from 'actions/ui/registration';
 
 export class RawRegistrationModal extends React.Component {
@@ -25,7 +25,7 @@ export class RawRegistrationModal extends React.Component {
       create: props.create,
       errors: props.errors,
       show: props.show,
-      started: props.started
+      started: props.started,
     };
   }
 
@@ -33,7 +33,7 @@ export class RawRegistrationModal extends React.Component {
     this.setState({
       errors: props.errors,
       show: props.show,
-      started: props.started
+      started: props.started,
     });
   }
 
@@ -48,7 +48,7 @@ export class RawRegistrationModal extends React.Component {
       password: this.refs.password.getValue(),
       confirmPassword: this.refs.confirm_password.getValue(),
       email: this.refs.email.getValue(),
-      confirmEmail: this.refs.confirm_email.getValue()
+      confirmEmail: this.refs.confirm_email.getValue(),
     };
     this.state.create(registrationData);
   }
@@ -106,7 +106,7 @@ const mapStateToProps = (state) => {
   return {
     errors: state.ui.registration.registrationErrors,
     show: state.ui.registration.showRegistration,
-    started: state.ui.registration.serverRegistration
+    started: state.ui.registration.serverRegistration,
   };
 };
 
@@ -120,7 +120,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     close: () => {
       dispatch(toggleRegistration());
-    }
+    },
   };
 };
 

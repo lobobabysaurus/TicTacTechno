@@ -9,7 +9,7 @@ class LoginModal extends React.Component {
     close: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object.isRequired,
     show: React.PropTypes.bool.isRequired,
-    validate: React.PropTypes.func.isRequired
+    validate: React.PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -18,14 +18,14 @@ class LoginModal extends React.Component {
       close: props.close,
       errors: props.errors,
       show: props.show,
-      validate: props.validate
+      validate: props.validate,
     };
   }
 
   componentWillReceiveProps = (props) => {
     this.setState({
       show: props.show,
-      errors: props.errors
+      errors: props.errors,
     });
   }
 
@@ -78,7 +78,7 @@ class LoginModal extends React.Component {
 const mapStateToProps = (state) => {
   return {
     show: state.ui.login.showLogin,
-    errors: state.ui.login.loginErrors
+    errors: state.ui.login.loginErrors,
   };
 };
 
@@ -89,7 +89,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     validate: (loginData) => {
       dispatch(validateLogin(loginData));
-    }
+    },
   };
 };
 

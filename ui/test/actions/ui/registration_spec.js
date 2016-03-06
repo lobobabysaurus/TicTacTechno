@@ -30,7 +30,7 @@ describe('Registration Actions', () => {
   describe('endServerRegistration', () => {
     it('should send an action to end server registration', () => {
       endServerRegistration().should.deep.equal({
-        type: END_SERVER_REGISTRATION
+        type: END_SERVER_REGISTRATION,
       });
     });
   });
@@ -40,7 +40,7 @@ describe('Registration Actions', () => {
       const errors = {password: 'must be 10000 characters'};
       setRegistrationErrors(errors).should.deep.equal({
         type: SET_REGISTRATION_ERRORS,
-        errors: errors
+        errors,
       });
     });
   });
@@ -48,7 +48,7 @@ describe('Registration Actions', () => {
   describe('startServerRegistration', () => {
     it('should send an action to start server registration', () => {
       startServerRegistration().should.deep.equal({
-        type: START_SERVER_REGISTRATION
+        type: START_SERVER_REGISTRATION,
       });
     });
   });

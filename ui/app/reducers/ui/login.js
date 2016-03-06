@@ -29,7 +29,5 @@ function validateInput(data) {
   if (!data.username || !data.password) {
     return { general: "Must provide a username and password"};
   }
-  else {
-    return {};
-  }
+  return {};
 }

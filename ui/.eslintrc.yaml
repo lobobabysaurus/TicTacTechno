@@ -3,14 +3,29 @@
 "parserOptions":
   "sourceType": "module"
 "rules":
+  "array-callback-return": 2
+  "arrow-parens": 2
   "arrow-spacing": 2
+  "block-scoped-var": 2
+  "block-spacing":
+    - 2
+    - "always"
+  "callback-return": 2
   "camelcase": 2
+  "comma-dangle":
+    - 2
+    - "always-multiline"
   "comma-spacing":
     - 2
     - "before": false
       "after": true
+  "consistent-return": 2
+  "constructor-super": 2
   "curly": 2
+  "default-case": 2
   "eqeqeq": 2
+  "eol-last": 2
+  "guard-for-in": 2
   "indent":
     - 2
     - 2
@@ -19,10 +34,32 @@
   "jsx-quotes":
     - 2
     - "prefer-single"
+  "key-spacing":
+    - 2
+    - "beforeColon": false
+      "afterColon": true
+      "mode": "minimum"
+  "no-alert": 2
   "no-cond-assign": 2
   "no-console": 1
+  "no-control-regex": 2
   "no-constant-condition": 2
+  "no-dupe-args": 2
+  "no-duplicate-case": 2
+  "no-dupe-keys": 2
+  "no-else-return": 2
+  "no-empty": 2
+  "no-empty-function": 2
+  "no-eq-null": 2
+  "no-eval": 2
+  "no-extra-boolean-cast": 2
+  "no-extra-parens": 2
   "no-extra-semi": 2
+  "no-floating-decimal": 2
+  "no-implicit-coercion": 2
+  "no-implicit-globals": 2
+  "no-implied-eval": 2
+  "no-labels": 2
   "no-magic-numbers":
     - 2
     - "ignore":
@@ -31,15 +68,35 @@
       - 2
       - 3
       - 4
+  "no-multi-str": 2
+  "no-obj-calls": 2
+  "no-path-concat": 2
+  "no-regex-spaces": 2
+  "no-return-assign": 2
   "no-spaced-func": 2
+  "no-sparse-arrays": 2
+  "no-this-before-super": 2
   "no-throw-literal": 2
   "no-trailing-spaces": 2
+  "no-unexpected-multiline": 2
+  "no-unmodified-loop-condition": 2
+  "no-unreachable": 2
+  "no-useless-call": 2
+  "no-useless-concat": 2
+  "no-useless-constructor": 2
   "no-var": 2
+  "object-shorthand": 2
   "prefer-arrow-callback": 2
   "prefer-const": 2
+  "prefer-reflect": 2
+  "prefer-rest-params": 2
+  "prefer-spread": 2
   "prefer-template": 2
   "radix": 2
+  "require-yield": 2
   "semi":
     - 1
     - "always"
+  "use-isnan": 2
+  "valid-typeof": 2
   "yoda": 2

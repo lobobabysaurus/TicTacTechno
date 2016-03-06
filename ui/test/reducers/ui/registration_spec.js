@@ -15,7 +15,7 @@ describe('Registration Reducers', () => {
 
     it('should create an array of one user on initial create', () => {
       const userData = {name: 'Phil', email: 'test@email.com'};
-      const action = {type: CREATE_USER, userData: userData};
+      const action = {type: CREATE_USER, userData};
       createdUser(undefined, action).should.deep.equal([userData]);
     });
 
@@ -47,7 +47,7 @@ describe('Registration Reducers', () => {
         const errors = {
           name: 'too short',
           password: 'too long',
-          email: 'too lame'
+          email: 'too lame',
         };
         registrationErrors(errors, clearAction).should.be.empty;
       });
@@ -56,11 +56,11 @@ describe('Registration Reducers', () => {
         const errors = {
           name: 'too short',
           password: 'too long',
-          email: 'too lame'
+          email: 'too lame',
         };
         const setErrorAction = {
           type: SET_REGISTRATION_ERRORS,
-          errors: errors
+          errors,
         };
         registrationErrors({}, setErrorAction).should.deep.equal(errors);
       });

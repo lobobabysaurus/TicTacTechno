@@ -49,5 +49,5 @@ export default combineReducers({
   registrationErrors,
   serverRegistration,
   showRegistration,
-  createdUser
+  createdUser,
 });

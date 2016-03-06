@@ -5,5 +5,5 @@ import registration from 'reducers/ui/registration';
 
 export default combineReducers({
   login,
-  registration
+  registration,
 });

@@ -16,7 +16,7 @@ describe('Login actions', () => {
       const loginData = { username: 'test', password: 'pass' };
       validateLogin(loginData).should.deep.equal({
         type: VALIDATE_LOGIN,
-        loginData
+        loginData,
       });
     });
   });
