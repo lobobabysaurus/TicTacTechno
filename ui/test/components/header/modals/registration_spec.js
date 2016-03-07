@@ -21,6 +21,12 @@ describe('Registration Modal', () => {
     );
   });
 
+  beforeEach(() => {
+    clear.reset();
+    close.reset();
+    create.reset();
+  });
+
   it('should attempt to create on register click', () => {
     const refs = modal.refs;
     refs.username.getInputDOMNode().value = 'test username';

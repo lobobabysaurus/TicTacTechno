@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import { Button, Input, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -5,7 +6,7 @@ import { connect } from 'react-redux';
 import { toggleLogin, validateLogin } from 'actions/ui/login';
 import Error from 'components/error';
 
-class LoginModal extends React.Component {
+export class RawLoginModal extends React.Component {
   static propTypes = {
     close: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object.isRequired,
@@ -64,8 +65,8 @@ class LoginModal extends React.Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.loginUser}>Login</Button>
-          <Button onClick={this.state.close}>Close</Button>
+          <Button ref='login' onClick={this.loginUser}>Login</Button>
+          <Button ref= 'close' onClick={this.state.close}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -93,4 +94,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginModal);
+)(RawLoginModal);
