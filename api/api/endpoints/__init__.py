@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.ext.compress import Compress
 from flask.ext.cors import CORS
 
 from api.endpoints.game import GamesView
@@ -8,12 +9,16 @@ from api.models import bcrypt
 from api.models import db
 
 
+compress = Compress()
+
+
 def create_app(config_class):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
     db.init_app(app)
     bcrypt.init_app(app)
+    compress.init_app(app)
     CORS(app, origins=app.config.get('ALLOWED_HOSTS', '*'))
 
     api_views = [GamesView, TurnsView, UsersView]
