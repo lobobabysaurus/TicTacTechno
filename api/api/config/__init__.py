@@ -2,7 +2,7 @@ class InternalConfig(object):
     DEBUG = True
 
 
-class DevConfig(InternalConfig):
+class LocalConfig(InternalConfig):
     SQLALCHEMY_DATABASE_URI = "mysql://root:TicTacToe@localhost/TicTacToe"
     ALLOWED_HOSTS = ['http://127.0.0.1:8080']
 

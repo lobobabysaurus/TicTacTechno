@@ -2,6 +2,7 @@ from flask import Flask
 from flask_mail import Mail
 from flask.ext.compress import Compress
 from flask.ext.cors import CORS
+from healthcheck import HealthCheck
 
 from api.endpoints.game import GamesView
 from api.endpoints.turn import TurnsView
@@ -9,7 +10,10 @@ from api.endpoints.user import UsersView
 from api.models import bcrypt
 from api.models import db
 
+
 compress = Compress()
+cors = CORS()
+health = HealthCheck()
 mail = Mail()
 
 
@@ -20,7 +24,8 @@ def create_app(config_class):
     db.init_app(app)
     bcrypt.init_app(app)
     compress.init_app(app)
-    CORS(app, origins=app.config.get('ALLOWED_HOSTS', '*'))
+    cors.init_app(app, origins=app.config.get('ALLOWED_HOSTS', '*'))
+    health.init_app(app, "/healthcheck")
     mail.init_app(app)
 
     api_views = [GamesView, TurnsView, UsersView]
