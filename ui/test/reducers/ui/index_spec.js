@@ -6,7 +6,7 @@ describe('uiReducers', () => {
   it('should have the correct default structure', () => {
     createStore(uiReducers).getState().should.deep.equal({
       registration: {
-        createdUser: [],
+        createdUser: {},
         registrationErrors: {},
         serverRegistration: false,
         showRegistration: false,

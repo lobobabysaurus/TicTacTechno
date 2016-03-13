@@ -9,25 +9,14 @@ import { createdUser, registrationErrors, serverRegistration, showRegistration }
 
 describe('Registration Reducers', () => {
   describe('createdUser', () => {
-    it('should create empty list initially', () => {
-      createdUser(undefined, {}).should.deep.equal([]);
+    it('should create empty object initially', () => {
+      createdUser(undefined, {}).should.deep.equal({});
     });
 
-    it('should create an array of one user on initial create', () => {
+    it('should set user data on initial create', () => {
       const userData = {name: 'Phil', email: 'test@email.com'};
       const action = {type: CREATE_USER, userData};
-      createdUser(undefined, action).should.deep.equal([userData]);
-    });
-
-    it('should append more users on create without mutating', () => {
-      const firstUserData = {name: 'Phil', email: 'test@email.com'};
-      const secondUserData = {name: 'Emily', email: 'emily@email.com'};
-      const action = {type: CREATE_USER, userData: secondUserData};
-
-      createdUser([firstUserData], action).should.deep.equal(
-        [firstUserData, secondUserData]);
-
-      firstUserData.should.deep.equal({name: 'Phil', email: 'test@email.com'});
+      createdUser(undefined, action).should.deep.equal(userData);
     });
   });
 

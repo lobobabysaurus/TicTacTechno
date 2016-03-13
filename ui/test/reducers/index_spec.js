@@ -11,7 +11,7 @@ describe('reducers', () => {
           showLogin: false,
         },
         registration: {
-          createdUser: [],
+          createdUser: {},
           registrationErrors: {},
           serverRegistration: false,
           showRegistration: false,

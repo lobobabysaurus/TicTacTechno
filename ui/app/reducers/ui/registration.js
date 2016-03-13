@@ -5,10 +5,10 @@ import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
          TOGGLE_REGISTRATION }
   from 'constants/ui/registration';
 
-export function createdUser(state = [], action) {
+export function createdUser(state = {}, action) {
   switch (action.type) {
     case CREATE_USER:
-      return state.concat(action.userData);
+      return action.userData;
     default:
       return state;
   }
