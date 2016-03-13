@@ -76,14 +76,13 @@ describe('Registration Actions', () => {
 
       const spy = sinon.spy();
       const userAction = { type: CREATE_USER, userData: payload};
-      userCreateDispatch(spy).then(() => {
+      userCreateDispatch(spy).should.be.fulfilled.then(() => {
         spy.should.have.callCount(4);
         spy.should.have.been.calledWith(startServerRegistration())
-                       .then.calledWith(endServerRegistration())
-                       .then.calledWith(userAction)
-                       .then.calledWith(toggleRegistration());
-        done();
-      });
+               .subsequently.calledWith(endServerRegistration())
+               .subsequently.calledWith(userAction)
+               .subsequently.calledWith(toggleRegistration());
+      }).should.notify(done);
     });
 
     it('should call all relevant methods and send errors through when invalid', (done) => {
@@ -104,8 +103,8 @@ describe('Registration Actions', () => {
       userCreateDispatch(spy).catch(() => {
         spy.should.have.callCount(3);
         spy.should.have.been.calledWith(startServerRegistration())
-                       .then.calledWith(endServerRegistration())
-                       .then.calledWith(setRegistrationErrors(errors));
+               .subsequently.calledWith(endServerRegistration())
+               .subsequently.calledWith(setRegistrationErrors(errors));
         done();
       });
     });

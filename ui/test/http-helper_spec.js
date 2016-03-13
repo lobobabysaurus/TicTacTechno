@@ -20,10 +20,7 @@ describe('HTTP Helper', () => {
       return req.body;
     });
 
-    post(resource, payload).then((response) => {
-      response.should.deep.equal(payload);
-      done();
-    });
+    post(resource, payload).should.eventually.become(payload).notify(done);
   });
 
   it('should pass error data through on failed call', (done) => {
