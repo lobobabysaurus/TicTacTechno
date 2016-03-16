@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_mail import Mail
 from flask.ext.compress import Compress
 from flask.ext.cors import CORS
 from healthcheck import HealthCheck
@@ -7,14 +6,14 @@ from healthcheck import HealthCheck
 from api.endpoints.game import GamesView
 from api.endpoints.turn import TurnsView
 from api.endpoints.user import UsersView
-from api.models import bcrypt
 from api.models import db
+from api.services import bcrypt
+from api.services import mail
 
 
 compress = Compress()
 cors = CORS()
 health = HealthCheck()
-mail = Mail()
 
 
 def create_app(config_class):

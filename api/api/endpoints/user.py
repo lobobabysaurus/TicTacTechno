@@ -9,8 +9,9 @@ from api.endpoints.validators import handle_validation_errors
 from api.endpoints.validators import password
 from api.endpoints.validators import string
 from api.endpoints.validators import username
-from api.models import bcrypt
 from api.models.user import User
+from api.services import bcrypt
+from api.services import mail
 
 
 user_validator = Draft4Validator({
@@ -63,5 +64,8 @@ class UsersView(FlaskView):
         del deserialized['confirmPassword']
         del deserialized['confirmEmail']
         user = User.create(deserialized)
+        mail.send_message(subject="Thanks For Registering!",
+                          recipients=[deserialized['email']],
+                          body="Thank you for registering for TicTacTechno")
 
         return dumps(user.serialized)

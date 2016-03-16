@@ -1,3 +1,7 @@
+dist:
+	mkdir dist/
+	zip -r dist/default.zip . .ebextensions
+
 list_routes:
 	python manage.py list_routes
 
