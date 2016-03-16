@@ -6,7 +6,7 @@ from flask.ext.script import Manager, prompt_bool
 from api.endpoints import create_app
 from api.models import db
 
-app = create_app('api.config.DevConfig')
+app = create_app('api.config.LocalConfig')
 manager = Manager(app)
 
 
