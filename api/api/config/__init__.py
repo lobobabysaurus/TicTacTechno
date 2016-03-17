@@ -13,3 +13,4 @@ class TestConfig(InternalConfig):
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_DATABASE_URI = "sqlite://"
     TESTING = True
+    MAIL_DEFAULT_SENDER = 'test'

@@ -64,6 +64,7 @@ class UsersView(FlaskView):
         del deserialized['confirmPassword']
         del deserialized['confirmEmail']
         user = User.create(deserialized)
+
         mail.send_message(subject="Thanks For Registering!",
                           recipients=[deserialized['email']],
                           body="Thank you for registering for TicTacTechno")

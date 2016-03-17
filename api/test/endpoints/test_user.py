@@ -1,5 +1,6 @@
 from json import dumps
-
+from unittest.mock import MagicMock
+from api.services import mail
 from api.models.user import User
 from test import TestBase
 
@@ -40,6 +41,21 @@ class TestUserEndpoints(TestBase):
 
         user = User.query.first()
         self.assertEquals('create user', user.username)
+
+    def test_create_user_sends_email(self):
+        self.assertEquals(0, User.query.count())
+        mail.send_message = MagicMock()
+        payload = dumps(self.base_payload)
+        resp = self.client.post('/api/users/', content_type='application/json',
+                                data=payload)
+        self.assert200(resp)
+
+        email_data = {
+            "subject": 'Thanks For Registering!',
+            "recipients": [self.base_payload['email']],
+            "body": "Thank you for registering for TicTacTechno"
+        }
+        mail.send_message.assert_called_once_with(**email_data)
 
     def test_create_user_fails_missing_fields(self):
         self.assertEquals(0, User.query.count())

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.compress import Compress
 from flask.ext.cors import CORS
+from healthcheck import EnvironmentDump
 from healthcheck import HealthCheck
 
 from api.endpoints.game import GamesView
@@ -14,6 +15,7 @@ from api.services import mail
 compress = Compress()
 cors = CORS()
 health = HealthCheck()
+environment = EnvironmentDump()
 
 
 def create_app(config_class):
@@ -24,6 +26,7 @@ def create_app(config_class):
     bcrypt.init_app(app)
     compress.init_app(app)
     cors.init_app(app, origins=app.config.get('ALLOWED_HOSTS', '*'))
+    environment.init_app(app, "/environment")
     health.init_app(app, "/healthcheck")
     mail.init_app(app)
 
