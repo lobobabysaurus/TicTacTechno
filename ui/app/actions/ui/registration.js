@@ -1,6 +1,6 @@
 import { CREATE_USER, CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
-         SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
-         TOGGLE_REGISTRATION}
+         HIDE_SUCCESS, SET_REGISTRATION_ERRORS, SHOW_SUCCESS,
+         START_SERVER_REGISTRATION, TOGGLE_REGISTRATION }
   from 'constants/ui/registration';
 
 import { post } from 'http-helper';
@@ -8,6 +8,19 @@ import { post } from 'http-helper';
 export function clearRegistrationErrors() {
   return {
     type: CLEAR_REGISTRATION_ERRORS,
+  };
+}
+
+export function displaySuccess(user) {
+  return {
+    type: SHOW_SUCCESS,
+    user,
+  };
+}
+
+export function hideSuccess() {
+  return {
+    type: HIDE_SUCCESS,
   };
 }
 
@@ -50,6 +63,7 @@ export function createUser(userData) {
           dispatch(endServerRegistration());
           dispatch({type: CREATE_USER, userData: response});
           dispatch(toggleRegistration());
+          dispatch(displaySuccess(response));
           accept();
         })
         .catch((errors) => {

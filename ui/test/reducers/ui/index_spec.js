@@ -8,6 +8,7 @@ describe('uiReducers', () => {
       registration: {
         createdUser: {},
         registrationErrors: {},
+        registrationSuccess: {show: false, message: ''},
         serverRegistration: false,
         showRegistration: false,
       },

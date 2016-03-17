@@ -68,6 +68,7 @@
       - 2
       - 3
       - 4
+      - 5
   "no-multi-str": 2
   "no-obj-calls": 2
   "no-path-concat": 2

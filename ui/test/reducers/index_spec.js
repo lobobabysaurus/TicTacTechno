@@ -13,6 +13,7 @@ describe('reducers', () => {
         registration: {
           createdUser: {},
           registrationErrors: {},
+          registrationSuccess: {show: false, message: ''},
           serverRegistration: false,
           showRegistration: false,
         },

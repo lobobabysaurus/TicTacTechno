@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
-         SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
-         TOGGLE_REGISTRATION, VALIDATE_REGISTRATION }
+         HIDE_SUCCESS, SET_REGISTRATION_ERRORS, SHOW_SUCCESS,
+         START_SERVER_REGISTRATION, TOGGLE_REGISTRATION }
   from 'constants/ui/registration';
-import { createdUser, registrationErrors, serverRegistration, showRegistration }
+import { createdUser, registrationErrors, registrationSuccess,
+         serverRegistration, showRegistration }
   from 'reducers/ui/registration';
 
 describe('Registration Reducers', () => {
@@ -109,6 +110,26 @@ describe('Registration Reducers', () => {
 
     it('should toggle false when shown', () => {
       showRegistration(true, toggleAction).should.be.false;
+    });
+  });
+
+  describe('registrationSucces', () => {
+    it('should not show initially', () => {
+      const result = {show: false, message: ''};
+      registrationSuccess(undefined, {}).should.deep.equal(result);
+    });
+
+    it('should show with message when show called', () => {
+      const showAction = {type: SHOW_SUCCESS};
+      const result = {show: true, message: 'congrats'};
+      registrationSuccess(undefined, showAction).should.deep.equal(result);
+    });
+
+    it('should show with message when show called', () => {
+      const hideAction = {type: HIDE_SUCCESS};
+      const start = {show: true, message: 'congrats'};
+      const result = {show: false, message: ''};
+      registrationSuccess(start, hideAction).should.deep.equal(result);
     });
   });
 });
