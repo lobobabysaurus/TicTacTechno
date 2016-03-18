@@ -2,21 +2,21 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { hideSuccess } from 'actions/ui/registration';
+import { toggleSuccess } from 'actions/ui/registration';
 
 export class RawSuccessModal extends React.Component {
   static propTypes = {
     close: React.PropTypes.func.isRequired,
-    message: React.PropTypes.string.isRequired,
     show: React.PropTypes.bool.isRequired,
+    user: React.PropTypes.object.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.state = {
       close: props.close,
-      message: props.message,
       show: props.show,
+      user: props.user,
     };
   }
 
@@ -25,17 +25,22 @@ export class RawSuccessModal extends React.Component {
       close: props.close,
       message: props.message,
       show: props.show,
+      user: props.user,
     });
   }
 
   render() {
+    const name = this.state.user.username;
+    const email = this.state.user.email;
     return (
       <Modal show={this.state.show} onHide={this.state.close}>
         <Modal.Header closeButton>
           <Modal.Title>Thanks for Registering!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>{this.state.message}</p>
+          <p>
+            {name}, check {email} for registration instructions
+          </p>
         </Modal.Body>
       </Modal>
     );
@@ -44,15 +49,15 @@ export class RawSuccessModal extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    show: state.ui.registration.registrationSuccess.show,
-    message: state.ui.registration.registrationSuccess.message,
+    show: state.ui.registration.registrationSuccess,
+    user: state.ui.registration.createdUser,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     close: () => {
-      dispatch(hideSuccess());
+      dispatch(toggleSuccess());
     },
   };
 };

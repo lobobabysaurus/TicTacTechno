@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
 import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
-         HIDE_SUCCESS, SET_REGISTRATION_ERRORS, SHOW_SUCCESS,
-         START_SERVER_REGISTRATION, TOGGLE_REGISTRATION }
+         SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
+         TOGGLE_REGISTRATION, TOGGLE_SUCCESS }
   from 'constants/ui/registration';
 
 export function createdUser(state = {}, action) {
@@ -45,13 +45,10 @@ export function showRegistration(state = false, action) {
   }
 }
 
-export function registrationSuccess(state = {show: false, message: ''},
-                                    action) {
+export function registrationSuccess(state = false, action) {
   switch (action.type) {
-    case SHOW_SUCCESS:
-      return {show: true, message: 'congrats'};
-    case HIDE_SUCCESS:
-      return {show: false, message: ''};
+    case TOGGLE_SUCCESS:
+      return !state;
     default:
       return state;
   }

@@ -2,14 +2,14 @@ import sinon from 'sinon';
 import request from 'superagent';
 import mocker from 'superagent-mocker';
 
-import { createUser, clearRegistrationErrors, displaySuccess,
-         endServerRegistration, hideSuccess, setRegistrationErrors,
-         startServerRegistration, toggleRegistration, validateRegistration }
+import { createUser, clearRegistrationErrors, endServerRegistration,
+         setRegistrationErrors, startServerRegistration, toggleRegistration,
+         toggleSuccess, validateRegistration }
   from 'actions/ui/registration';
 import { apiRoot } from 'config';
 import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
-         HIDE_SUCCESS, SET_REGISTRATION_ERRORS, SHOW_SUCCESS,
-         START_SERVER_REGISTRATION, TOGGLE_REGISTRATION }
+         SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
+         TOGGLE_REGISTRATION, TOGGLE_SUCCESS }
   from 'constants/ui/registration';
 import { APIError } from 'test_utils';
 
@@ -27,19 +27,10 @@ describe('Registration Actions', () => {
     });
   });
 
-  describe('displaySuccess', () => {
-    it('should send an action to show registration success', () => {
-      displaySuccess({'test': 'test_data'}).should.deep.equal({
-        type: SHOW_SUCCESS,
-        user: {'test': 'test_data'},
-      });
-    });
-  });
-
-  describe('hideSuccess', () => {
-    it('should send an action to hide registration success', () => {
-      hideSuccess().should.deep.equal({
-        type: HIDE_SUCCESS,
+  describe('toggleSuccess', () => {
+    it('should send an action to toggle registration success', () => {
+      toggleSuccess().should.deep.equal({
+        type: TOGGLE_SUCCESS,
       });
     });
   });
@@ -88,7 +79,7 @@ describe('Registration Actions', () => {
       const userCreateDispatch = createUser(payload);
 
       requestMock.post(`${apiRoot}users/`, (req) => {
-        return req.body;
+        return {text: JSON.stringify(req.body)};
       });
 
       const spy = sinon.spy();
@@ -99,7 +90,7 @@ describe('Registration Actions', () => {
                .subsequently.calledWith(endServerRegistration())
                .subsequently.calledWith(userAction)
                .subsequently.calledWith(toggleRegistration())
-               .subsequently.calledWith(displaySuccess(payload));
+               .subsequently.calledWith(toggleSuccess());
       }).should.notify(done);
     });
 
