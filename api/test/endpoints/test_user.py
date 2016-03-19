@@ -1,4 +1,5 @@
-from json import dumps
+import json
+
 from unittest.mock import MagicMock
 from api.services import mail
 from api.models.user import User
@@ -14,26 +15,33 @@ class TestUserEndpoints(TestBase):
             'password': 'testtestte',
             'confirmPassword': 'testtestte',
             'email': 'create@email.com',
-            'confirmEmail': 'create@email.com'}
+            'confirmEmail': 'create@email.com'
+        }
 
     def test_list_users(self):
         self.new_user(username='O player', email='o@email.com')
         self.new_user(username='X player', email='x@email.com')
 
-        users = self.client.get('/api/users/',
-                                content_type='application/json').json
-        self.assertEquals(2, len(users))
+        resp = self.client.get('/api/users/', content_type='application/json')
+        self.assert200(resp)
+        self.assertEquals(2, len(resp.json))
 
     def test_get_user(self):
         user = self.new_user(username='X player', email='x@email.com')
 
-        payload = self.client.get('/api/users/{}'.format(user.id),
-                                  content_type='application/json').json
-        self.assertEquals('X player', payload['username'])
+        resp = self.client.get('/api/users/{}'.format(user.id),
+                               content_type='application/json')
+        self.assert200(resp)
+        self.assertEquals('X player', resp.json['username'])
+
+    def test_get_fails_invalid_id(self):
+        resp = self.client.get('/api/users/666',
+                               content_type='application/json')
+        self.assert404(resp)
 
     def test_create_user(self):
         self.assertEquals(0, User.query.count())
-        payload = dumps(self.base_payload)
+        payload = json.dumps(self.base_payload)
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert200(resp)
@@ -45,7 +53,7 @@ class TestUserEndpoints(TestBase):
     def test_create_user_sends_email(self):
         self.assertEquals(0, User.query.count())
         mail.send_message = MagicMock()
-        payload = dumps(self.base_payload)
+        payload = json.dumps(self.base_payload)
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert200(resp)
@@ -72,11 +80,11 @@ class TestUserEndpoints(TestBase):
 
     def test_create_user_fails_empty_fields(self):
         self.assertEquals(0, User.query.count())
-        payload = dumps({'username': '',
-                         'email': '',
-                         'confirmEmail': '',
-                         'password': '',
-                         'confirmPassword': ''})
+        payload = json.dumps({'username': '',
+                              'email': '',
+                              'confirmEmail': '',
+                              'password': '',
+                              'confirmPassword': ''})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -91,11 +99,11 @@ class TestUserEndpoints(TestBase):
     def test_create_user_fails_too_short_username(self):
         self.assertEquals(0, User.query.count())
 
-        payload = dumps({'username': 'short',
-                         'email': 'test@test.com',
-                         'confirmEmail': 'test@test.com',
-                         'password': 'testtestte',
-                         'confirmPassword': 'testtestte'})
+        payload = json.dumps({'username': 'short',
+                              'email': 'test@test.com',
+                              'confirmEmail': 'test@test.com',
+                              'password': 'testtestte',
+                              'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -111,11 +119,11 @@ class TestUserEndpoints(TestBase):
         self.new_user(username='create user')
         self.assertEquals(1, User.query.count())
 
-        payload = dumps({'username': 'create user',
-                         'email': 'duplicate@test.com',
-                         'confirmEmail': 'duplicate@test.com',
-                         'password': 'testtestte',
-                         'confirmPassword': 'testtestte'})
+        payload = json.dumps({'username': 'create user',
+                              'email': 'duplicate@test.com',
+                              'confirmEmail': 'duplicate@test.com',
+                              'password': 'testtestte',
+                              'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -127,11 +135,11 @@ class TestUserEndpoints(TestBase):
     def test_create_user_fails_too_short_password(self):
         self.assertEquals(0, User.query.count())
 
-        payload = dumps({'username': 'regularuser',
-                         'email': 'test@test.com',
-                         'confirmEmail': 'test@test.com',
-                         'password': 'testtest',
-                         'confirmPassword': 'testtest'})
+        payload = json.dumps({'username': 'regularuser',
+                              'email': 'test@test.com',
+                              'confirmEmail': 'test@test.com',
+                              'password': 'testtest',
+                              'confirmPassword': 'testtest'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -144,11 +152,11 @@ class TestUserEndpoints(TestBase):
     def test_create_user_fails_invalid_email(self):
         self.assertEquals(0, User.query.count())
 
-        payload = dumps({'username': 'create user',
-                         'email': 'create',
-                         'confirmEmail': 'create',
-                         'password': 'testtestte',
-                         'confirmPassword': 'testtestte'})
+        payload = json.dumps({'username': 'create user',
+                              'email': 'create',
+                              'confirmEmail': 'create',
+                              'password': 'testtestte',
+                              'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -162,14 +170,31 @@ class TestUserEndpoints(TestBase):
         self.new_user(email='duplicate@test.com')
         self.assertEquals(1, User.query.count())
 
-        payload = dumps({'username': 'create user2',
-                         'email': 'duplicate@test.com',
-                         'confirmEmail': 'duplicate@test.com',
-                         'password': 'testtestte',
-                         'confirmPassword': 'testtestte'})
+        payload = json.dumps({'username': 'create user2',
+                              'email': 'duplicate@test.com',
+                              'confirmEmail': 'duplicate@test.com',
+                              'password': 'testtestte',
+                              'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
 
         self.assertEquals(1, User.query.count())
         self.assertEquals({'email': 'Email is already registered'}, resp.json)
+
+    def test_activate_user_switches_user_activation(self):
+        user = self.new_user(email='activate@email.com')
+
+        self.assertFalse(user.is_active)
+        resp = self.client.get('/api/users/activate/{}'.format(user.id),
+                               content_type='application/json')
+        self.assert200(resp)
+
+        self.assertEquals(1, User.query.count())
+        self.assertTrue(User.query.first().is_active)
+        self.assertEquals("User has been activated", resp.json)
+
+    def test_activate_user_fails_nonexistant_user(self):
+        resp = self.client.get('/api/users/activate/666',
+                               content_type='application/json')
+        self.assert404(resp)

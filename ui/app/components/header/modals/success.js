@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -37,9 +38,10 @@ export class RawSuccessModal extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title>Thanks for Registering!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body bsClass={classNames('success-modal', 'modal')}>
           <p>
-            {name}, check {email} for registration instructions
+            Thank you for registering to play TicTacTechno!<br />
+            {name}, please check your email at {email} to complete your registration.
           </p>
         </Modal.Body>
       </Modal>

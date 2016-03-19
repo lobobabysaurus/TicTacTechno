@@ -11,3 +11,9 @@ class Model:
         db.session.add(instance)
         db.session.commit()
         return instance
+
+    @classmethod
+    def update(cls, instance):
+        db.session.add(instance)
+        db.session.commit()
+        return instance

@@ -1,4 +1,4 @@
-from json import dumps
+import json
 
 from flask import request
 from flask.ext.classy import FlaskView
@@ -23,10 +23,10 @@ game_validator = Draft4Validator({
 class GamesView(FlaskView):
 
     def index(self):
-        return dumps([game.serialized for game in Game.query.all()])
+        return json.dumps([game.serialized for game in Game.query.all()])
 
     def get(self, game_id):
-        return dumps(Game.query.get_or_404(game_id).serialized)
+        return json.dumps(Game.query.get_or_404(game_id).serialized)
 
     def post(self):
         deserialized = request.get_json()
@@ -34,15 +34,15 @@ class GamesView(FlaskView):
         if not game_validator.is_valid(deserialized):
             errors = handle_validation_errors(
                         game_validator.iter_errors(deserialized))
-            return dumps(errors), 400
+            return json.dumps(errors), 400
         else:
             errors = {}
             for player in ['x_player_id', 'o_player_id']:
                 if not User.exists_by_id(deserialized[player]):
                     errors[player] = 'Player does not exist'
             if (errors != {}):
-                return dumps(errors), 400
+                return json.dumps(errors), 400
 
         game = Game.create(deserialized)
 
-        return dumps(game.serialized)
+        return json.dumps(game.serialized)

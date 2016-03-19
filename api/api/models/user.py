@@ -17,6 +17,10 @@ class User(db.Model, Model):
     ties = db.Column(db.Integer, default=0)
     unfinished = db.Column(db.Integer, default=0)
 
+    is_active = db.Column(db.Boolean(), nullable=False, default=False)
+    is_anonymous = db.Column(db.Boolean(), nullable=False, default=False)
+    is_authenticated = db.Column(db.Boolean(), nullable=False, default=False)
+
     @hybrid_property
     def game_count(self):
         return self.wins + self.losses + self.ties + self.unfinished
@@ -43,3 +47,6 @@ class User(db.Model, Model):
     @classmethod
     def exists_by_email(cls, email):
         return cls.query.filter(cls.email == email).count() > 0
+
+    def get_id(self):
+        return self.id

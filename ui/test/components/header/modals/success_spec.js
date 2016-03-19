@@ -28,7 +28,10 @@ describe('Success Modal', () => {
       modal, Modal)._modal;
     const message = TestUtils.findRenderedDOMComponentWithTag(realModal, 'p');
     message.textContent.should
-           .equal("test, check test@email.com for registration instructions");
+           .contain("Thank you for registering to play TicTacTechno!");
+    message.textContent.should
+           .contain("test, please check your email at test@email.com "+
+                    "to complete your registration.");
   });
 
   it('should call close when x clicked', () => {
