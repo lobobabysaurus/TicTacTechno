@@ -3,7 +3,8 @@ import { combineReducers } from 'redux';
 import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
          SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
          TOGGLE_REGISTRATION, TOGGLE_SUCCESS }
-  from 'constants/ui/registration';
+  from 'constants/user/registration';
+
 
 export function createdUser(state = {}, action) {
   switch (action.type) {

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/ui/login';
+import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/user/login';
+
 
 export function loginErrors(state = {}, action) {
   switch (action.type) {

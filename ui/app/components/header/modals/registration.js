@@ -1,19 +1,21 @@
-import React from 'react';
+import React                    from 'react';
 import { Button, Input, Modal } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import Spinner from 'react-spin';
+import { connect }              from 'react-redux';
+import Spinner                  from 'react-spin';
 
 import { clearRegistrationErrors, createUser, toggleRegistration }
-  from 'actions/ui/registration';
+  from 'actions/user/registration';
 import Error from 'components/error';
 
+
 export class RawRegistrationModal extends React.Component {
+
   static propTypes = {
-    close: React.PropTypes.func.isRequired,
-    clear: React.PropTypes.func.isRequired,
-    create: React.PropTypes.func.isRequired,
-    errors: React.PropTypes.object.isRequired,
-    show: React.PropTypes.bool.isRequired,
+    close:       React.PropTypes.func.isRequired,
+    clear:       React.PropTypes.func.isRequired,
+    create:      React.PropTypes.func.isRequired,
+    errors:      React.PropTypes.object.isRequired,
+    show:        React.PropTypes.bool.isRequired,
     registering: React.PropTypes.bool.isRequired,
   };
 
@@ -100,9 +102,9 @@ export class RawRegistrationModal extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    errors: state.ui.registration.registrationErrors,
-    registering: state.ui.registration.serverRegistration,
-    show: state.ui.registration.showRegistration,
+    errors: state.user.registration.registrationErrors,
+    registering: state.user.registration.serverRegistration,
+    show: state.user.registration.showRegistration,
   };
 };
 

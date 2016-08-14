@@ -1,9 +1,9 @@
 import { CREATE_USER, CLEAR_REGISTRATION_ERRORS, END_SERVER_REGISTRATION,
          SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
          TOGGLE_REGISTRATION, TOGGLE_SUCCESS }
-  from 'constants/ui/registration';
-
+  from 'constants/user/registration';
 import { post } from 'http-helper';
+
 
 export function clearRegistrationErrors() {
   return {
@@ -45,21 +45,24 @@ export function toggleSuccess() {
 export function createUser(userData) {
   return (dispatch) => {
     return new Promise((accept, reject) => {
-      const relevantData = {username: userData.username,
-                            password: userData.password,
-                            confirmPassword: userData.confirmPassword,
-                            email: userData.email,
-                            confirmEmail: userData.confirmEmail};
+
+      const payload = {
+        username: userData.username,
+        password: userData.password,
+        confirmPassword: userData.confirmPassword,
+        email: userData.email,
+        confirmEmail: userData.confirmEmail
+      };
+
       dispatch(startServerRegistration());
-      post('users/', relevantData)
+      post('users/', payload)
         .then((response) => {
           dispatch(endServerRegistration());
           dispatch({type: CREATE_USER, userData: JSON.parse(response.text)});
           dispatch(toggleRegistration());
           dispatch(toggleSuccess());
           accept();
-        })
-        .catch((errors) => {
+        }, (errors) => {
           dispatch(endServerRegistration());
           dispatch(setRegistrationErrors(JSON.parse(errors.response.text)));
           reject(errors);

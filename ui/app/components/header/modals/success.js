@@ -1,11 +1,13 @@
-import classNames from 'classnames';
-import React from 'react';
-import { Modal } from 'react-bootstrap';
+import classNames  from 'classnames';
+import React       from 'react';
+import { Modal }   from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { toggleSuccess } from 'actions/ui/registration';
+import { toggleSuccess } from 'actions/user/registration';
+
 
 export class RawSuccessModal extends React.Component {
+
   static propTypes = {
     close: React.PropTypes.func.isRequired,
     show: React.PropTypes.bool.isRequired,
@@ -51,8 +53,8 @@ export class RawSuccessModal extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    show: state.ui.registration.registrationSuccess,
-    user: state.ui.registration.createdUser,
+    show: state.user.registration.registrationSuccess,
+    user: state.user.registration.createdUser,
   };
 };
 

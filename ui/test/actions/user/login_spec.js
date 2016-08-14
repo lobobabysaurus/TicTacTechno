@@ -1,5 +1,6 @@
-import { toggleLogin, validateLogin } from'actions/ui/login';
-import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/ui/login';
+import { toggleLogin, validateLogin }   from 'actions/user/login';
+import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/user/login';
+
 
 describe('Login actions', () => {
 

@@ -1,9 +1,10 @@
 import request from 'superagent';
-import mocker from 'superagent-mocker';
+import mocker  from 'superagent-mocker';
 
-import { apiRoot } from 'config';
-import { post } from 'http-helper';
+import { apiRoot }  from 'config';
+import { post }     from 'http-helper';
 import { APIError } from 'test_utils';
+
 
 describe('HTTP Helper', () => {
   let requestMock;
@@ -33,7 +34,7 @@ describe('HTTP Helper', () => {
       throw new APIError(postErrors);
     });
 
-    post(resource, payload).catch((errors) => {
+    post(resource, payload).then(undefined, (errors) => {
       errors.should.deep.equal({response: { text: JSON.stringify(postErrors)}});
       done();
     });

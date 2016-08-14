@@ -1,12 +1,13 @@
-import React from 'react';
-import TestUtils from 'react-addons-test-utils';
-import { Provider } from 'react-redux';
+import React           from 'react';
+import TestUtils       from 'react-addons-test-utils';
+import { Provider }    from 'react-redux';
 import { createStore } from 'redux';
 
 import Content from 'components/content';
-import Header from 'components/header';
-import Home from 'components/home';
+import Header  from 'components/header';
+import Home    from 'components/home';
 import reducer from 'reducers';
+
 
 describe('App Home', () => {
   let home;

@@ -1,7 +1,8 @@
-import React from 'react';
+import React     from 'react';
 import TestUtils from 'react-addons-test-utils';
 
 import Content from 'components/content';
+
 
 describe('Content section', () => {
   it('should display placeholder text', () => {

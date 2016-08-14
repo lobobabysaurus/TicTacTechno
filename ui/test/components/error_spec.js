@@ -1,8 +1,9 @@
-import _ from 'lodash';
-import React from 'react';
+import _         from 'lodash';
+import React     from 'react';
 import TestUtils from 'react-addons-test-utils';
 
 import Error from 'components/error';
+
 
 describe('Error', () => {
 

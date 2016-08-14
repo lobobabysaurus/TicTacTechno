@@ -1,14 +1,16 @@
-import React from 'react';
+import React                    from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect }              from 'react-redux';
 
-import { toggleLogin } from 'actions/ui/login';
-import { toggleRegistration } from 'actions/ui/registration';
-import LoginModal from 'components/header/modals/login';
-import RegistrationModal from 'components/header/modals/registration';
-import SuccessModal from 'components/header/modals/success';
+import { toggleLogin }        from 'actions/user/login';
+import { toggleRegistration } from 'actions/user/registration';
+import LoginModal             from 'components/header/modals/login';
+import RegistrationModal      from 'components/header/modals/registration';
+import SuccessModal           from 'components/header/modals/success';
+
 
 export class RawHeader extends React.Component {
+
   static propTypes = {
     showLogin: React.PropTypes.func.isRequired,
     showRegistration: React.PropTypes.func.isRequired,

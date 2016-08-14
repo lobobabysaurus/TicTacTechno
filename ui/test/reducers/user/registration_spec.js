@@ -3,10 +3,11 @@ import React from 'react';
 import { CLEAR_REGISTRATION_ERRORS, CREATE_USER, END_SERVER_REGISTRATION,
          SET_REGISTRATION_ERRORS, START_SERVER_REGISTRATION,
          TOGGLE_REGISTRATION, TOGGLE_SUCCESS }
-  from 'constants/ui/registration';
+  from 'constants/user/registration';
 import { createdUser, registrationErrors, registrationSuccess,
          serverRegistration, showRegistration }
-  from 'reducers/ui/registration';
+  from 'reducers/user/registration';
+
 
 describe('Registration Reducers', () => {
   describe('createdUser', () => {

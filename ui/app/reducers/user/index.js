@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
-import login from 'reducers/ui/login';
-import registration from 'reducers/ui/registration';
+import login        from 'reducers/user/login';
+import registration from 'reducers/user/registration';
+
 
 export default combineReducers({
   login,

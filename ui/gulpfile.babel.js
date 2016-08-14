@@ -1,14 +1,14 @@
-import babelify from 'babelify';
-import bootstrap from 'bootstrap-styl';
-import browserify from 'gulp-browserify';
-import eslint from 'gulp-eslint';
-import gulp from 'gulp';
-import mocha from 'gulp-mocha';
-import reactify from 'reactify';
-import rimraf from 'gulp-rimraf';
+import babelify    from 'babelify';
+import bootstrap   from 'bootstrap-styl';
+import browserify  from 'gulp-browserify';
+import eslint      from 'gulp-eslint';
+import gulp        from 'gulp';
+import mocha       from 'gulp-mocha';
+import reactify    from 'reactify';
+import rimraf      from 'gulp-rimraf';
 import runSequence from 'run-sequence';
-import serve from 'gulp-serve';
-import stylus from 'gulp-stylus';
+import serve       from 'gulp-serve';
+import stylus      from 'gulp-stylus';
 
 const paths = {
   build: './build/',
@@ -59,7 +59,7 @@ gulp.task('static', () => {
 gulp.task('stylus', () => {
   return gulp.src(paths.style, {base: paths.root})
           .pipe(stylus({
-              use: bootstrap()
+            use: bootstrap()
           }))
           .pipe(gulp.dest(paths.build));
 });

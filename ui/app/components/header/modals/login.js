@@ -1,12 +1,14 @@
-import _ from 'lodash';
-import React from 'react';
+import _                        from 'lodash';
+import React                    from 'react';
 import { Button, Input, Modal } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect }              from 'react-redux';
 
-import { toggleLogin, validateLogin } from 'actions/ui/login';
-import Error from 'components/error';
+import { toggleLogin, validateLogin } from 'actions/user/login';
+import Error                          from 'components/error';
+
 
 export class RawLoginModal extends React.Component {
+
   static propTypes = {
     close: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object.isRequired,
@@ -75,8 +77,8 @@ export class RawLoginModal extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    show: state.ui.login.showLogin,
-    errors: state.ui.login.loginErrors,
+    show: state.user.login.showLogin,
+    errors: state.user.login.loginErrors,
   };
 };
 

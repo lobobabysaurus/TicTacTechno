@@ -1,10 +1,12 @@
 import { createStore } from 'redux';
 
-import uiReducers from 'reducers/ui';
+import userReducers from 'reducers/user';
 
-describe('uiReducers', () => {
+
+describe('userReducers', () => {
+
   it('should have the correct default structure', () => {
-    createStore(uiReducers).getState().should.deep.equal({
+    createStore(userReducers).getState().should.deep.equal({
       registration: {
         createdUser: {},
         registrationErrors: {},

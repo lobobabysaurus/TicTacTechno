@@ -1,5 +1,6 @@
-import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/ui/login';
-import { showLogin, loginErrors } from 'reducers/ui/login';
+import { TOGGLE_LOGIN, VALIDATE_LOGIN } from 'constants/user/login';
+import { showLogin, loginErrors } from 'reducers/user/login';
+
 
 describe('Login Reducers', () => {
 

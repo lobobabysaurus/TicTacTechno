@@ -1,9 +1,10 @@
-import React from 'react';
+import React     from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Modal } from 'react-bootstrap';
-import sinon from 'sinon';
+import sinon     from 'sinon';
 
 import { RawSuccessModal } from 'components/header/modals/success';
+
 
 describe('Success Modal', () => {
   let close;

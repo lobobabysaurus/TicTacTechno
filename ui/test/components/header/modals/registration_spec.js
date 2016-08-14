@@ -1,10 +1,11 @@
-import React from 'react';
+import React     from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Modal } from 'react-bootstrap';
-import sinon from 'sinon';
+import sinon     from 'sinon';
 
-import Error from 'components/error';
+import Error                    from 'components/error';
 import { RawRegistrationModal } from 'components/header/modals/registration';
+
 
 describe('Registration Modal', () => {
   let clear;
