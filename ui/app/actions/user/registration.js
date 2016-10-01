@@ -51,7 +51,7 @@ export function createUser(userData) {
         password: userData.password,
         confirmPassword: userData.confirmPassword,
         email: userData.email,
-        confirmEmail: userData.confirmEmail
+        confirmEmail: userData.confirmEmail,
       };
 
       dispatch(startServerRegistration());

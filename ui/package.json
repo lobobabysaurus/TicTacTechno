@@ -2,6 +2,9 @@
   "name": "TicTacToeOnlineUI",
   "version": "0.0.0",
   "description": "A Tic Tac Toe client in ES6",
+  "scripts": {
+    "gulp": "node_modules/.bin/gulp"
+  },
   "repository": {
     "type": "git",
     "url": "https://lobobabysaurus@github.com/lobobabysaurus/TicTacToeOnlineUI.git"
