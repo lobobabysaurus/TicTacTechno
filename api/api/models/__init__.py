@@ -5,6 +5,7 @@ db = SQLAlchemy()
 
 
 class Model:
+
     @classmethod
     def create(cls, data):
         instance = cls(**data)

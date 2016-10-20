@@ -8,6 +8,7 @@ from api.models import Model
 
 class Game(db.Model, Model):
     __tablename__ = 'games'
+
     id = db.Column(db.Integer, primary_key=True)
 
     start = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

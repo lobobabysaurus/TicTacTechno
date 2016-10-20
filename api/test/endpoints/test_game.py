@@ -1,4 +1,4 @@
-import json
+from json import dumps
 
 from api.models.game import Game
 from test import TestBase
@@ -41,8 +41,8 @@ class TestGameEndpoints(TestBase):
     def test_create_game(self):
         o_player = self.new_user(username='O player', email='o@email.com')
         x_player = self.new_user(username='X player', email='x@email.com')
-        payload = json.dumps({'x_player_id': x_player.id,
-                              'o_player_id': o_player.id})
+        payload = dumps({'x_player_id': x_player.id,
+                         'o_player_id': o_player.id})
 
         self.assertEquals(0, Game.query.count())
         resp = self.client.post('/api/games/', content_type='application/json',
@@ -65,7 +65,7 @@ class TestGameEndpoints(TestBase):
 
     def test_create_game_fails_nonexistent_users(self):
         self.assertEquals(0, Game.query.count())
-        payload = json.dumps({
+        payload = dumps({
             "x_player_id": 45,
             "o_player_id": 46
         })

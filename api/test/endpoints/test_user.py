@@ -1,4 +1,4 @@
-import json
+from json import dumps
 
 from unittest.mock import MagicMock
 from api.services import mail
@@ -41,7 +41,7 @@ class TestUserEndpoints(TestBase):
 
     def test_create_user(self):
         self.assertEquals(0, User.query.count())
-        payload = json.dumps(self.base_payload)
+        payload = dumps(self.base_payload)
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert200(resp)
@@ -53,7 +53,7 @@ class TestUserEndpoints(TestBase):
     def test_create_user_sends_email(self):
         self.assertEquals(0, User.query.count())
         mail.send_message = MagicMock()
-        payload = json.dumps(self.base_payload)
+        payload = dumps(self.base_payload)
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert200(resp)
@@ -80,11 +80,11 @@ class TestUserEndpoints(TestBase):
 
     def test_create_user_fails_empty_fields(self):
         self.assertEquals(0, User.query.count())
-        payload = json.dumps({'username': '',
-                              'email': '',
-                              'confirmEmail': '',
-                              'password': '',
-                              'confirmPassword': ''})
+        payload = dumps({'username': '',
+                         'email': '',
+                         'confirmEmail': '',
+                         'password': '',
+                         'confirmPassword': ''})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -99,11 +99,11 @@ class TestUserEndpoints(TestBase):
     def test_create_user_fails_too_short_username(self):
         self.assertEquals(0, User.query.count())
 
-        payload = json.dumps({'username': 'short',
-                              'email': 'test@test.com',
-                              'confirmEmail': 'test@test.com',
-                              'password': 'testtestte',
-                              'confirmPassword': 'testtestte'})
+        payload = dumps({'username': 'short',
+                         'email': 'test@test.com',
+                         'confirmEmail': 'test@test.com',
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -119,11 +119,11 @@ class TestUserEndpoints(TestBase):
         self.new_user(username='create user')
         self.assertEquals(1, User.query.count())
 
-        payload = json.dumps({'username': 'create user',
-                              'email': 'duplicate@test.com',
-                              'confirmEmail': 'duplicate@test.com',
-                              'password': 'testtestte',
-                              'confirmPassword': 'testtestte'})
+        payload = dumps({'username': 'create user',
+                         'email': 'duplicate@test.com',
+                         'confirmEmail': 'duplicate@test.com',
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -135,11 +135,11 @@ class TestUserEndpoints(TestBase):
     def test_create_user_fails_too_short_password(self):
         self.assertEquals(0, User.query.count())
 
-        payload = json.dumps({'username': 'regularuser',
-                              'email': 'test@test.com',
-                              'confirmEmail': 'test@test.com',
-                              'password': 'testtest',
-                              'confirmPassword': 'testtest'})
+        payload = dumps({'username': 'regularuser',
+                         'email': 'test@test.com',
+                         'confirmEmail': 'test@test.com',
+                         'password': 'testtest',
+                         'confirmPassword': 'testtest'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -152,11 +152,11 @@ class TestUserEndpoints(TestBase):
     def test_create_user_fails_invalid_email(self):
         self.assertEquals(0, User.query.count())
 
-        payload = json.dumps({'username': 'create user',
-                              'email': 'create',
-                              'confirmEmail': 'create',
-                              'password': 'testtestte',
-                              'confirmPassword': 'testtestte'})
+        payload = dumps({'username': 'create user',
+                         'email': 'create',
+                         'confirmEmail': 'create',
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
@@ -170,11 +170,11 @@ class TestUserEndpoints(TestBase):
         self.new_user(email='duplicate@test.com')
         self.assertEquals(1, User.query.count())
 
-        payload = json.dumps({'username': 'create user2',
-                              'email': 'duplicate@test.com',
-                              'confirmEmail': 'duplicate@test.com',
-                              'password': 'testtestte',
-                              'confirmPassword': 'testtestte'})
+        payload = dumps({'username': 'create user2',
+                         'email': 'duplicate@test.com',
+                         'confirmEmail': 'duplicate@test.com',
+                         'password': 'testtestte',
+                         'confirmPassword': 'testtestte'})
         resp = self.client.post('/api/users/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)

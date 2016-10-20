@@ -7,6 +7,7 @@ from api.models import db
 
 class Turn(db.Model):
     __tablename__ = 'game_turns'
+
     id = db.Column(db.Integer, primary_key=True)
 
     position = db.Column(db.Enum('temp val'), nullable=False)

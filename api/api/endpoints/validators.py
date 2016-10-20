@@ -1,5 +1,6 @@
 from re import findall
 
+
 nonempty_string = {"type": "string", "minLength": 1}
 number = {"type": "number"}
 password = {"type": "string", "minLength": 10}

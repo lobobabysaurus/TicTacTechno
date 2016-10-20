@@ -1,8 +1,7 @@
-import json
+from json import dumps
 
 from flask import request
 from flask.ext.classy import FlaskView
-from flask.ext.classy import route
 from jsonschema import Draft4Validator
 
 from api.endpoints.validators import email
@@ -31,10 +30,10 @@ user_validator = Draft4Validator({
 class UsersView(FlaskView):
 
     def index(self):
-        return json.dumps([user.serialized for user in User.query.all()])
+        return dumps([user.serialized for user in User.query.all()])
 
     def get(self, user_id):
-        return json.dumps(User.query.get_or_404(user_id).serialized)
+        return dumps(User.query.get_or_404(user_id).serialized)
 
     def post(self):
         deserialized = request.get_json().copy()
@@ -57,7 +56,7 @@ class UsersView(FlaskView):
             errors['email'] = 'Email is already registered'
 
         if errors != {}:
-            return json.dumps(errors), 400
+            return dumps(errors), 400
 
         deserialized['password'] = bcrypt.generate_password_hash(
             deserialized['password'])
@@ -70,10 +69,10 @@ class UsersView(FlaskView):
                           recipients=[deserialized['email']],
                           body="Thank you for registering for TicTacTechno")
 
-        return json.dumps(user.serialized)
+        return dumps(user.serialized)
 
     def activate(self, user_id):
         user = User.query.get_or_404(user_id)
         user.is_active = True
         User.update(user)
-        return json.dumps('User has been activated')
+        return dumps('User has been activated')

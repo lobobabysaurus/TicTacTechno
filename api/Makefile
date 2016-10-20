@@ -2,6 +2,10 @@
 clean:
 	rm -r dist
 
+.PHONY: deps
+deps:
+	pip install -r requirements.txt
+
 .PHONY: dist
 dist: clean
 	mkdir dist/

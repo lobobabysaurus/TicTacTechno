@@ -11,12 +11,14 @@ from api.models import db
 from api.models.game import Game
 from api.models.turn import Turn
 
+
 turn_validator = Draft4Validator({'position': nonempty_string,
                                   'game_id': number,
                                   'player_id': number})
 
 
 class TurnsView(FlaskView):
+
     def post(self):
         deserialized = request.get_json()
 
