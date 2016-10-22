@@ -30,7 +30,7 @@ class TestGameEndpoints(TestBase):
         new_game = self.new_game(x_player_id=x_player.id,
                                  o_player_id=o_player.id)
 
-        resp = self.client.get('/api/games/{}'.format(new_game.id),
+        resp = self.client.get("/api/games/{}".format(new_game.id),
                                content_type='application/json')
         self.assert200(resp)
 
@@ -59,19 +59,19 @@ class TestGameEndpoints(TestBase):
         resp = self.client.post('/api/games/', content_type='application/json',
                                 data='{}')
         self.assert400(resp)
-        self.assertEquals({'o_player_id': "O_player_id cannot be empty",
-                           'x_player_id': "X_player_id cannot be empty"},
+        self.assertEquals({'o_player_id': 'O_player_id cannot be empty',
+                           'x_player_id': 'X_player_id cannot be empty'},
                           resp.json)
 
     def test_create_game_fails_nonexistent_users(self):
         self.assertEquals(0, Game.query.count())
         payload = dumps({
-            "x_player_id": 45,
-            "o_player_id": 46
+            'x_player_id': 45,
+            'o_player_id': 46
         })
         resp = self.client.post('/api/games/', content_type='application/json',
                                 data=payload)
         self.assert400(resp)
-        self.assertEquals({'o_player_id': "Player does not exist",
-                           'x_player_id': "Player does not exist"},
+        self.assertEquals({'o_player_id': 'Player does not exist',
+                           'x_player_id': 'Player does not exist'},
                           resp.json)

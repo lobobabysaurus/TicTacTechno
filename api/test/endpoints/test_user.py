@@ -29,7 +29,7 @@ class TestUserEndpoints(TestBase):
     def test_get_user(self):
         user = self.new_user(username='X player', email='x@email.com')
 
-        resp = self.client.get('/api/users/{}'.format(user.id),
+        resp = self.client.get("/api/users/{}".format(user.id),
                                content_type='application/json')
         self.assert200(resp)
         self.assertEquals('X player', resp.json['username'])
@@ -60,9 +60,9 @@ class TestUserEndpoints(TestBase):
 
         body = '<html>\n  Thank you for registering for TicTacTechno\n</html>'
         email_data = {
-            "subject": 'Thanks For Registering!',
-            "recipients": [self.base_payload['email']],
-            "body": body
+            'subject': 'Thanks For Registering!',
+            'recipients': [self.base_payload['email']],
+            'body': body
         }
         mail.send_message.assert_called_once_with(**email_data)
 
@@ -74,9 +74,9 @@ class TestUserEndpoints(TestBase):
         self.assert400(resp)
 
         self.assertEquals(0, User.query.count())
-        self.assertEquals({'username': "Username cannot be empty",
-                           'password': "Password cannot be empty",
-                           'email': "Email cannot be empty"},
+        self.assertEquals({'username': 'Username cannot be empty',
+                           'password': 'Password cannot be empty',
+                           'email': 'Email cannot be empty'},
                           resp.json)
 
     def test_create_user_fails_empty_fields(self):
@@ -92,9 +92,9 @@ class TestUserEndpoints(TestBase):
 
         self.assertEquals(0, User.query.count())
         print(resp.json)
-        self.assertEquals({'username': "Username cannot be empty",
-                           'password': "Password cannot be empty",
-                           'email': "Email cannot be empty"},
+        self.assertEquals({'username': 'Username cannot be empty',
+                           'password': 'Password cannot be empty',
+                           'email': 'Email cannot be empty'},
                           resp.json)
 
     def test_create_user_fails_too_short_username(self):
@@ -193,7 +193,7 @@ class TestUserEndpoints(TestBase):
 
         self.assertEquals(1, User.query.count())
         self.assertTrue(User.query.first().is_active)
-        self.assertEquals("User has been activated", resp.json)
+        self.assertEquals('User has been activated', resp.json)
 
     def test_activate_user_fails_nonexistant_user(self):
         resp = self.client.get('/api/users/activate/666',

@@ -26,8 +26,8 @@ def create_app(config_class):
     bcrypt.init_app(app)
     compress.init_app(app)
     cors.init_app(app, origins=app.config.get('ALLOWED_HOSTS', '*'))
-    environment.init_app(app, "/environment")
-    health.init_app(app, "/healthcheck")
+    environment.init_app(app, '/environment')
+    health.init_app(app, '/healthcheck')
     mail.init_app(app)
 
     api_views = [GamesView, TurnsView, UsersView]

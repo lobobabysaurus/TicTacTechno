@@ -18,16 +18,16 @@ class Game(db.Model, Model):
     x_player_id = db.Column(
                         db.Integer, db.ForeignKey('users.id'), nullable=False)
     x_player = db.relationship(
-                        "User", foreign_keys=[x_player_id], backref='x_games')
+                        'User', foreign_keys=[x_player_id], backref='x_games')
 
     o_player_id = db.Column(
                         db.Integer, db.ForeignKey('users.id'), nullable=False)
     o_player = db.relationship(
-                        "User", foreign_keys=[o_player_id], backref='o_games')
+                        'User', foreign_keys=[o_player_id], backref='o_games')
 
     winner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     winner = db.relationship(
-                        "User", foreign_keys=[winner_id], backref='won_games')
+                        'User', foreign_keys=[winner_id], backref='won_games')
 
     @hybrid_property
     def serialized(self):

@@ -16,15 +16,15 @@ from api.services import mail
 
 
 user_validator = Draft4Validator({
-    "type": "object",
-    "properties": {
-        "username": username,
-        "password": password,
-        "confirmPassword": string,
-        "email":    email,
-        "confirmEmail": string
+    'type': 'object',
+    'properties': {
+        'username': username,
+        'password': password,
+        'confirmPassword': string,
+        'email':    email,
+        'confirmEmail': string
     },
-    "required": ["username", "password", "email"]
+    'required': ['username', 'password', 'email']
 })
 
 
@@ -45,11 +45,11 @@ class UsersView(FlaskView):
                         user_validator.iter_errors(deserialized)))
 
         if deserialized.get('password', None) != \
-           deserialized.get("confirmPassword", None):
-            errors['confirmPassword'] = "Must match password"
+           deserialized.get('confirmPassword', None):
+            errors['confirmPassword'] = 'Must match password'
         if deserialized.get('email', None) != \
-           deserialized.get("confirmEmail", None):
-            errors['confirmEmail'] = "Must match email"
+           deserialized.get('confirmEmail', None):
+            errors['confirmEmail'] = 'Must match email'
 
         if User.exists_by_username(deserialized.get('username', '')):
             errors['username'] = 'Username is already registered'
@@ -66,7 +66,7 @@ class UsersView(FlaskView):
         del deserialized['confirmEmail']
         user = User.create(deserialized)
 
-        mail.send_message(subject="Thanks For Registering!",
+        mail.send_message(subject='Thanks For Registering!',
                           recipients=[deserialized['email']],
                           body=render_template('registration_email.html'))
 

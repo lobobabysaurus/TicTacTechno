@@ -29,12 +29,12 @@ def list_routes():
 
 @manager.command
 def refresh_db():
-    if prompt_bool("Are you sure you want to lose all current data"):
+    if prompt_bool('Are you sure you want to lose all current data'):
         with app.app_context():
-            print("Dropping Tables")
+            print('Dropping Tables')
             db.drop_all()
-            print("Creating Tables")
+            print('Creating Tables')
             db.create_all()
-            print("Refresh Complete")
+            print('Refresh Complete')
 
 manager.run()

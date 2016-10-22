@@ -11,12 +11,12 @@ from api.models.user import User
 
 
 game_validator = Draft4Validator({
-    "type": "object",
-    "properties": {
-        "x_player_id": number,
-        "o_player_id": number
+    'type': 'object',
+    'properties': {
+        'x_player_id': number,
+        'o_player_id': number
     },
-    "required": ["x_player_id", "o_player_id"]
+    'required': ['x_player_id', 'o_player_id']
 })
 
 
@@ -40,7 +40,7 @@ class GamesView(FlaskView):
             for player in ['x_player_id', 'o_player_id']:
                 if not User.exists_by_id(deserialized[player]):
                     errors[player] = 'Player does not exist'
-            if (errors != {}):
+            if errors != {}:
                 return dumps(errors), 400
 
         game = Game.create(deserialized)

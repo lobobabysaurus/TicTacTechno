@@ -14,10 +14,10 @@ class Turn(db.Model):
     turn_number = db.Column(db.Integer, default=1)
 
     game_id = db.Column(db.Integer, ForeignKey('games.id'), primary_key=True,)
-    game = relationship("Game", foreign_keys=[game_id], backref='game_turns')
+    game = relationship('Game', foreign_keys=[game_id], backref='game_turns')
 
     player_id = db.Column(db.Integer, ForeignKey('users.id'))
-    player = relationship("User", foreign_keys=[player_id],
+    player = relationship('User', foreign_keys=[player_id],
                           backref='user_turns')
 
     @hybrid_property

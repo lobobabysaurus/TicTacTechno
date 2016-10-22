@@ -36,7 +36,7 @@ beanstalk_dist: beanstalk_s3_dist
 	aws elasticbeanstalk create-application-version \
 		--application-name TicTacTechno \
 		--version-label $(VERSION) \
-		--description '$(VERSION)' \
+		--description $(VERSION) \
 		--source-bundle S3Bucket=tictactechnoapi,S3Key=$(VERSION).zip
 
 .PHONY: beanstalk_deploy

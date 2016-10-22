@@ -31,7 +31,7 @@ class TurnsView(FlaskView):
                           Turn.position == deserialized['position'],
                           Turn.game_id == deserialized['game_id']).count() > 0
         if position_occupied:
-            return '{} occupied'.format(deserialized['position']), 400
+            return "{} occupied".format(deserialized['position']), 400
 
         game = Game.query.get_or_404(deserialized['game_id'])
         deserialized['turn_number'] = len(game.game_turns) + 1
