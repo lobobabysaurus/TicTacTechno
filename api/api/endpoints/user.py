@@ -1,5 +1,6 @@
 from json import dumps
 
+from flask import render_template
 from flask import request
 from flask.ext.classy import FlaskView
 from jsonschema import Draft4Validator
@@ -67,7 +68,7 @@ class UsersView(FlaskView):
 
         mail.send_message(subject="Thanks For Registering!",
                           recipients=[deserialized['email']],
-                          body="Thank you for registering for TicTacTechno")
+                          body=render_template('registration_email.html'))
 
         return dumps(user.serialized)
 

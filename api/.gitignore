@@ -1,4 +1,5 @@
 .noseids
+*.pyc
 
 __pycache__
 dist

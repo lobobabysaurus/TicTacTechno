@@ -58,10 +58,11 @@ class TestUserEndpoints(TestBase):
                                 data=payload)
         self.assert200(resp)
 
+        body = '<html>\n  Thank you for registering for TicTacTechno\n</html>'
         email_data = {
             "subject": 'Thanks For Registering!',
             "recipients": [self.base_payload['email']],
-            "body": "Thank you for registering for TicTacTechno"
+            "body": body
         }
         mail.send_message.assert_called_once_with(**email_data)
 
