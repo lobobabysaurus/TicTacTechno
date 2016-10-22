@@ -103,7 +103,7 @@ describe('Registration Actions', () => {
                        confirmEmail: 'phil@test.email'};
       const userCreateDispatch = createUser(payload);
 
-      const errors = {username: "issue here", password: "another issue"};
+      const errors = {username: 'issue here', password: 'another issue'};
       requestMock.post(`${apiRoot}users/`, (req) => {
         throw new APIError(errors);
       });

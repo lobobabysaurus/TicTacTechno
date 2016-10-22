@@ -29,7 +29,7 @@ describe('HTTP Helper', () => {
 
     const resource = 'test/';
 
-    const postErrors = {some: "issue here", another: "issue here"};
+    const postErrors = {some: 'issue here', another: 'issue here'};
     requestMock.post(`${apiRoot}${resource}`, () => {
       throw new APIError(postErrors);
     });

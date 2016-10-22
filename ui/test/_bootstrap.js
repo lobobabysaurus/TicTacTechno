@@ -2,7 +2,7 @@
 import chai             from 'chai';
 import sinonChai        from 'sinon-chai';
 import sinonChaiInOrder from 'sinon-chai-in-order';
-import chaiAsPromised   from "chai-as-promised";
+import chaiAsPromised   from 'chai-as-promised';
 
 chai.should();
 chai.use(sinonChai);

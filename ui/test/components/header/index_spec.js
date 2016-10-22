@@ -29,7 +29,7 @@ describe('Header section', () => {
   it('should display the page title', () => {
     const title = TestUtils.findRenderedDOMComponentWithClass(
       rawHeader, 'navbar-brand');
-    title.textContent.should.equal("TicTacTechno");
+    title.textContent.should.equal('TicTacTechno');
   });
 
   it('should contain the modals', () => {

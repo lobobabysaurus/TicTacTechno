@@ -12,8 +12,8 @@ describe('Success Modal', () => {
   before(() => {
     close = sinon.spy();
     const user = {
-      username: "test",
-      email: "test@email.com",
+      username: 'test',
+      email: 'test@email.com',
     };
     modal = TestUtils.renderIntoDocument(
       <RawSuccessModal close={close} show={true} user={user} />
@@ -29,10 +29,10 @@ describe('Success Modal', () => {
       modal, Modal)._modal;
     const message = TestUtils.findRenderedDOMComponentWithTag(realModal, 'p');
     message.textContent.should
-           .contain("Thank you for registering to play TicTacTechno!");
+           .contain('Thank you for registering to play TicTacTechno!');
     message.textContent.should
-           .contain("test, please check your email at test@email.com "+
-                    "to complete your registration.");
+           .contain('test, please check your email at test@email.com '+
+                    'to complete your registration.');
   });
 
   it('should call close when x clicked', () => {

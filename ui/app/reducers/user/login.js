@@ -28,7 +28,7 @@ export default combineReducers({
 
 function validateInput(data) {
   if (!data.username || !data.password) {
-    return { general: "Must provide a username and password"};
+    return { general: 'Must provide a username and password'};
   }
   return {};
 }
